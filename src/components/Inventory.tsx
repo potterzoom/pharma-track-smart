@@ -15,11 +15,28 @@ import {
   CheckCircle
 } from 'lucide-react';
 
+type ProductStatus = 'ok' | 'low' | 'critical' | 'expiring';
+
+interface Product {
+  id: number;
+  name: string;
+  brand: string;
+  barcode: string;
+  category: string;
+  stock: number;
+  minStock: number;
+  maxStock: number;
+  expiry: string;
+  branch: string;
+  status: ProductStatus;
+  lastMovement: string;
+}
+
 const Inventory = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
 
-  const products = [
+  const products: Product[] = [
     {
       id: 1,
       name: 'Paracetamol 500mg',
@@ -92,7 +109,7 @@ const Inventory = () => {
     }
   ];
 
-  const getStatusColor = (status) => {
+  const getStatusColor = (status: ProductStatus) => {
     switch (status) {
       case 'ok': return 'bg-green-100 text-green-800';
       case 'low': return 'bg-yellow-100 text-yellow-800';
@@ -102,7 +119,7 @@ const Inventory = () => {
     }
   };
 
-  const getStatusIcon = (status) => {
+  const getStatusIcon = (status: ProductStatus) => {
     switch (status) {
       case 'ok': return CheckCircle;
       case 'low': return TrendingDown;
@@ -112,7 +129,7 @@ const Inventory = () => {
     }
   };
 
-  const getStatusText = (status) => {
+  const getStatusText = (status: ProductStatus) => {
     switch (status) {
       case 'ok': return 'Normal';
       case 'low': return 'Stock Bajo';
@@ -132,10 +149,10 @@ const Inventory = () => {
     return matchesSearch && matchesFilter;
   });
 
-  const statusCounts = products.reduce((acc, product) => {
+  const statusCounts: Record<ProductStatus, number> = products.reduce((acc, product) => {
     acc[product.status] = (acc[product.status] || 0) + 1;
     return acc;
-  }, {});
+  }, { ok: 0, low: 0, critical: 0, expiring: 0 } as Record<ProductStatus, number>);
 
   return (
     <div className="space-y-6">
@@ -152,19 +169,19 @@ const Inventory = () => {
           <div className="text-sm text-gray-600">Total Productos</div>
         </Card>
         <Card className="p-4 text-center">
-          <div className="text-2xl font-bold text-green-600">{statusCounts.ok || 0}</div>
+          <div className="text-2xl font-bold text-green-600">{statusCounts.ok}</div>
           <div className="text-sm text-gray-600">Normal</div>
         </Card>
         <Card className="p-4 text-center">
-          <div className="text-2xl font-bold text-yellow-600">{statusCounts.low || 0}</div>
+          <div className="text-2xl font-bold text-yellow-600">{statusCounts.low}</div>
           <div className="text-sm text-gray-600">Stock Bajo</div>
         </Card>
         <Card className="p-4 text-center">
-          <div className="text-2xl font-bold text-red-600">{statusCounts.critical || 0}</div>
+          <div className="text-2xl font-bold text-red-600">{statusCounts.critical}</div>
           <div className="text-sm text-gray-600">Crítico</div>
         </Card>
         <Card className="p-4 text-center">
-          <div className="text-2xl font-bold text-orange-600">{statusCounts.expiring || 0}</div>
+          <div className="text-2xl font-bold text-orange-600">{statusCounts.expiring}</div>
           <div className="text-sm text-gray-600">Por Vencer</div>
         </Card>
       </div>
@@ -220,7 +237,7 @@ const Inventory = () => {
       <div className="space-y-4">
         {filteredProducts.map((product) => {
           const StatusIcon = getStatusIcon(product.status);
-          const daysToExpiry = Math.ceil((new Date(product.expiry) - new Date()) / (1000 * 60 * 60 * 24));
+          const daysToExpiry = Math.ceil((new Date(product.expiry).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
           
           return (
             <Card key={product.id} className="p-4 hover:shadow-md transition-shadow">
