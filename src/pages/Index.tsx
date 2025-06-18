@@ -4,6 +4,7 @@ import Layout from '@/components/Layout';
 import Dashboard from '@/components/Dashboard';
 import Scanner from '@/components/Scanner';
 import Inventory from '@/components/Inventory';
+import Branches from '@/components/Branches';
 
 const Index = () => {
   const [currentView, setCurrentView] = useState('dashboard');
@@ -17,12 +18,7 @@ const Index = () => {
       case 'inventory':
         return <Inventory />;
       case 'branches':
-        return (
-          <div className="text-center py-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Gestión de Sucursales</h2>
-            <p className="text-gray-600">Módulo en desarrollo - Control de distribución entre sucursales</p>
-          </div>
-        );
+        return <Branches />;
       case 'reports':
         return (
           <div className="text-center py-12">
