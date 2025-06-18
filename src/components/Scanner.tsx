@@ -11,7 +11,13 @@ import {
   Calendar,
   MapPin,
   CheckCircle,
-  Scan
+  Scan,
+  AlertTriangle,
+  Thermometer,
+  Shield,
+  DollarSign,
+  Building,
+  Clock
 } from 'lucide-react';
 
 const Scanner = () => {
@@ -24,32 +30,89 @@ const Scanner = () => {
       '7501001234567': {
         name: 'Paracetamol 500mg',
         brand: 'Laboratorio ABC',
-        activeIngredient: 'Paracetamol',
-        presentation: 'Tabletas x 20',
         category: 'Analgésicos',
         currentStock: 45,
         minStock: 20,
-        maxStock: 100
+        maxStock: 100,
+        pharmaceuticalInfo: {
+          registroSanitario: 'INVIMA2023M-001234',
+          codigoATC: 'N02BE01',
+          codigoSISMED: 'SIS001234',
+          principioActivo: 'Paracetamol',
+          concentracion: '500mg',
+          formaFarmaceutica: 'tabletas',
+          viaAdministracion: 'oral',
+          numeroLote: 'PAR240315',
+          fechaFabricacion: '2024-03-15',
+          laboratorioFabricante: 'Laboratorio ABC S.A.S',
+          categoriaVenta: 'libre',
+          requiereRefrigeracion: false,
+          medicamentoControlado: false,
+          precioCompra: 2500,
+          precioVentaPublico: 3800,
+          margenGanancia: 52,
+          proveedorDistribuidor: 'Droguería Nacional',
+          rotacionPromedio: 15,
+          diasAnticipadoVencimiento: 60
+        }
       },
       '7501002345678': {
         name: 'Ibuprofeno 400mg',
         brand: 'Farmex',
-        activeIngredient: 'Ibuprofeno',
-        presentation: 'Cápsulas x 12',
         category: 'Antiinflamatorios',
         currentStock: 12,
         minStock: 15,
-        maxStock: 80
+        maxStock: 80,
+        pharmaceuticalInfo: {
+          registroSanitario: 'INVIMA2023M-005678',
+          codigoATC: 'M01AE01',
+          codigoSISMED: 'SIS005678',
+          principioActivo: 'Ibuprofeno',
+          concentracion: '400mg',
+          formaFarmaceutica: 'capsulas',
+          viaAdministracion: 'oral',
+          numeroLote: 'IBU240220',
+          fechaFabricacion: '2024-02-20',
+          laboratorioFabricante: 'Farmex Colombia Ltda',
+          categoriaVenta: 'formula_medica',
+          requiereRefrigeracion: false,
+          medicamentoControlado: false,
+          precioCompra: 4200,
+          precioVentaPublico: 6500,
+          margenGanancia: 55,
+          proveedorDistribuidor: 'Distribuidora Medica',
+          rotacionPromedio: 8,
+          diasAnticipadoVencimiento: 90
+        }
       },
       '7501003456789': {
-        name: 'Amoxicilina 250mg',
+        name: 'Amoxicilina 250mg/5ml',
         brand: 'Antibioticos SA',
-        activeIngredient: 'Amoxicilina',
-        presentation: 'Suspensión 60ml',
         category: 'Antibióticos',
         currentStock: 28,
         minStock: 25,
-        maxStock: 60
+        maxStock: 60,
+        pharmaceuticalInfo: {
+          registroSanitario: 'INVIMA2023M-009876',
+          codigoATC: 'J01CA04',
+          codigoSISMED: 'SIS009876',
+          principioActivo: 'Amoxicilina',
+          concentracion: '250mg/5ml',
+          formaFarmaceutica: 'suspension',
+          viaAdministracion: 'oral',
+          numeroLote: 'AMX240410',
+          fechaFabricacion: '2024-04-10',
+          laboratorioFabricante: 'Antibioticos SA',
+          categoriaVenta: 'formula_medica',
+          requiereRefrigeracion: true,
+          medicamentoControlado: false,
+          precioCompra: 8500,
+          precioVentaPublico: 12800,
+          margenGanancia: 51,
+          proveedorDistribuidor: 'Central de Medicamentos',
+          rotacionPromedio: 12,
+          diasAnticipadoVencimiento: 30
+        }
       }
     };
 
@@ -73,12 +136,30 @@ const Scanner = () => {
     }
   };
 
+  const getCategoryBadgeColor = (category) => {
+    switch (category) {
+      case 'libre': return 'bg-green-100 text-green-800';
+      case 'formula_medica': return 'bg-blue-100 text-blue-800';
+      case 'control_especial': return 'bg-red-100 text-red-800';
+      default: return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+  const getCategoryText = (category) => {
+    switch (category) {
+      case 'libre': return 'Venta Libre';
+      case 'formula_medica': return 'Fórmula Médica';
+      case 'control_especial': return 'Control Especial';
+      default: return category;
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Escáner de Productos</h1>
-        <p className="text-gray-600 mt-1">Registra entradas y consulta información de productos</p>
+        <h1 className="text-3xl font-bold text-gray-900">Escáner de Productos Farmacéuticos</h1>
+        <p className="text-gray-600 mt-1">Registra entradas y consulta información completa de medicamentos</p>
       </div>
 
       {/* Scanner Interface */}
@@ -161,11 +242,11 @@ const Scanner = () => {
         <Card className="p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
             <Package className="h-5 w-5 text-green-500 mr-2" />
-            Información del Producto
+            Información Farmacéutica Completa
           </h3>
 
           {scannedProduct ? (
-            <div className="space-y-4">
+            <div className="space-y-6">
               {/* Product Header */}
               <div className="flex items-start justify-between">
                 <div className="flex-1">
@@ -179,67 +260,169 @@ const Scanner = () => {
                 </Badge>
               </div>
 
-              {/* Product Details */}
-              <div className="space-y-3">
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <span className="font-medium text-gray-700">Principio Activo:</span>
-                    <p className="text-gray-900">{scannedProduct.activeIngredient}</p>
+              {scannedProduct.pharmaceuticalInfo && (
+                <>
+                  {/* Regulatory Information */}
+                  <div className="bg-blue-50 rounded-lg p-4">
+                    <h5 className="font-medium text-blue-900 mb-3 flex items-center">
+                      <Shield className="h-4 w-4 mr-2" />
+                      Información Regulatoria
+                    </h5>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                      <div>
+                        <span className="font-medium text-blue-800">Registro Sanitario:</span>
+                        <p className="text-blue-900">{scannedProduct.pharmaceuticalInfo.registroSanitario}</p>
+                      </div>
+                      <div>
+                        <span className="font-medium text-blue-800">Código ATC:</span>
+                        <p className="text-blue-900">{scannedProduct.pharmaceuticalInfo.codigoATC}</p>
+                      </div>
+                      {scannedProduct.pharmaceuticalInfo.codigoSISMED && (
+                        <div>
+                          <span className="font-medium text-blue-800">Código SISMED:</span>
+                          <p className="text-blue-900">{scannedProduct.pharmaceuticalInfo.codigoSISMED}</p>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                  <div>
-                    <span className="font-medium text-gray-700">Presentación:</span>
-                    <p className="text-gray-900">{scannedProduct.presentation}</p>
-                  </div>
-                  <div>
-                    <span className="font-medium text-gray-700">Categoría:</span>
-                    <p className="text-gray-900">{scannedProduct.category}</p>
-                  </div>
-                  <div>
-                    <span className="font-medium text-gray-700">Stock Actual:</span>
-                    <p className={`font-medium ${
-                      scannedProduct.currentStock < scannedProduct.minStock ? 'text-red-600' : 'text-green-600'
-                    }`}>
-                      {scannedProduct.currentStock} unidades
-                    </p>
-                  </div>
-                </div>
 
-                {/* Stock Status */}
-                <div className="bg-gray-50 rounded-lg p-3">
-                  <div className="flex items-center justify-between text-sm">
-                    <span>Stock Mínimo: {scannedProduct.minStock}</span>
-                    <span>Stock Máximo: {scannedProduct.maxStock}</span>
+                  {/* Clinical Information */}
+                  <div className="bg-green-50 rounded-lg p-4">
+                    <h5 className="font-medium text-green-900 mb-3 flex items-center">
+                      <Package className="h-4 w-4 mr-2" />
+                      Información Clínica
+                    </h5>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                      <div>
+                        <span className="font-medium text-green-800">Principio Activo:</span>
+                        <p className="text-green-900">{scannedProduct.pharmaceuticalInfo.principioActivo}</p>
+                      </div>
+                      <div>
+                        <span className="font-medium text-green-800">Concentración:</span>
+                        <p className="text-green-900">{scannedProduct.pharmaceuticalInfo.concentracion}</p>
+                      </div>
+                      <div>
+                        <span className="font-medium text-green-800">Forma Farmacéutica:</span>
+                        <p className="text-green-900 capitalize">{scannedProduct.pharmaceuticalInfo.formaFarmaceutica}</p>
+                      </div>
+                      <div>
+                        <span className="font-medium text-green-800">Vía de Administración:</span>
+                        <p className="text-green-900 capitalize">{scannedProduct.pharmaceuticalInfo.viaAdministracion}</p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="mt-2 bg-gray-200 rounded-full h-2">
-                    <div 
-                      className={`h-2 rounded-full ${
-                        scannedProduct.currentStock < scannedProduct.minStock ? 'bg-red-500' :
-                        scannedProduct.currentStock > scannedProduct.maxStock * 0.8 ? 'bg-green-500' : 'bg-yellow-500'
-                      }`}
-                      style={{ 
-                        width: `${(scannedProduct.currentStock / scannedProduct.maxStock) * 100}%` 
-                      }}
-                    ></div>
-                  </div>
-                </div>
 
-                {/* Action Buttons */}
-                <div className="flex space-x-2 pt-2">
-                  <Button className="flex-1" size="sm">
-                    <Package className="h-4 w-4 mr-2" />
-                    Registrar Entrada
-                  </Button>
-                  <Button variant="outline" className="flex-1" size="sm">
-                    <Calendar className="h-4 w-4 mr-2" />
-                    Ver Historial
-                  </Button>
-                </div>
+                  {/* Lot and Manufacturing */}
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <h5 className="font-medium text-gray-900 mb-3 flex items-center">
+                      <Calendar className="h-4 w-4 mr-2" />
+                      Control de Lotes
+                    </h5>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                      <div>
+                        <span className="font-medium text-gray-700">Número de Lote:</span>
+                        <p className="text-gray-900">{scannedProduct.pharmaceuticalInfo.numeroLote}</p>
+                      </div>
+                      <div>
+                        <span className="font-medium text-gray-700">Fecha de Fabricación:</span>
+                        <p className="text-gray-900">{new Date(scannedProduct.pharmaceuticalInfo.fechaFabricacion).toLocaleDateString()}</p>
+                      </div>
+                      <div>
+                        <span className="font-medium text-gray-700">Laboratorio:</span>
+                        <p className="text-gray-900">{scannedProduct.pharmaceuticalInfo.laboratorioFabricante}</p>
+                      </div>
+                      <div>
+                        <span className="font-medium text-gray-700">Proveedor:</span>
+                        <p className="text-gray-900">{scannedProduct.pharmaceuticalInfo.proveedorDistribuidor}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Sale Category and Restrictions */}
+                  <div className="flex flex-wrap gap-2 items-center">
+                    <Badge className={getCategoryBadgeColor(scannedProduct.pharmaceuticalInfo.categoriaVenta)}>
+                      {getCategoryText(scannedProduct.pharmaceuticalInfo.categoriaVenta)}
+                    </Badge>
+                    {scannedProduct.pharmaceuticalInfo.requiereRefrigeracion && (
+                      <Badge variant="outline" className="text-blue-600 border-blue-300">
+                        <Thermometer className="h-3 w-3 mr-1" />
+                        Refrigeración
+                      </Badge>
+                    )}
+                    {scannedProduct.pharmaceuticalInfo.medicamentoControlado && (
+                      <Badge variant="outline" className="text-red-600 border-red-300">
+                        <AlertTriangle className="h-3 w-3 mr-1" />
+                        Controlado
+                      </Badge>
+                    )}
+                  </div>
+
+                  {/* Commercial Information */}
+                  <div className="bg-yellow-50 rounded-lg p-4">
+                    <h5 className="font-medium text-yellow-900 mb-3 flex items-center">
+                      <DollarSign className="h-4 w-4 mr-2" />
+                      Información Comercial
+                    </h5>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+                      <div>
+                        <span className="font-medium text-yellow-800">Precio Compra:</span>
+                        <p className="text-yellow-900">${scannedProduct.pharmaceuticalInfo.precioCompra.toLocaleString()}</p>
+                      </div>
+                      <div>
+                        <span className="font-medium text-yellow-800">PVP:</span>
+                        <p className="text-yellow-900">${scannedProduct.pharmaceuticalInfo.precioVentaPublico.toLocaleString()}</p>
+                      </div>
+                      <div>
+                        <span className="font-medium text-yellow-800">Margen:</span>
+                        <p className="text-yellow-900">{scannedProduct.pharmaceuticalInfo.margenGanancia}%</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Stock and Rotation */}
+                  <div className="bg-purple-50 rounded-lg p-4">
+                    <h5 className="font-medium text-purple-900 mb-3 flex items-center">
+                      <Clock className="h-4 w-4 mr-2" />
+                      Control de Inventario
+                    </h5>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+                      <div>
+                        <span className="font-medium text-purple-800">Stock Actual:</span>
+                        <p className={`font-medium ${
+                          scannedProduct.currentStock < scannedProduct.minStock ? 'text-red-600' : 'text-purple-900'
+                        }`}>
+                          {scannedProduct.currentStock} unidades
+                        </p>
+                      </div>
+                      <div>
+                        <span className="font-medium text-purple-800">Rotación Promedio:</span>
+                        <p className="text-purple-900">{scannedProduct.pharmaceuticalInfo.rotacionPromedio} días</p>
+                      </div>
+                      <div>
+                        <span className="font-medium text-purple-800">Alerta Vencimiento:</span>
+                        <p className="text-purple-900">{scannedProduct.pharmaceuticalInfo.diasAnticipadoVencimiento} días</p>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {/* Action Buttons */}
+              <div className="flex space-x-2 pt-2">
+                <Button className="flex-1" size="sm">
+                  <Package className="h-4 w-4 mr-2" />
+                  Registrar Entrada
+                </Button>
+                <Button variant="outline" className="flex-1" size="sm">
+                  <Calendar className="h-4 w-4 mr-2" />
+                  Ver Historial
+                </Button>
               </div>
             </div>
           ) : (
             <div className="text-center py-8">
               <Package className="h-12 w-12 text-gray-300 mx-auto mb-3" />
-              <p className="text-gray-500">Escanea un código para ver la información del producto</p>
+              <p className="text-gray-500">Escanea un código para ver la información farmacéutica completa</p>
             </div>
           )}
         </Card>
