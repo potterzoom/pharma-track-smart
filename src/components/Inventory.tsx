@@ -1,12 +1,10 @@
-
 import React, { useState } from 'react';
-import { Card } from '@/components/ui/card';
-import { Package } from 'lucide-react';
 import { Product } from '@/types/inventory';
 import { calculateStatusCounts, filterProducts } from '@/utils/inventoryUtils';
+import InventoryHeader from '@/components/inventory/InventoryHeader';
 import InventoryStats from '@/components/InventoryStats';
 import InventoryFilters from '@/components/InventoryFilters';
-import ProductCard from '@/components/ProductCard';
+import InventoryList from '@/components/inventory/InventoryList';
 
 const Inventory = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -25,7 +23,28 @@ const Inventory = () => {
       expiry: '2025-12-15',
       branch: 'Centro',
       status: 'ok',
-      lastMovement: '2025-05-25'
+      lastMovement: '2025-05-25',
+      pharmaceuticalInfo: {
+        registroSanitario: 'INVIMA2023M-001234',
+        codigoATC: 'N02BE01',
+        codigoSISMED: 'SIS001234',
+        principioActivo: 'Paracetamol',
+        concentracion: '500mg',
+        formaFarmaceutica: 'tabletas',
+        viaAdministracion: 'oral',
+        numeroLote: 'PAR240315',
+        fechaFabricacion: '2024-03-15',
+        laboratorioFabricante: 'Laboratorio ABC S.A.S',
+        categoriaVenta: 'libre',
+        requiereRefrigeracion: false,
+        medicamentoControlado: false,
+        precioCompra: 2500,
+        precioVentaPublico: 3800,
+        margenGanancia: 52,
+        proveedorDistribuidor: 'Droguería Nacional',
+        rotacionPromedio: 15,
+        diasAnticipadoVencimiento: 60
+      }
     },
     {
       id: 2,
@@ -90,37 +109,15 @@ const Inventory = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-gray-900">Inventario General</h1>
-        <p className="text-gray-600 mt-1">Gestión completa de productos farmacéuticos</p>
-      </div>
-
-      {/* Status Summary */}
+      <InventoryHeader />
       <InventoryStats products={products} statusCounts={statusCounts} />
-
-      {/* Filters and Search */}
       <InventoryFilters 
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         filterStatus={filterStatus}
         setFilterStatus={setFilterStatus}
       />
-
-      {/* Products List */}
-      <div className="space-y-4">
-        {filteredProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
-
-      {filteredProducts.length === 0 && (
-        <Card className="p-8 text-center">
-          <Package className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">No se encontraron productos</h3>
-          <p className="text-gray-600">Intenta ajustar los filtros de búsqueda</p>
-        </Card>
-      )}
+      <InventoryList products={filteredProducts} />
     </div>
   );
 };
