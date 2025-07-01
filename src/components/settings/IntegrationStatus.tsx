@@ -10,7 +10,9 @@ import {
   CheckCircle2, 
   Clock,
   RefreshCw,
-  Settings
+  Settings,
+  Thermometer,
+  Database
 } from 'lucide-react';
 
 const IntegrationStatus = () => {
@@ -31,6 +33,22 @@ const IntegrationStatus = () => {
       lastSync: '2024-06-01 10:15',
       icon: Hospital,
       color: 'blue'
+    },
+    {
+      name: 'IoT Sensores',
+      description: 'Cadena de Frío Local',
+      status: 'inactive',
+      lastSync: 'Nunca',
+      icon: Thermometer,
+      color: 'green'
+    },
+    {
+      name: 'Blockchain',
+      description: 'Hyperledger Fabric',
+      status: 'inactive',
+      lastSync: 'Nunca',
+      icon: Database,
+      color: 'purple'
     }
   ];
 

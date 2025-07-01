@@ -1,43 +1,74 @@
+export type IntegrationStatus = 'active' | 'inactive' | 'error';
 
 export interface ARCSAIntegration {
-  id: string;
-  name: 'ARCSA API';
-  type: 'arcsa';
-  status: 'active' | 'inactive' | 'error';
+  apiKey: string;
+  autoAlerts: boolean;
+  certificateValidation: boolean;
+  status: IntegrationStatus;
   config: {
-    apiKey: string;
-    baseUrl: string;
-    certificateValidation: boolean;
-    autoAlerts: boolean;
+    validationEndpoint: string;
+    alertThreshold: number;
   };
-  features: {
-    sanitaryRegistryValidation: boolean;
-    falsifiedMedicineAlerts: boolean;
-    authorizedPharmacyVerification: boolean;
-  };
-  lastSync?: string;
-  syncFrequency: 'realtime' | 'hourly' | 'daily';
 }
 
 export interface MSPIntegration {
-  id: string;
-  name: 'MSP Hospitales Públicos';
-  type: 'msp';
-  status: 'active' | 'inactive' | 'error';
+  apiKey: string;
+  monitoringLevel: 'basic' | 'advanced';
+  emergencyAlerts: boolean;
+  status: IntegrationStatus;
   config: {
-    apiKey: string;
-    baseUrl: string;
-    hospitalCodes: string[];
-    monitoringLevel: 'basic' | 'advanced';
+    hospitalNetworks: string[];
+    syncFrequency: number;
   };
-  features: {
-    medicineMonitoring: boolean;
-    stockReporting: boolean;
-    emergencyAlerts: boolean;
-    inventorySync: boolean;
-  };
-  lastSync?: string;
   connectedHospitals: string[];
 }
 
-export type CriticalIntegrationType = 'arcsa' | 'msp' | 'sri' | 'iess';
+export interface IoTIntegration {
+  providerName: string;
+  deviceCount: number;
+  sensorTypes: ('temperature' | 'humidity' | 'pressure')[];
+  alertChannels: ('whatsapp' | 'sms' | 'email')[];
+  status: IntegrationStatus;
+  config: {
+    cntApiKey?: string;
+    whatsappNumber?: string;
+    temperatureThreshold: {
+      min: number;
+      max: number;
+    };
+    humidityThreshold: {
+      min: number;
+      max: number;
+    };
+    alertFrequency: 'immediate' | 'hourly' | 'daily';
+  };
+  connectedDevices: {
+    id: string;
+    location: string;
+    lastReading: string;
+    batteryLevel?: number;
+  }[];
+}
+
+export interface BlockchainIntegration {
+  network: 'hyperledger' | 'ethereum' | 'polygon';
+  nodeUrl: string;
+  contractAddress?: string;
+  nftEnabled: boolean;
+  status: IntegrationStatus;
+  config: {
+    fabricChannelName?: string;
+    chaincodeId?: string;
+    mspId?: string;
+    walletPath?: string;
+    criticalLotThreshold: number;
+    smartContractEnabled: boolean;
+  };
+  statistics: {
+    totalTransactions: number;
+    nftsMinted: number;
+    lastBlockHeight?: number;
+  };
+}
+
+export type CriticalIntegrationType = 'arcsa' | 'msp' | 'iot' | 'blockchain' | 'sri' | 'iess';
