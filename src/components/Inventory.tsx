@@ -5,12 +5,13 @@ import InventoryHeader from '@/components/inventory/InventoryHeader';
 import InventoryStats from '@/components/InventoryStats';
 import InventoryFilters from '@/components/InventoryFilters';
 import InventoryList from '@/components/inventory/InventoryList';
+import ProductEntryButton from '@/components/inventory/ProductEntryButton';
 
 const Inventory = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
 
-  const products: Product[] = [
+  const [products, setProducts] = useState<Product[]>([
     {
       id: 1,
       name: 'Paracetamol 500mg',
@@ -102,7 +103,11 @@ const Inventory = () => {
       status: 'critical',
       lastMovement: '2025-05-22'
     }
-  ];
+  ]);
+
+  const handleProductAdded = (newProduct: Product) => {
+    setProducts(prev => [...prev, newProduct]);
+  };
 
   const filteredProducts = filterProducts(products, searchTerm, filterStatus);
   const statusCounts = calculateStatusCounts(products);
@@ -111,12 +116,17 @@ const Inventory = () => {
     <div className="space-y-6">
       <InventoryHeader />
       <InventoryStats products={products} statusCounts={statusCounts} />
-      <InventoryFilters 
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        filterStatus={filterStatus}
-        setFilterStatus={setFilterStatus}
-      />
+      
+      <div className="flex items-center justify-between">
+        <InventoryFilters 
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          filterStatus={filterStatus}
+          setFilterStatus={setFilterStatus}
+        />
+        <ProductEntryButton onProductAdded={handleProductAdded} />
+      </div>
+      
       <InventoryList products={filteredProducts} />
     </div>
   );
