@@ -40,6 +40,4 @@ export interface MSPIntegration {
   connectedHospitals: string[];
 }
 
-export interface LocalIntegration extends ARCSAIntegration, MSPIntegration {}
-
 export type CriticalIntegrationType = 'arcsa' | 'msp' | 'sri' | 'iess';

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -27,7 +26,7 @@ const LocalIntegrations = () => {
 
   const [mspConfig, setMspConfig] = useState({
     apiKey: '',
-    monitoringLevel: 'basic' as const,
+    monitoringLevel: 'basic' as 'basic' | 'advanced',
     emergencyAlerts: true,
     status: 'inactive' as const
   });
