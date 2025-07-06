@@ -7,9 +7,9 @@ import { BarChart3, Package, TrendingUp } from 'lucide-react';
 
 const ABCRotationChart = () => {
   const abcData = [
-    { category: 'A', products: 156, revenue: 68, color: '#16a34a' },
-    { category: 'B', products: 234, revenue: 22, color: '#eab308' },
-    { category: 'C', products: 387, revenue: 10, color: '#dc2626' }
+    { category: 'A', products: 156, revenue: 68, color: '#374151' },
+    { category: 'B', products: 234, revenue: 22, color: '#6b7280' },
+    { category: 'C', products: 387, revenue: 10, color: '#9ca3af' }
   ];
 
   const rotationData = [
@@ -26,17 +26,17 @@ const ABCRotationChart = () => {
     { name: 'Atorvastatina 20mg', category: 'B', sales: 850, rotation: 18 }
   ];
 
-  const COLORS = ['#16a34a', '#eab308', '#dc2626'];
+  const COLORS = ['#374151', '#6b7280', '#9ca3af'];
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <Card className="p-6">
+      <Card className="p-6 bg-white">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-gray-900 flex items-center">
-            <BarChart3 className="h-5 w-5 text-green-600 mr-2" />
+            <BarChart3 className="h-5 w-5 text-gray-600 mr-2" />
             Análisis ABC
           </h3>
-          <Badge variant="outline" className="text-green-700">
+          <Badge variant="outline" className="text-gray-700 border-gray-300">
             Último mes
           </Badge>
         </div>
@@ -80,13 +80,13 @@ const ABCRotationChart = () => {
         </div>
       </Card>
 
-      <Card className="p-6">
+      <Card className="p-6 bg-white">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-gray-900 flex items-center">
-            <TrendingUp className="h-5 w-5 text-blue-600 mr-2" />
+            <TrendingUp className="h-5 w-5 text-gray-600 mr-2" />
             Top Productos
           </h3>
-          <Badge variant="outline" className="text-blue-700">
+          <Badge variant="outline" className="text-gray-700 border-gray-300">
             Por rotación
           </Badge>
         </div>
@@ -95,7 +95,7 @@ const ABCRotationChart = () => {
           {topProducts.map((product, index) => (
             <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
               <div className="flex items-center space-x-3">
-                <div className="flex items-center justify-center w-6 h-6 bg-blue-100 text-blue-600 rounded text-xs font-bold">
+                <div className="flex items-center justify-center w-6 h-6 bg-gray-200 text-gray-700 rounded text-xs font-bold">
                   {index + 1}
                 </div>
                 <div>
@@ -104,9 +104,9 @@ const ABCRotationChart = () => {
                     <Badge 
                       variant="outline" 
                       className={`text-xs ${
-                        product.category === 'A' ? 'text-green-600 border-green-300' :
-                        product.category === 'B' ? 'text-yellow-600 border-yellow-300' :
-                        'text-red-600 border-red-300'
+                        product.category === 'A' ? 'text-gray-800 border-gray-400' :
+                        product.category === 'B' ? 'text-gray-600 border-gray-300' :
+                        'text-gray-500 border-gray-200'
                       }`}
                     >
                       Categoría {product.category}

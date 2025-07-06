@@ -41,21 +41,21 @@ const RealTimeMetrics = () => {
   ];
 
   return (
-    <Card className="p-6">
+    <Card className="p-6 bg-white">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-gray-900 flex items-center">
-          <Building2 className="h-5 w-5 text-blue-600 mr-2" />
+          <Building2 className="h-5 w-5 text-gray-600 mr-2" />
           Métricas en Tiempo Real
         </h3>
-        <Badge variant="outline" className="text-green-700 border-green-300">
-          <div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-1 animate-pulse"></div>
+        <Badge variant="outline" className="text-gray-700 border-gray-300">
+          <div className="w-1.5 h-1.5 bg-gray-500 rounded-full mr-1 animate-pulse"></div>
           En vivo
         </Badge>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {branchMetrics.map((branch, index) => (
-          <Card key={index} className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50">
+          <Card key={index} className="p-4 bg-gray-50 border border-gray-200">
             <div className="flex items-center justify-between mb-3">
               <h4 className="font-medium text-gray-900">{branch.name}</h4>
               <Badge variant={branch.status === 'active' ? 'default' : 'secondary'}>
@@ -73,11 +73,11 @@ const RealTimeMetrics = () => {
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-orange-600 flex items-center">
+                <span className="text-red-600 flex items-center">
                   <AlertTriangle className="h-3 w-3 mr-1" />
                   Stock Bajo
                 </span>
-                <span className="font-medium text-orange-600">{branch.lowStock}</span>
+                <span className="font-medium text-red-600">{branch.lowStock}</span>
               </div>
               
               <div className="flex items-center justify-between">
@@ -89,11 +89,11 @@ const RealTimeMetrics = () => {
               </div>
               
               <div className="flex items-center justify-between pt-1 border-t">
-                <span className="text-green-600 flex items-center">
+                <span className="text-gray-600 flex items-center">
                   <TrendingUp className="h-3 w-3 mr-1" />
                   Ventas Hoy
                 </span>
-                <span className="font-medium text-green-600">
+                <span className="font-medium text-gray-900">
                   ${(branch.sales / 1000).toFixed(0)}k
                 </span>
               </div>
