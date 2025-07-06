@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -11,6 +10,11 @@ import {
   Calendar,
   BarChart3
 } from 'lucide-react';
+import RealTimeMetrics from '@/components/dashboard/RealTimeMetrics';
+import CriticalAlertsWidget from '@/components/dashboard/CriticalAlertsWidget';
+import ExpiryCalendar from '@/components/dashboard/ExpiryCalendar';
+import ABCRotationChart from '@/components/dashboard/ABCRotationChart';
+import QuickScanButton from '@/components/dashboard/QuickScanButton';
 
 const Dashboard = () => {
   const metrics = [
@@ -48,36 +52,6 @@ const Dashboard = () => {
     }
   ];
 
-  const alerts = [
-    {
-      id: 1,
-      type: "expiry",
-      product: "Paracetamol 500mg",
-      branch: "Sucursal Centro",
-      date: "2025-06-15",
-      days: 19,
-      severity: "high"
-    },
-    {
-      id: 2,
-      type: "stock",
-      product: "Ibuprofeno 400mg",
-      branch: "Sucursal Norte",
-      stock: 5,
-      minStock: 20,
-      severity: "medium"
-    },
-    {
-      id: 3,
-      type: "expiry",
-      product: "Amoxicilina 250mg",
-      branch: "Sucursal Sur",
-      date: "2025-06-30",
-      days: 34,
-      severity: "medium"
-    }
-  ];
-
   const branchStock = [
     { name: "Centro", stock: 92, capacity: 100 },
     { name: "Norte", stock: 78, capacity: 100 },
@@ -100,6 +74,12 @@ const Dashboard = () => {
           </Badge>
         </div>
       </div>
+
+      {/* Quick Actions */}
+      <QuickScanButton />
+
+      {/* Real-time Metrics */}
+      <RealTimeMetrics />
 
       {/* Metrics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -128,75 +108,42 @@ const Dashboard = () => {
         })}
       </div>
 
-      {/* Alerts and Branch Status */}
+      {/* Critical Alerts and Expiry Calendar */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Alerts Panel */}
-        <Card className="p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900 flex items-center">
-              <AlertTriangle className="h-5 w-5 text-red-500 mr-2" />
-              Alertas Críticas
-            </h3>
-            <Badge variant="destructive">23 activas</Badge>
-          </div>
-          <div className="space-y-3">
-            {alerts.map((alert) => (
-              <div key={alert.id} className={`${
-                alert.severity === 'high' ? 'alert-card' : 'border rounded-lg p-3'
-              }`}>
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <p className="font-medium text-gray-900">{alert.product}</p>
-                    <p className="text-sm text-gray-600">{alert.branch}</p>
-                    {alert.type === 'expiry' ? (
-                      <p className="text-xs text-red-600 mt-1">
-                        <Calendar className="h-3 w-3 inline mr-1" />
-                        Vence en {alert.days} días ({alert.date})
-                      </p>
-                    ) : (
-                      <p className="text-xs text-orange-600 mt-1">
-                        <Package className="h-3 w-3 inline mr-1" />
-                        Stock: {alert.stock} (mín: {alert.minStock})
-                      </p>
-                    )}
-                  </div>
-                  <Badge variant={alert.severity === 'high' ? 'destructive' : 'secondary'}>
-                    {alert.severity === 'high' ? 'Crítico' : 'Medio'}
-                  </Badge>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Card>
-
-        {/* Branch Stock Status */}
-        <Card className="p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900 flex items-center">
-              <Building2 className="h-5 w-5 text-blue-500 mr-2" />
-              Estado de Sucursales
-            </h3>
-            <Badge variant="outline">8 sucursales</Badge>
-          </div>
-          <div className="space-y-4">
-            {branchStock.map((branch, index) => (
-              <div key={index} className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="font-medium text-gray-900">{branch.name}</span>
-                  <span className="text-sm text-gray-600">{branch.stock}%</span>
-                </div>
-                <Progress 
-                  value={branch.stock} 
-                  className={`h-2 ${
-                    branch.stock < 70 ? 'text-red-500' : 
-                    branch.stock < 85 ? 'text-yellow-500' : 'text-green-500'
-                  }`}
-                />
-              </div>
-            ))}
-          </div>
-        </Card>
+        <CriticalAlertsWidget />
+        <ExpiryCalendar />
       </div>
+
+      {/* ABC Rotation Analysis */}
+      <ABCRotationChart />
+
+      {/* Branch Status - Keeping original for now */}
+      <Card className="p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+            <Building2 className="h-5 w-5 text-blue-500 mr-2" />
+            Estado de Sucursales
+          </h3>
+          <Badge variant="outline">8 sucursales</Badge>
+        </div>
+        <div className="space-y-4">
+          {branchStock.map((branch, index) => (
+            <div key={index} className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="font-medium text-gray-900">{branch.name}</span>
+                <span className="text-sm text-gray-600">{branch.stock}%</span>
+              </div>
+              <Progress 
+                value={branch.stock} 
+                className={`h-2 ${
+                  branch.stock < 70 ? 'text-red-500' : 
+                  branch.stock < 85 ? 'text-yellow-500' : 'text-green-500'
+                }`}
+              />
+            </div>
+          ))}
+        </div>
+      </Card>
     </div>
   );
 };
