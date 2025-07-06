@@ -20,11 +20,11 @@ const QuickScanButton = () => {
   };
 
   return (
-    <Card className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
+    <Card className="p-4 bg-white border border-gray-200">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <div className="p-2 bg-blue-100 rounded-lg">
-            <Camera className="h-5 w-5 text-blue-600" />
+          <div className="p-2 bg-gray-100 rounded-lg">
+            <Camera className="h-5 w-5 text-gray-700" />
           </div>
           <div>
             <h4 className="font-medium text-gray-900">Escaneo Rápido</h4>
@@ -33,14 +33,14 @@ const QuickScanButton = () => {
         </div>
         
         <div className="flex items-center space-x-2">
-          <Badge variant="outline" className="text-blue-700 border-blue-300">
+          <Badge variant="outline" className="text-gray-700 border-gray-300">
             <Zap className="h-3 w-3 mr-1" />
             Rápido
           </Badge>
           <Button 
             onClick={handleQuickScan}
             disabled={isScanning}
-            className="flex items-center"
+            className="flex items-center bg-gray-800 hover:bg-gray-900"
             size="sm"
           >
             {isScanning ? (
@@ -59,10 +59,10 @@ const QuickScanButton = () => {
       </div>
       
       {isScanning && (
-        <div className="mt-3 p-2 bg-blue-100 rounded border-l-4 border-blue-500">
+        <div className="mt-3 p-2 bg-gray-100 rounded border-l-4 border-gray-500">
           <div className="flex items-center space-x-2">
-            <Package className="h-4 w-4 text-blue-600 animate-bounce" />
-            <span className="text-sm text-blue-800">
+            <Package className="h-4 w-4 text-gray-700 animate-bounce" />
+            <span className="text-sm text-gray-800">
               Preparando cámara para escaneo...
             </span>
           </div>
