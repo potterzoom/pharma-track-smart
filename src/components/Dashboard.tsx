@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -24,7 +25,7 @@ const Dashboard = () => {
       change: "+12%",
       changeType: "positive",
       icon: Package,
-      color: "bg-blue-500"
+      color: "bg-gray-600"
     },
     {
       title: "Alertas Activas",
@@ -32,7 +33,7 @@ const Dashboard = () => {
       change: "+5",
       changeType: "negative",
       icon: AlertTriangle,
-      color: "bg-red-500"
+      color: "bg-gray-700"
     },
     {
       title: "Sucursales Activas",
@@ -40,7 +41,7 @@ const Dashboard = () => {
       change: "+1",
       changeType: "positive",
       icon: Building2,
-      color: "bg-green-500"
+      color: "bg-gray-800"
     },
     {
       title: "Rotación Mensual",
@@ -48,7 +49,7 @@ const Dashboard = () => {
       change: "+3%",
       changeType: "positive",
       icon: TrendingUp,
-      color: "bg-purple-500"
+      color: "bg-gray-900"
     }
   ];
 
@@ -68,8 +69,8 @@ const Dashboard = () => {
           <p className="text-gray-600 mt-1">Control integral de inventario farmacéutico</p>
         </div>
         <div className="flex items-center space-x-2">
-          <Badge variant="outline" className="text-green-700 border-green-300">
-            <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+          <Badge variant="outline" className="text-gray-700 border-gray-300">
+            <div className="w-2 h-2 bg-gray-500 rounded-full mr-2"></div>
             Sistema Activo
           </Badge>
         </div>
@@ -86,14 +87,14 @@ const Dashboard = () => {
         {metrics.map((metric, index) => {
           const IconComponent = metric.icon;
           return (
-            <Card key={index} className="metric-card">
+            <Card key={index} className="dashboard-card">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600">{metric.title}</p>
                   <div className="flex items-center mt-1">
                     <span className="text-2xl font-bold text-gray-900">{metric.value}</span>
                     <span className={`ml-2 text-xs font-medium ${
-                      metric.changeType === 'positive' ? 'text-green-600' : 'text-red-600'
+                      metric.changeType === 'positive' ? 'text-gray-600' : 'text-gray-700'
                     }`}>
                       {metric.change}
                     </span>
@@ -117,14 +118,14 @@ const Dashboard = () => {
       {/* ABC Rotation Analysis */}
       <ABCRotationChart />
 
-      {/* Branch Status - Keeping original for now */}
-      <Card className="p-6">
+      {/* Branch Status */}
+      <Card className="dashboard-card p-6">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-gray-900 flex items-center">
-            <Building2 className="h-5 w-5 text-blue-500 mr-2" />
+            <Building2 className="h-5 w-5 text-gray-600 mr-2" />
             Estado de Sucursales
           </h3>
-          <Badge variant="outline">8 sucursales</Badge>
+          <Badge variant="outline" className="border-gray-300 text-gray-700">8 sucursales</Badge>
         </div>
         <div className="space-y-4">
           {branchStock.map((branch, index) => (
@@ -136,8 +137,8 @@ const Dashboard = () => {
               <Progress 
                 value={branch.stock} 
                 className={`h-2 ${
-                  branch.stock < 70 ? 'text-red-500' : 
-                  branch.stock < 85 ? 'text-yellow-500' : 'text-green-500'
+                  branch.stock < 70 ? 'text-gray-700' : 
+                  branch.stock < 85 ? 'text-gray-600' : 'text-gray-800'
                 }`}
               />
             </div>

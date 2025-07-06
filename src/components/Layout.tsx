@@ -12,7 +12,11 @@ import {
   Bell,
   User,
   Menu,
-  X
+  X,
+  ShoppingCart,
+  CreditCard,
+  Shield,
+  DollarSign
 } from 'lucide-react';
 
 interface LayoutProps {
@@ -28,7 +32,11 @@ const Layout: React.FC<LayoutProps> = ({ children, currentView, onViewChange }) 
     { id: 'dashboard', name: 'Dashboard', icon: LayoutDashboard },
     { id: 'scanner', name: 'Escáner', icon: Scan },
     { id: 'inventory', name: 'Inventario', icon: Package },
+    { id: 'sales', name: 'Ventas/POS', icon: CreditCard },
+    { id: 'purchases', name: 'Compras', icon: ShoppingCart },
     { id: 'branches', name: 'Sucursales', icon: Building2 },
+    { id: 'regulatory', name: 'Regulatorio', icon: Shield },
+    { id: 'financial', name: 'Financiero', icon: DollarSign },
     { id: 'reports', name: 'Reportes', icon: BarChart3 },
     { id: 'settings', name: 'Configuración', icon: Settings },
   ];
@@ -48,7 +56,7 @@ const Layout: React.FC<LayoutProps> = ({ children, currentView, onViewChange }) 
       } transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}>
         <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200">
           <div className="flex items-center">
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 bg-gradient-to-r from-gray-800 to-gray-900 rounded-lg flex items-center justify-center">
               <Package className="h-5 w-5 text-white" />
             </div>
             <span className="ml-3 text-xl font-bold text-gray-900">PharmaTrack</span>
@@ -75,7 +83,7 @@ const Layout: React.FC<LayoutProps> = ({ children, currentView, onViewChange }) 
                   variant={isActive ? "default" : "ghost"}
                   className={`w-full justify-start ${
                     isActive 
-                      ? 'bg-blue-600 text-white hover:bg-blue-700' 
+                      ? 'bg-gray-800 text-white hover:bg-gray-900' 
                       : 'text-gray-700 hover:bg-gray-100'
                   }`}
                   onClick={() => {
@@ -130,14 +138,14 @@ const Layout: React.FC<LayoutProps> = ({ children, currentView, onViewChange }) 
               {/* Notifications */}
               <Button variant="ghost" size="sm" className="relative">
                 <Bell className="h-5 w-5" />
-                <Badge className="absolute -top-1 -right-1 bg-red-500 text-white text-xs px-1 min-w-0 h-5 flex items-center justify-center">
+                <Badge className="absolute -top-1 -right-1 bg-gray-800 text-white text-xs px-1 min-w-0 h-5 flex items-center justify-center">
                   23
                 </Badge>
               </Button>
 
               {/* Status Indicator */}
               <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <div className="w-2 h-2 bg-gray-500 rounded-full"></div>
                 <span className="text-sm text-gray-600">Sistema Activo</span>
               </div>
             </div>
