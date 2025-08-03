@@ -1,45 +1,44 @@
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import Layout from '@/components/Layout';
-import Dashboard from '@/components/Dashboard';
-import Scanner from '@/components/Scanner';
-import Inventory from '@/components/Inventory';
-import Sales from '@/components/Sales';
-import Purchases from '@/components/Purchases';
-import Branches from '@/components/Branches';
-import Regulatory from '@/components/Regulatory';
-import Financial from '@/components/Financial';
-import Reports from '@/components/Reports';
-import Settings from '@/components/Settings';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
+
+// Implementación de code splitting con React.lazy
+const Dashboard = React.lazy(() => import('@/components/Dashboard'));
+const Scanner = React.lazy(() => import('@/components/Scanner'));
+const Inventory = React.lazy(() => import('@/components/Inventory'));
+const Sales = React.lazy(() => import('@/components/Sales'));
+const Purchases = React.lazy(() => import('@/components/Purchases'));
+const Branches = React.lazy(() => import('@/components/Branches'));
+const Regulatory = React.lazy(() => import('@/components/Regulatory'));
+const Financial = React.lazy(() => import('@/components/Financial'));
+const Reports = React.lazy(() => import('@/components/Reports'));
+const Settings = React.lazy(() => import('@/components/Settings'));
 
 const Index = () => {
   const [currentView, setCurrentView] = useState('dashboard');
 
   const renderContent = () => {
-    switch (currentView) {
-      case 'dashboard':
-        return <Dashboard />;
-      case 'scanner':
-        return <Scanner />;
-      case 'inventory':
-        return <Inventory />;
-      case 'sales':
-        return <Sales />;
-      case 'purchases':
-        return <Purchases />;
-      case 'branches':
-        return <Branches />;
-      case 'regulatory':
-        return <Regulatory />;
-      case 'financial':
-        return <Financial />;
-      case 'reports':
-        return <Reports />;
-      case 'settings':
-        return <Settings />;
-      default:
-        return <Dashboard />;
-    }
+    const componentMap = {
+      dashboard: Dashboard,
+      scanner: Scanner,
+      inventory: Inventory,
+      sales: Sales,
+      purchases: Purchases,
+      branches: Branches,
+      regulatory: Regulatory,
+      financial: Financial,
+      reports: Reports,
+      settings: Settings,
+    };
+
+    const Component = componentMap[currentView as keyof typeof componentMap] || Dashboard;
+    
+    return (
+      <Suspense fallback={<LoadingSpinner />}>
+        <Component />
+      </Suspense>
+    );
   };
 
   return (
