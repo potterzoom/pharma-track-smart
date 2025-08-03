@@ -3,295 +3,225 @@ import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  ShoppingCart, 
-  Truck, 
-  Building, 
-  DollarSign,
-  Package,
-  AlertTriangle,
-  CheckCircle,
-  Clock
-} from 'lucide-react';
+import { Package, Truck, FileText, Calendar, DollarSign, Building } from 'lucide-react';
 
 const Purchases = () => {
-  const [pendingOrders, setPendingOrders] = useState(12);
+  const [selectedTab, setSelectedTab] = useState('pending');
 
-  const suppliers = [
-    { name: 'Laboratorios Bayer', rating: 4.8, orders: 156, totalAmount: 45680.50, status: 'active' },
-    { name: 'Pfizer Ecuador', rating: 4.9, orders: 98, totalAmount: 67890.25, status: 'active' },
-    { name: 'Novartis Andina', rating: 4.7, orders: 234, totalAmount: 89450.75, status: 'active' }
+  const purchaseMetrics = [
+    { title: "Órdenes Pendientes", value: "12", change: "+3", icon: FileText },
+    { title: "En Tránsito", value: "8", change: "+2", icon: Truck },
+    { title: "Recibidas Hoy", value: "5", change: "+1", icon: Package },
+    { title: "Valor Mensual", value: "$89,450", change: "+15%", icon: DollarSign }
   ];
 
-  const recentOrders = [
-    { id: 'PO-2024-001', supplier: 'Laboratorios Bayer', date: '2024-07-05', amount: 2450.80, status: 'pending', items: 15 },
-    { id: 'PO-2024-002', supplier: 'Pfizer Ecuador', date: '2024-07-04', amount: 3890.25, status: 'delivered', items: 23 },
-    { id: 'PO-2024-003', supplier: 'Novartis Andina', date: '2024-07-03', amount: 1567.90, status: 'in_transit', items: 8 }
+  const pendingOrders = [
+    { id: 'PO-001', supplier: 'Laboratorio ABC', items: 15, total: 25600, date: '2024-01-15' },
+    { id: 'PO-002', supplier: 'Farmex Distribuidora', items: 8, total: 18200, date: '2024-01-16' },
+    { id: 'PO-003', supplier: 'Droguería Nacional', items: 22, total: 34500, date: '2024-01-17' }
   ];
 
-  const autoReorderProducts = [
-    { product: 'Paracetamol 500mg', currentStock: 45, minStock: 50, suggestedOrder: 200, supplier: 'Bayer' },
-    { product: 'Ibuprofeno 400mg', currentStock: 12, minStock: 30, suggestedOrder: 150, supplier: 'Pfizer' },
-    { product: 'Omeprazol 20mg', currentStock: 8, minStock: 25, suggestedOrder: 100, supplier: 'Novartis' }
+  const recentDeliveries = [
+    { id: 'RC-001', supplier: 'Antibióticos SA', items: 12, received: '2024-01-12', status: 'complete' },
+    { id: 'RC-002', supplier: 'Gastro Pharma', items: 18, received: '2024-01-11', status: 'partial' },
+    { id: 'RC-003', supplier: 'Cardio Med', items: 7, received: '2024-01-10', status: 'complete' }
   ];
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-300';
-      case 'delivered': return 'bg-green-100 text-green-800 border-green-300';
-      case 'in_transit': return 'bg-blue-100 text-blue-800 border-blue-300';
-      default: return 'bg-gray-100 text-gray-800 border-gray-300';
-    }
-  };
-
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'pending': return <Clock className="h-3 w-3" />;
-      case 'delivered': return <CheckCircle className="h-3 w-3" />;
-      case 'in_transit': return <Truck className="h-3 w-3" />;
-      default: return <Package className="h-3 w-3" />;
-    }
-  };
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Módulo de Compras</h1>
-          <p className="text-gray-600 mt-1">Gestión completa de proveedores y órdenes de compra</p>
+          <h1 className="text-3xl font-bold text-gray-900 flex items-center">
+            <Package className="h-8 w-8 text-gray-600 mr-3" />
+            Gestión de Compras
+          </h1>
+          <p className="text-gray-600 mt-1">Control de órdenes de compra y recepciones</p>
         </div>
         <div className="flex items-center space-x-2">
           <Badge variant="outline" className="text-gray-700 border-gray-300">
-            <AlertTriangle className="h-3 w-3 mr-1" />
-            {pendingOrders} órdenes pendientes
+            <Truck className="h-3 w-3 mr-1" />
+            8 en tránsito
           </Badge>
         </div>
       </div>
 
-      <Tabs defaultValue="orders" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4 bg-gray-100">
-          <TabsTrigger value="orders" className="data-[state=active]:bg-white">Órdenes</TabsTrigger>
-          <TabsTrigger value="suppliers" className="data-[state=active]:bg-white">Proveedores</TabsTrigger>
-          <TabsTrigger value="auto-reorder" className="data-[state=active]:bg-white">Auto-Reorden</TabsTrigger>
-          <TabsTrigger value="receiving" className="data-[state=active]:bg-white">Recepciones</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="orders" className="space-y-6">
-          {/* Purchase Summary */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <Card className="dashboard-card">
+      {/* Purchase Metrics */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {purchaseMetrics.map((metric, index) => {
+          const IconComponent = metric.icon;
+          return (
+            <Card key={index} className="p-6 bg-white border border-gray-200">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Órdenes Activas</p>
-                  <p className="text-2xl font-bold text-gray-900">24</p>
+                  <p className="text-sm font-medium text-gray-600">{metric.title}</p>
+                  <div className="flex items-center mt-1">
+                    <span className="text-2xl font-bold text-gray-900">{metric.value}</span>
+                    <span className="ml-2 text-xs font-medium text-gray-600">
+                      {metric.change}
+                    </span>
+                  </div>
                 </div>
-                <ShoppingCart className="h-8 w-8 text-gray-600" />
+                <div className="p-3 rounded-lg bg-gray-100">
+                  <IconComponent className="h-6 w-6 text-gray-600" />
+                </div>
               </div>
             </Card>
+          );
+        })}
+      </div>
 
-            <Card className="dashboard-card">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">En Tránsito</p>
-                  <p className="text-2xl font-bold text-gray-900">8</p>
-                </div>
-                <Truck className="h-8 w-8 text-gray-600" />
-              </div>
-            </Card>
+      {/* Tab Navigation */}
+      <Card className="p-6 bg-white border border-gray-200">
+        <div className="flex items-center space-x-4 mb-6">
+          <Button
+            size="sm"
+            variant={selectedTab === 'pending' ? 'default' : 'outline'}
+            onClick={() => setSelectedTab('pending')}
+          >
+            Órdenes Pendientes
+          </Button>
+          <Button
+            size="sm"
+            variant={selectedTab === 'received' ? 'default' : 'outline'}
+            onClick={() => setSelectedTab('received')}
+          >
+            Recepciones
+          </Button>
+        </div>
 
-            <Card className="dashboard-card">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Valor Pendiente</p>
-                  <p className="text-2xl font-bold text-gray-900">$45,680</p>
-                </div>
-                <DollarSign className="h-8 w-8 text-gray-600" />
-              </div>
-            </Card>
-
-            <Card className="dashboard-card">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Proveedores</p>
-                  <p className="text-2xl font-bold text-gray-900">15</p>
-                </div>
-                <Building className="h-8 w-8 text-gray-600" />
-              </div>
-            </Card>
-          </div>
-
-          {/* Recent Orders */}
-          <Card className="dashboard-card p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900 flex items-center">
-                <ShoppingCart className="h-5 w-5 text-gray-600 mr-2" />
-                Órdenes Recientes
-              </h3>
-              <Button className="bg-gray-800 hover:bg-gray-900">
-                Nueva Orden
-              </Button>
-            </div>
-            
+        {selectedTab === 'pending' && (
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+              <FileText className="h-5 w-5 text-gray-600 mr-2" />
+              Órdenes de Compra Pendientes
+            </h3>
             <div className="space-y-3">
-              {recentOrders.map((order) => (
-                <div key={order.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                  <div className="flex items-center space-x-4">
-                    <div>
-                      <p className="font-medium text-gray-900">{order.id}</p>
-                      <p className="text-sm text-gray-600">{order.supplier}</p>
+              {pendingOrders.map((order, index) => (
+                <Card key={index} className="p-4 bg-gray-50 border border-gray-200">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                      <div className="p-2 bg-gray-100 rounded-lg">
+                        <Building className="h-5 w-5 text-gray-600" />
+                      </div>
+                      <div>
+                        <h4 className="font-medium text-gray-900">{order.id}</h4>
+                        <p className="text-sm text-gray-600">{order.supplier}</p>
+                        <div className="flex items-center space-x-3 mt-1 text-xs text-gray-500">
+                          <span>{order.items} productos</span>
+                          <span>•</span>
+                          <span>{order.date}</span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  
-                  <div className="flex items-center space-x-4">
                     <div className="text-right">
-                      <p className="font-medium text-gray-900">${order.amount.toFixed(2)}</p>
-                      <p className="text-sm text-gray-600">{order.items} productos</p>
-                    </div>
-                    
-                    <Badge className={`flex items-center space-x-1 ${getStatusColor(order.status)}`}>
-                      {getStatusIcon(order.status)}
-                      <span className="ml-1">
-                        {order.status === 'pending' ? 'Pendiente' : 
-                         order.status === 'delivered' ? 'Entregado' : 'En Tránsito'}
-                      </span>
-                    </Badge>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="suppliers" className="space-y-6">
-          <Card className="dashboard-card p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900 flex items-center">
-                <Building className="h-5 w-5 text-gray-600 mr-2" />
-                Gestión de Proveedores
-              </h3>
-              <Button className="bg-gray-800 hover:bg-gray-900">
-                Nuevo Proveedor
-              </Button>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {suppliers.map((supplier, index) => (
-                <Card key={index} className="dashboard-card">
-                  <div className="p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <h4 className="font-medium text-gray-900">{supplier.name}</h4>
-                      <Badge variant="outline" className="text-green-700 border-green-300">
-                        Activo
-                      </Badge>
-                    </div>
-                    
-                    <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Rating:</span>
-                        <span className="font-medium text-gray-900">{supplier.rating}/5</span>
+                      <div className="text-lg font-bold text-gray-900">
+                        ${order.total.toLocaleString()}
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Órdenes:</span>
-                        <span className="font-medium text-gray-900">{supplier.orders}</span>
+                      <div className="flex space-x-2 mt-2">
+                        <Button size="sm" className="bg-gray-800 hover:bg-gray-900">
+                          Aprobar
+                        </Button>
+                        <Button size="sm" variant="outline">
+                          Ver Detalles
+                        </Button>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Total compras:</span>
-                        <span className="font-medium text-gray-900">${supplier.totalAmount.toFixed(2)}</span>
-                      </div>
-                    </div>
-                    
-                    <div className="mt-4 space-y-2">
-                      <Button variant="outline" className="w-full border-gray-300" size="sm">
-                        Ver Catálogo
-                      </Button>
-                      <Button variant="outline" className="w-full border-gray-300" size="sm">
-                        Comparar Precios
-                      </Button>
                     </div>
                   </div>
                 </Card>
               ))}
             </div>
-          </Card>
-        </TabsContent>
+          </div>
+        )}
 
-        <TabsContent value="auto-reorder" className="space-y-6">
-          <Card className="dashboard-card p-6">
+        {selectedTab === 'received' && (
+          <div>
             <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-              <AlertTriangle className="h-5 w-5 text-gray-600 mr-2" />
-              Reorden Automático
+              <Package className="h-5 w-5 text-gray-600 mr-2" />
+              Recepciones Recientes
             </h3>
-            
-            <div className="space-y-4">
-              {autoReorderProducts.map((product, index) => (
-                <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                  <div className="flex-1">
-                    <h4 className="font-medium text-gray-900">{product.product}</h4>
-                    <div className="flex items-center space-x-4 mt-1 text-sm text-gray-600">
-                      <span>Stock actual: {product.currentStock}</span>
-                      <span>Mínimo: {product.minStock}</span>
-                      <span>Proveedor: {product.supplier}</span>
+            <div className="space-y-3">
+              {recentDeliveries.map((delivery, index) => (
+                <Card key={index} className="p-4 bg-gray-50 border border-gray-200">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                      <div className="p-2 bg-gray-100 rounded-lg">
+                        <Truck className="h-5 w-5 text-gray-600" />
+                      </div>
+                      <div>
+                        <h4 className="font-medium text-gray-900">{delivery.id}</h4>
+                        <p className="text-sm text-gray-600">{delivery.supplier}</p>
+                        <div className="flex items-center space-x-3 mt-1 text-xs text-gray-500">
+                          <span>{delivery.items} productos</span>
+                          <span>•</span>
+                          <span>{delivery.received}</span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  
-                  <div className="flex items-center space-x-3">
                     <div className="text-right">
-                      <p className="text-sm text-gray-600">Sugerido:</p>
-                      <p className="font-medium text-gray-900">{product.suggestedOrder} unidades</p>
+                      <Badge 
+                        variant="outline" 
+                        className={delivery.status === 'complete' 
+                          ? "text-gray-700 border-gray-300" 
+                          : "text-gray-600 border-gray-300"
+                        }
+                      >
+                        {delivery.status === 'complete' ? 'Completo' : 'Parcial'}
+                      </Badge>
+                      <div className="flex space-x-2 mt-2">
+                        <Button size="sm" variant="outline">
+                          Ver Recepción
+                        </Button>
+                      </div>
                     </div>
-                    <Button size="sm" className="bg-gray-800 hover:bg-gray-900">
-                      Ordenar
-                    </Button>
                   </div>
-                </div>
+                </Card>
               ))}
             </div>
-          </Card>
-        </TabsContent>
+          </div>
+        )}
+      </Card>
 
-        <TabsContent value="receiving" className="space-y-6">
-          <Card className="dashboard-card p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-              <Truck className="h-5 w-5 text-gray-600 mr-2" />
-              Control de Recepciones
-            </h3>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <h4 className="font-medium text-gray-900">Recepciones Pendientes</h4>
-                <div className="space-y-2">
-                  <div className="p-3 bg-gray-50 rounded border-l-4 border-yellow-400">
-                    <p className="font-medium text-gray-900">PO-2024-001</p>
-                    <p className="text-sm text-gray-600">Laboratorios Bayer - 15 productos</p>
-                    <p className="text-xs text-gray-500">Esperado: Hoy</p>
-                  </div>
-                  <div className="p-3 bg-gray-50 rounded border-l-4 border-blue-400">
-                    <p className="font-medium text-gray-900">PO-2024-003</p>
-                    <p className="text-sm text-gray-600">Novartis Andina - 8 productos</p>
-                    <p className="text-xs text-gray-500">Esperado: Mañana</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="space-y-4">
-                <h4 className="font-medium text-gray-900">Acciones Rápidas</h4>
-                <div className="space-y-2">
-                  <Button className="w-full bg-gray-800 hover:bg-gray-900">
-                    Registrar Recepción
-                  </Button>
-                  <Button variant="outline" className="w-full border-gray-300">
-                    Generar Discrepancias
-                  </Button>
-                  <Button variant="outline" className="w-full border-gray-300">
-                    Historial Recepciones
-                  </Button>
-                </div>
-              </div>
+      {/* Quick Actions */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Card className="p-4 bg-white border border-gray-200 hover:shadow-md transition-shadow">
+          <div className="flex items-center space-x-3">
+            <div className="p-2 bg-gray-100 rounded-lg">
+              <FileText className="h-5 w-5 text-gray-600" />
             </div>
-          </Card>
-        </TabsContent>
-      </Tabs>
+            <div className="flex-1">
+              <h4 className="font-medium text-gray-900">Nueva Orden</h4>
+              <p className="text-sm text-gray-600">Crear orden de compra</p>
+            </div>
+            <Button size="sm" className="bg-gray-800 hover:bg-gray-900">Crear</Button>
+          </div>
+        </Card>
+
+        <Card className="p-4 bg-white border border-gray-200 hover:shadow-md transition-shadow">
+          <div className="flex items-center space-x-3">
+            <div className="p-2 bg-gray-100 rounded-lg">
+              <Truck className="h-5 w-5 text-gray-600" />
+            </div>
+            <div className="flex-1">
+              <h4 className="font-medium text-gray-900">Recibir Productos</h4>
+              <p className="text-sm text-gray-600">Procesar recepción</p>
+            </div>
+            <Button size="sm" variant="outline">Recibir</Button>
+          </div>
+        </Card>
+
+        <Card className="p-4 bg-white border border-gray-200 hover:shadow-md transition-shadow">
+          <div className="flex items-center space-x-3">
+            <div className="p-2 bg-gray-100 rounded-lg">
+              <Calendar className="h-5 w-5 text-gray-600" />
+            </div>
+            <div className="flex-1">
+              <h4 className="font-medium text-gray-900">Historial</h4>
+              <p className="text-sm text-gray-600">Ver compras anteriores</p>
+            </div>
+            <Button size="sm" variant="outline">Ver</Button>
+          </div>
+        </Card>
+      </div>
     </div>
   );
 };

@@ -3,304 +3,186 @@ import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  CreditCard, 
-  Receipt, 
-  FileText, 
-  Users, 
-  DollarSign,
-  Calculator,
-  Clock,
-  TrendingUp
-} from 'lucide-react';
+import { ShoppingCart, TrendingUp, Calendar, Package, DollarSign, Users } from 'lucide-react';
 
 const Sales = () => {
-  const [activeRegister, setActiveRegister] = useState(true);
+  const [selectedPeriod, setSelectedPeriod] = useState('today');
 
-  const dailySales = {
-    total: 12450.75,
-    transactions: 89,
-    avgTicket: 139.90,
-    cash: 8230.25,
-    card: 4220.50
-  };
-
-  const recentTransactions = [
-    { id: '001', time: '14:32', customer: 'María González', amount: 45.50, type: 'efectivo', prescription: true },
-    { id: '002', time: '14:28', customer: 'Carlos Pérez', amount: 89.25, type: 'tarjeta', prescription: false },
-    { id: '003', time: '14:25', customer: 'Ana López', amount: 156.75, type: 'tarjeta', prescription: true }
+  const salesMetrics = [
+    { title: "Ventas del Día", value: "$125,400", change: "+15%", icon: DollarSign },
+    { title: "Transacciones", value: "342", change: "+8%", icon: ShoppingCart },
+    { title: "Productos Vendidos", value: "1,247", change: "+12%", icon: Package },
+    { title: "Clientes Atendidos", value: "198", change: "+5%", icon: Users }
   ];
 
-  const loyaltyCustomers = [
-    { name: 'Dr. Roberto Silva', points: 2450, level: 'Premium', savings: 245.80 },
-    { name: 'Carmen Rodríguez', points: 1200, level: 'Gold', savings: 89.50 },
-    { name: 'Luis Morales', points: 850, level: 'Silver', savings: 45.20 }
+  const topProducts = [
+    { name: 'Paracetamol 500mg', sales: 89, revenue: 338200 },
+    { name: 'Ibuprofeno 400mg', sales: 67, revenue: 254300 },
+    { name: 'Omeprazol 20mg', sales: 45, revenue: 202500 },
+    { name: 'Losartán 50mg', sales: 34, revenue: 136000 },
+    { name: 'Atorvastatina 20mg', sales: 29, revenue: 116000 }
   ];
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Módulo de Ventas/POS</h1>
-          <p className="text-gray-600 mt-1">Gestión completa de ventas y facturación</p>
+          <h1 className="text-3xl font-bold text-gray-900 flex items-center">
+            <ShoppingCart className="h-8 w-8 text-gray-600 mr-3" />
+            Gestión de Ventas
+          </h1>
+          <p className="text-gray-600 mt-1">Control y análisis de ventas farmacéuticas</p>
         </div>
         <div className="flex items-center space-x-2">
-          <Badge variant={activeRegister ? "default" : "secondary"} className="bg-gray-800 text-white">
-            <div className={`w-2 h-2 ${activeRegister ? 'bg-green-400' : 'bg-red-400'} rounded-full mr-2`}></div>
-            {activeRegister ? 'Caja Abierta' : 'Caja Cerrada'}
+          <Badge variant="outline" className="text-gray-700 border-gray-300">
+            <TrendingUp className="h-3 w-3 mr-1" />
+            +12% vs ayer
           </Badge>
         </div>
       </div>
 
-      <Tabs defaultValue="pos" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4 bg-gray-100">
-          <TabsTrigger value="pos" className="data-[state=active]:bg-white">POS</TabsTrigger>
-          <TabsTrigger value="invoicing" className="data-[state=active]:bg-white">Facturación SRI</TabsTrigger>
-          <TabsTrigger value="prescriptions" className="data-[state=active]:bg-white">Recetas</TabsTrigger>
-          <TabsTrigger value="loyalty" className="data-[state=active]:bg-white">Fidelización</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="pos" className="space-y-6">
-          {/* Daily Sales Summary */}
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-            <Card className="dashboard-card">
+      {/* Sales Metrics */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {salesMetrics.map((metric, index) => {
+          const IconComponent = metric.icon;
+          return (
+            <Card key={index} className="p-6 bg-white border border-gray-200">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Ventas del Día</p>
-                  <p className="text-2xl font-bold text-gray-900">${dailySales.total.toFixed(2)}</p>
+                  <p className="text-sm font-medium text-gray-600">{metric.title}</p>
+                  <div className="flex items-center mt-1">
+                    <span className="text-2xl font-bold text-gray-900">{metric.value}</span>
+                    <span className="ml-2 text-xs font-medium text-gray-600">
+                      {metric.change}
+                    </span>
+                  </div>
                 </div>
-                <DollarSign className="h-8 w-8 text-gray-600" />
+                <div className="p-3 rounded-lg bg-gray-100">
+                  <IconComponent className="h-6 w-6 text-gray-600" />
+                </div>
               </div>
             </Card>
+          );
+        })}
+      </div>
 
-            <Card className="dashboard-card">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Transacciones</p>
-                  <p className="text-2xl font-bold text-gray-900">{dailySales.transactions}</p>
-                </div>
-                <Receipt className="h-8 w-8 text-gray-600" />
-              </div>
-            </Card>
-
-            <Card className="dashboard-card">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Ticket Promedio</p>
-                  <p className="text-2xl font-bold text-gray-900">${dailySales.avgTicket.toFixed(2)}</p>
-                </div>
-                <Calculator className="h-8 w-8 text-gray-600" />
-              </div>
-            </Card>
-
-            <Card className="dashboard-card">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Efectivo</p>
-                  <p className="text-2xl font-bold text-gray-900">${dailySales.cash.toFixed(2)}</p>
-                </div>
-                <DollarSign className="h-8 w-8 text-gray-700" />
-              </div>
-            </Card>
-
-            <Card className="dashboard-card">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Tarjetas</p>
-                  <p className="text-2xl font-bold text-gray-900">${dailySales.card.toFixed(2)}</p>
-                </div>
-                <CreditCard className="h-8 w-8 text-gray-600" />
-              </div>
-            </Card>
+      {/* Period Filter */}
+      <Card className="p-6 bg-white border border-gray-200">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+            <Calendar className="h-5 w-5 text-gray-600 mr-2" />
+            Análisis de Ventas
+          </h3>
+          <div className="flex space-x-1">
+            {['today', 'week', 'month'].map(period => (
+              <Button
+                key={period}
+                size="sm"
+                variant={selectedPeriod === period ? 'default' : 'outline'}
+                onClick={() => setSelectedPeriod(period)}
+                className="text-xs"
+              >
+                {period === 'today' ? 'Hoy' : period === 'week' ? 'Semana' : 'Mes'}
+              </Button>
+            ))}
           </div>
+        </div>
 
-          {/* Recent Transactions */}
-          <Card className="dashboard-card p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-              <Clock className="h-5 w-5 text-gray-600 mr-2" />
-              Transacciones Recientes
-            </h3>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Top Products */}
+          <div>
+            <h4 className="font-medium text-gray-900 mb-3">Productos Más Vendidos</h4>
             <div className="space-y-3">
-              {recentTransactions.map((transaction) => (
-                <div key={transaction.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              {topProducts.map((product, index) => (
+                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 border border-gray-200 rounded-lg">
                   <div className="flex items-center space-x-3">
-                    <span className="text-sm font-mono text-gray-600">{transaction.time}</span>
+                    <div className="flex items-center justify-center w-6 h-6 bg-gray-200 text-gray-700 rounded text-xs font-bold">
+                      {index + 1}
+                    </div>
                     <div>
-                      <p className="font-medium text-gray-900">{transaction.customer}</p>
-                      <div className="flex items-center space-x-2">
-                        <Badge variant="outline" className="text-xs border-gray-300">
-                          {transaction.type}
-                        </Badge>
-                        {transaction.prescription && (
-                          <Badge variant="outline" className="text-xs text-gray-700 border-gray-400">
-                            Con receta
-                          </Badge>
-                        )}
-                      </div>
+                      <h5 className="font-medium text-sm">{product.name}</h5>
+                      <p className="text-xs text-gray-600">{product.sales} unidades</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-gray-900">${transaction.amount}</p>
+                    <div className="text-sm font-medium text-gray-900">
+                      ${product.revenue.toLocaleString()}
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
-          </Card>
-        </TabsContent>
+          </div>
 
-        <TabsContent value="invoicing" className="space-y-6">
-          <Card className="dashboard-card p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-              <FileText className="h-5 w-5 text-gray-600 mr-2" />
-              Facturación Electrónica SRI
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="space-y-4">
-                <h4 className="font-medium text-gray-900">Estado de Facturas</h4>
-                <div className="space-y-2">
-                  <div className="flex justify-between">
-                    <span className="text-sm text-gray-600">Autorizadas</span>
-                    <span className="font-medium text-gray-900">156</span>
+          {/* Sales by Branch */}
+          <div>
+            <h4 className="font-medium text-gray-900 mb-3">Ventas por Sucursal</h4>
+            <div className="space-y-3">
+              {[
+                { name: 'Centro', sales: 45600, percentage: 36 },
+                { name: 'Norte', sales: 38200, percentage: 31 },
+                { name: 'Sur', sales: 28400, percentage: 23 },
+                { name: 'Este', sales: 13200, percentage: 10 }
+              ].map((branch, index) => (
+                <div key={index} className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-medium text-gray-900">{branch.name}</span>
+                    <span className="text-sm text-gray-600">${branch.sales.toLocaleString()}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-sm text-gray-600">Pendientes</span>
-                    <span className="font-medium text-gray-700">3</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-sm text-gray-600">Rechazadas</span>
-                    <span className="font-medium text-gray-800">1</span>
+                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div 
+                      className="bg-gray-600 h-2 rounded-full" 
+                      style={{ width: `${branch.percentage}%` }}
+                    ></div>
                   </div>
                 </div>
-              </div>
-              
-              <div className="space-y-4">
-                <h4 className="font-medium text-gray-900">Configuración SRI</h4>
-                <div className="space-y-2">
-                  <Button variant="outline" className="w-full justify-start border-gray-300">
-                    Configurar Certificado
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start border-gray-300">
-                    Punto de Emisión
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start border-gray-300">
-                    Secuencias
-                  </Button>
-                </div>
-              </div>
-              
-              <div className="space-y-4">
-                <h4 className="font-medium text-gray-900">Acciones Rápidas</h4>
-                <div className="space-y-2">
-                  <Button className="w-full bg-gray-800 hover:bg-gray-900">
-                    Nueva Factura
-                  </Button>
-                  <Button variant="outline" className="w-full border-gray-300">
-                    Consultar Estado
-                  </Button>
-                  <Button variant="outline" className="w-full border-gray-300">
-                    Reporte Diario
-                  </Button>
-                </div>
-              </div>
+              ))}
             </div>
-          </Card>
-        </TabsContent>
+          </div>
+        </div>
+      </Card>
 
-        <TabsContent value="prescriptions" className="space-y-6">
-          <Card className="dashboard-card p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-              <FileText className="h-5 w-5 text-gray-600 mr-2" />
-              Control de Recetas Médicas
-            </h3>
-            <p className="text-gray-600 mb-4">Gestión y seguimiento de recetas médicas y medicamentos controlados</p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <h4 className="font-medium text-gray-900">Recetas Procesadas Hoy</h4>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center p-4 bg-gray-50 rounded-lg">
-                    <p className="text-2xl font-bold text-gray-900">23</p>
-                    <p className="text-sm text-gray-600">Recetas Simples</p>
-                  </div>
-                  <div className="text-center p-4 bg-gray-50 rounded-lg">
-                    <p className="text-2xl font-bold text-gray-900">8</p>
-                    <p className="text-sm text-gray-600">Medicamentos Controlados</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="space-y-4">
-                <h4 className="font-medium text-gray-900">Acciones</h4>
-                <div className="space-y-2">
-                  <Button className="w-full bg-gray-800 hover:bg-gray-900">
-                    Registrar Receta
-                  </Button>
-                  <Button variant="outline" className="w-full border-gray-300">
-                    Consultar Historial
-                  </Button>
-                  <Button variant="outline" className="w-full border-gray-300">
-                    Reporte ARCSA
-                  </Button>
-                </div>
-              </div>
+      {/* Quick Actions */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Card className="p-4 bg-white border border-gray-200 hover:shadow-md transition-shadow">
+          <div className="flex items-center space-x-3">
+            <div className="p-2 bg-gray-100 rounded-lg">
+              <ShoppingCart className="h-5 w-5 text-gray-600" />
             </div>
-          </Card>
-        </TabsContent>
+            <div className="flex-1">
+              <h4 className="font-medium text-gray-900">Nueva Venta</h4>
+              <p className="text-sm text-gray-600">Registrar venta directa</p>
+            </div>
+            <Button size="sm" className="bg-gray-800 hover:bg-gray-900">Crear</Button>
+          </div>
+        </Card>
 
-        <TabsContent value="loyalty" className="space-y-6">
-          <Card className="dashboard-card p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-              <Users className="h-5 w-5 text-gray-600 mr-2" />
-              Programa de Fidelización
-            </h3>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <h4 className="font-medium text-gray-900">Clientes Destacados</h4>
-                <div className="space-y-3">
-                  {loyaltyCustomers.map((customer, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                      <div>
-                        <p className="font-medium text-gray-900">{customer.name}</p>
-                        <div className="flex items-center space-x-2">
-                          <Badge variant="outline" className="text-xs border-gray-400 text-gray-700">
-                            {customer.level}
-                          </Badge>
-                          <span className="text-xs text-gray-600">{customer.points} puntos</span>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-sm font-medium text-gray-900">${customer.savings}</p>
-                        <p className="text-xs text-gray-600">ahorrado</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              
-              <div className="space-y-4">
-                <h4 className="font-medium text-gray-900">Estadísticas del Programa</h4>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center p-4 bg-gray-50 rounded-lg">
-                    <p className="text-2xl font-bold text-gray-900">1,247</p>
-                    <p className="text-sm text-gray-600">Clientes Activos</p>
-                  </div>
-                  <div className="text-center p-4 bg-gray-50 rounded-lg">
-                    <p className="text-2xl font-bold text-gray-900">$2,450</p>
-                    <p className="text-sm text-gray-600">Puntos Canjeados</p>
-                  </div>
-                </div>
-                
-                <Button className="w-full bg-gray-800 hover:bg-gray-900">
-                  <TrendingUp className="h-4 w-4 mr-2" />
-                  Ver Análisis Completo
-                </Button>
-              </div>
+        <Card className="p-4 bg-white border border-gray-200 hover:shadow-md transition-shadow">
+          <div className="flex items-center space-x-3">
+            <div className="p-2 bg-gray-100 rounded-lg">
+              <TrendingUp className="h-5 w-5 text-gray-600" />
             </div>
-          </Card>
-        </TabsContent>
-      </Tabs>
+            <div className="flex-1">
+              <h4 className="font-medium text-gray-900">Reporte Diario</h4>
+              <p className="text-sm text-gray-600">Generar reporte de ventas</p>
+            </div>
+            <Button size="sm" variant="outline">Generar</Button>
+          </div>
+        </Card>
+
+        <Card className="p-4 bg-white border border-gray-200 hover:shadow-md transition-shadow">
+          <div className="flex items-center space-x-3">
+            <div className="p-2 bg-gray-100 rounded-lg">
+              <Calendar className="h-5 w-5 text-gray-600" />
+            </div>
+            <div className="flex-1">
+              <h4 className="font-medium text-gray-900">Historial</h4>
+              <p className="text-sm text-gray-600">Ver ventas anteriores</p>
+            </div>
+            <Button size="sm" variant="outline">Ver</Button>
+          </div>
+        </Card>
+      </div>
     </div>
   );
 };
