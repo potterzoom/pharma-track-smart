@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -103,11 +102,7 @@ const ABCRotationChart = () => {
                   <div className="flex items-center space-x-2 mt-1">
                     <Badge 
                       variant="outline" 
-                      className={`text-xs ${
-                        product.category === 'A' ? 'text-gray-800 border-gray-400' :
-                        product.category === 'B' ? 'text-gray-600 border-gray-300' :
-                        'text-gray-500 border-gray-200'
-                      }`}
+                      className="text-xs text-gray-700 border-gray-300"
                     >
                       Categoría {product.category}
                     </Badge>

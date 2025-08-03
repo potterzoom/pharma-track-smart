@@ -27,7 +27,7 @@ const BranchReports = () => {
     <div className="space-y-6">
       <Card className="p-6">
         <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-          <Building2 className="h-5 w-5 text-indigo-600 mr-2" />
+          <Building2 className="h-5 w-5 text-gray-600 mr-2" />
           Reportes por Sucursales
         </h3>
         <div className="space-y-4">
@@ -37,8 +37,8 @@ const BranchReports = () => {
               <Card key={index} className="p-4 hover:shadow-md transition-shadow">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-indigo-100 rounded-lg">
-                      <IconComponent className="h-5 w-5 text-indigo-600" />
+                    <div className="p-2 bg-gray-100 rounded-lg">
+                      <IconComponent className="h-5 w-5 text-gray-600" />
                     </div>
                     <div>
                       <h4 className="font-medium text-gray-900">{report.name}</h4>

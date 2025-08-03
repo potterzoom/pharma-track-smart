@@ -73,19 +73,19 @@ const RealTimeMetrics = () => {
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-red-600 flex items-center">
+                <span className="text-gray-700 flex items-center">
                   <AlertTriangle className="h-3 w-3 mr-1" />
                   Stock Bajo
                 </span>
-                <span className="font-medium text-red-600">{branch.lowStock}</span>
+                <span className="font-medium text-gray-700">{branch.lowStock}</span>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-red-600 flex items-center">
+                <span className="text-gray-600 flex items-center">
                   <AlertTriangle className="h-3 w-3 mr-1" />
                   Por Vencer
                 </span>
-                <span className="font-medium text-red-600">{branch.expiring}</span>
+                <span className="font-medium text-gray-600">{branch.expiring}</span>
               </div>
               
               <div className="flex items-center justify-between pt-1 border-t">

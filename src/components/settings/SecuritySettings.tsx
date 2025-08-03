@@ -32,7 +32,7 @@ const SecuritySettings = () => {
     <div className="space-y-6">
       <Card className="p-6">
         <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-          <Shield className="h-5 w-5 text-blue-600 mr-2" />
+          <Shield className="h-5 w-5 text-gray-600 mr-2" />
           Configuración de Seguridad
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -41,8 +41,8 @@ const SecuritySettings = () => {
             return (
               <Card key={index} className="p-4 hover:shadow-md transition-shadow">
                 <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-red-100 rounded-lg">
-                    <IconComponent className="h-5 w-5 text-red-600" />
+                  <div className="p-2 bg-gray-100 rounded-lg">
+                    <IconComponent className="h-5 w-5 text-gray-600" />
                   </div>
                   <div className="flex-1">
                     <h4 className="font-medium text-gray-900">{action.name}</h4>

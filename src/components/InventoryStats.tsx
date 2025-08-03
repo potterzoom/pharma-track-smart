@@ -16,19 +16,19 @@ const InventoryStats = ({ products, statusCounts }: InventoryStatsProps) => {
         <div className="text-sm text-gray-600">Total Productos</div>
       </Card>
       <Card className="p-4 text-center">
-        <div className="text-2xl font-bold text-green-600">{statusCounts.ok}</div>
+        <div className="text-2xl font-bold text-gray-800">{statusCounts.ok}</div>
         <div className="text-sm text-gray-600">Normal</div>
       </Card>
       <Card className="p-4 text-center">
-        <div className="text-2xl font-bold text-yellow-600">{statusCounts.low}</div>
+        <div className="text-2xl font-bold text-gray-700">{statusCounts.low}</div>
         <div className="text-sm text-gray-600">Stock Bajo</div>
       </Card>
       <Card className="p-4 text-center">
-        <div className="text-2xl font-bold text-red-600">{statusCounts.critical}</div>
+        <div className="text-2xl font-bold text-gray-600">{statusCounts.critical}</div>
         <div className="text-sm text-gray-600">Crítico</div>
       </Card>
       <Card className="p-4 text-center">
-        <div className="text-2xl font-bold text-orange-600">{statusCounts.expiring}</div>
+        <div className="text-2xl font-bold text-gray-500">{statusCounts.expiring}</div>
         <div className="text-sm text-gray-600">Por Vencer</div>
       </Card>
     </div>
