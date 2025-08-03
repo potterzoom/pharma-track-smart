@@ -47,10 +47,10 @@ const CriticalAlertsWidget = () => {
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'critical': return 'bg-red-100 border-red-500 text-red-800';
-      case 'high': return 'bg-orange-100 border-orange-500 text-orange-800';
-      case 'medium': return 'bg-yellow-100 border-yellow-500 text-yellow-800';
-      default: return 'bg-gray-100 border-gray-500 text-gray-800';
+      case 'critical': return 'bg-gray-200 border-gray-500 text-gray-900';
+      case 'high': return 'bg-gray-100 border-gray-400 text-gray-800';
+      case 'medium': return 'bg-gray-50 border-gray-300 text-gray-700';
+      default: return 'bg-white border-gray-200 text-gray-600';
     }
   };
 
@@ -60,7 +60,7 @@ const CriticalAlertsWidget = () => {
       transfer: { label: 'Transferir', icon: Package, color: 'outline' },
       promote: { label: 'Promocionar', icon: MessageSquare, color: 'outline' },
       return: { label: 'Devolver', icon: Package, color: 'outline' },
-      check_equipment: { label: 'Revisar Equipo', icon: AlertTriangle, color: 'destructive' },
+      check_equipment: { label: 'Revisar Equipo', icon: AlertTriangle, color: 'outline' },
       notify: { label: 'Notificar', icon: MessageSquare, color: 'outline' },
       view: { label: 'Ver', icon: Eye, color: 'outline' }
     };
@@ -84,13 +84,13 @@ const CriticalAlertsWidget = () => {
   };
 
   return (
-    <Card className="p-6">
+    <Card className="p-6 bg-white border border-gray-200">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-gray-900 flex items-center">
-          <AlertTriangle className="h-5 w-5 text-red-600 mr-2" />
+          <AlertTriangle className="h-5 w-5 text-gray-600 mr-2" />
           Alertas Críticas
         </h3>
-        <Badge variant="destructive">
+        <Badge variant="outline" className="text-gray-700 border-gray-300">
           {criticalAlerts.filter(a => a.severity === 'critical').length} Críticas
         </Badge>
       </div>
@@ -99,7 +99,7 @@ const CriticalAlertsWidget = () => {
         {criticalAlerts.map((alert) => (
           <Card 
             key={alert.id} 
-            className={`p-3 border-l-4 ${getSeverityColor(alert.severity)}`}
+            className={`p-3 border-l-4 bg-white ${getSeverityColor(alert.severity)}`}
           >
             <div className="space-y-2">
               <div className="flex items-start justify-between">
@@ -109,8 +109,8 @@ const CriticalAlertsWidget = () => {
                   <p className="text-xs mt-1">{alert.message}</p>
                 </div>
                 <Badge 
-                  variant={alert.severity === 'critical' ? 'destructive' : 'outline'}
-                  className="text-xs"
+                  variant="outline"
+                  className="text-xs border-gray-300 text-gray-700"
                 >
                   {alert.severity === 'critical' ? 'Crítico' : 
                    alert.severity === 'high' ? 'Alto' : 'Medio'}

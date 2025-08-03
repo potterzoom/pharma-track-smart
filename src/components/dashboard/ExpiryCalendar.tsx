@@ -27,16 +27,16 @@ const ExpiryCalendar = () => {
   };
 
   const getDaysColor = (days: number) => {
-    if (days <= 7) return 'text-red-600 bg-red-100';
-    if (days <= 15) return 'text-orange-600 bg-orange-100';
-    return 'text-yellow-600 bg-yellow-100';
+    if (days <= 7) return 'text-gray-800 bg-gray-200';
+    if (days <= 15) return 'text-gray-700 bg-gray-100';
+    return 'text-gray-600 bg-gray-50';
   };
 
   return (
-    <Card className="p-6">
+    <Card className="p-6 bg-white border border-gray-200">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-gray-900 flex items-center">
-          <Calendar className="h-5 w-5 text-purple-600 mr-2" />
+          <Calendar className="h-5 w-5 text-gray-600 mr-2" />
           Calendario de Vencimientos
         </h3>
         <div className="flex items-center space-x-2">
@@ -59,7 +59,7 @@ const ExpiryCalendar = () => {
 
       <div className="space-y-3 max-h-64 overflow-y-auto">
         {expiryData[selectedPeriod as keyof typeof expiryData].map((item, index) => (
-          <Card key={index} className="p-3 hover:shadow-sm transition-shadow">
+          <Card key={index} className="p-3 bg-white border border-gray-200 hover:shadow-sm transition-shadow">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <div className={`p-2 rounded-lg ${getDaysColor(item.daysLeft)}`}>
@@ -91,7 +91,7 @@ const ExpiryCalendar = () => {
         ))}
       </div>
 
-      <div className="mt-4 pt-3 border-t">
+      <div className="mt-4 pt-3 border-t border-gray-200">
         <div className="flex justify-between text-sm text-gray-600">
           <span>Total productos por vencer:</span>
           <span className="font-medium">
