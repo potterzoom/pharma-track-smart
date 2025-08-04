@@ -38,7 +38,7 @@ const BranchOverview = ({
                   <p className="text-sm text-gray-600">{branch.code}</p>
                 </div>
               </div>
-              <Badge variant={branch.isActive ? "default" : "secondary"}>
+              <Badge variant={branch.isActive ? "default" : "secondary"} className="bg-gray-400">
                 {branch.isActive ? "Activa" : "Inactiva"}
               </Badge>
             </div>
