@@ -87,7 +87,7 @@ const Dashboard = () => {
         {metrics.map((metric, index) => {
           const IconComponent = metric.icon;
           return (
-            <Card key={index} className="dashboard-card">
+            <Card key={index} className="dashboard-card bg-white border-gray-200">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600">{metric.title}</p>
@@ -100,8 +100,8 @@ const Dashboard = () => {
                     </span>
                   </div>
                 </div>
-                <div className={`p-3 rounded-lg ${metric.color} bg-opacity-10`}>
-                  <IconComponent className={`h-6 w-6 ${metric.color.replace('bg-', 'text-')}`} />
+                <div className="p-3 rounded-lg bg-gray-100">
+                  <IconComponent className="h-6 w-6 text-gray-600" />
                 </div>
               </div>
             </Card>
@@ -119,7 +119,7 @@ const Dashboard = () => {
       <ABCRotationChart />
 
       {/* Branch Status */}
-      <Card className="dashboard-card p-6">
+      <Card className="dashboard-card p-6 bg-white border-gray-200">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-gray-900 flex items-center">
             <Building2 className="h-5 w-5 text-gray-600 mr-2" />
@@ -136,10 +136,7 @@ const Dashboard = () => {
               </div>
               <Progress 
                 value={branch.stock} 
-                className={`h-2 ${
-                  branch.stock < 70 ? 'text-gray-700' : 
-                  branch.stock < 85 ? 'text-gray-600' : 'text-gray-800'
-                }`}
+                className="h-2 bg-gray-200"
               />
             </div>
           ))}

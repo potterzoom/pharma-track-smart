@@ -47,9 +47,9 @@ const CriticalAlertsWidget = () => {
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'critical': return 'bg-gray-200 border-gray-500 text-gray-900';
-      case 'high': return 'bg-gray-100 border-gray-400 text-gray-800';
-      case 'medium': return 'bg-gray-50 border-gray-300 text-gray-700';
+      case 'critical': return 'bg-gray-100 border-gray-500 text-gray-900';
+      case 'high': return 'bg-gray-50 border-gray-400 text-gray-800';
+      case 'medium': return 'bg-white border-gray-300 text-gray-700';
       default: return 'bg-white border-gray-200 text-gray-600';
     }
   };
@@ -75,7 +75,7 @@ const CriticalAlertsWidget = () => {
         key={`${alertId}-${action}`}
         size="sm"
         variant={config.color as any}
-        className="flex items-center text-xs"
+        className="flex items-center text-xs border-gray-300 text-gray-700 hover:bg-gray-50"
       >
         <IconComponent className="h-3 w-3 mr-1" />
         {config.label}
@@ -84,7 +84,7 @@ const CriticalAlertsWidget = () => {
   };
 
   return (
-    <Card className="p-6 bg-white border border-gray-200">
+    <Card className="p-6 bg-white border-gray-200">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-gray-900 flex items-center">
           <AlertTriangle className="h-5 w-5 text-gray-600 mr-2" />
@@ -99,7 +99,7 @@ const CriticalAlertsWidget = () => {
         {criticalAlerts.map((alert) => (
           <Card 
             key={alert.id} 
-            className={`p-3 border-l-4 bg-white ${getSeverityColor(alert.severity)}`}
+            className={`p-3 border-l-4 ${getSeverityColor(alert.severity)}`}
           >
             <div className="space-y-2">
               <div className="flex items-start justify-between">

@@ -27,13 +27,13 @@ const ExpiryCalendar = () => {
   };
 
   const getDaysColor = (days: number) => {
-    if (days <= 7) return 'text-gray-800 bg-gray-200';
-    if (days <= 15) return 'text-gray-700 bg-gray-100';
-    return 'text-gray-600 bg-gray-50';
+    if (days <= 7) return 'text-gray-900 bg-gray-200';
+    if (days <= 15) return 'text-gray-800 bg-gray-100';
+    return 'text-gray-700 bg-gray-50';
   };
 
   return (
-    <Card className="p-6 bg-white border border-gray-200">
+    <Card className="p-6 bg-white border-gray-200">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-gray-900 flex items-center">
           <Calendar className="h-5 w-5 text-gray-600 mr-2" />
@@ -48,7 +48,9 @@ const ExpiryCalendar = () => {
                 size="sm"
                 variant={selectedPeriod === period ? 'default' : 'outline'}
                 onClick={() => setSelectedPeriod(period)}
-                className="text-xs"
+                className={selectedPeriod === period 
+                  ? 'text-xs bg-gray-800 text-white hover:bg-gray-900' 
+                  : 'text-xs border-gray-300 text-gray-700 hover:bg-gray-50'}
               >
                 {period} días
               </Button>
