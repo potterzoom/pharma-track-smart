@@ -118,7 +118,7 @@ const SystemSettings = () => {
     })}
 
       {/* Save Actions */}
-      <Card className="p-6">
+      <Card className="p-6 bg-neutral-50">
         <div className="flex items-center justify-between">
           <div>
             <h3 className="text-lg font-semibold text-gray-900">Acciones del Sistema</h3>
