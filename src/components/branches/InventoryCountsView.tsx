@@ -45,7 +45,7 @@ const InventoryCountsView = ({ branches, inventoryCounts }: InventoryCountsViewP
     switch (status) {
       case 'completed': return 'bg-green-100 text-green-800';
       case 'in_progress': return 'bg-blue-100 text-blue-800';
-      case 'pending': return 'bg-yellow-100 text-yellow-800';
+      case 'pending': return 'bg-gray-100 text-gray-800';
       case 'cancelled': return 'bg-red-100 text-red-800';
       default: return 'bg-gray-100 text-gray-800';
     }
@@ -169,7 +169,7 @@ const InventoryCountsView = ({ branches, inventoryCounts }: InventoryCountsViewP
       {/* Summary Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card className="p-4 text-center">
-          <ClipboardCheck className="h-6 w-6 text-yellow-600 mx-auto mb-2" />
+          <ClipboardCheck className="h-6 w-6 text-gray-600 mx-auto mb-2" />
           <div className="text-2xl font-bold text-gray-900">
             {displayCounts.filter(c => c.status === 'pending').length}
           </div>
