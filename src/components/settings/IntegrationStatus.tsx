@@ -92,8 +92,8 @@ const IntegrationStatus = () => {
           return (
             <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
               <div className="flex items-center space-x-3">
-                <div className={`p-2 bg-${integration.color}-100 rounded-lg`}>
-                  <IconComponent className={`h-5 w-5 text-${integration.color}-600`} />
+                <div className="p-2 bg-gray-100 rounded-lg">
+                  <IconComponent className="h-5 w-5 text-gray-600" />
                 </div>
                 <div>
                   <div className="flex items-center space-x-2">

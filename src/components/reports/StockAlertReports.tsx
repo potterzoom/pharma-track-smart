@@ -40,7 +40,7 @@ const StockAlertReports = () => {
     <div className="space-y-6">
       <Card className="p-6">
         <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-          <AlertTriangle className="h-5 w-5 text-orange-600 mr-2" />
+          <AlertTriangle className="h-5 w-5 text-gray-600 mr-2" />
           Reportes de Alertas de Stock
         </h3>
         
@@ -49,7 +49,7 @@ const StockAlertReports = () => {
             const IconComponent = report.icon;
             const severityColors = {
               critical: 'bg-red-100 text-red-600',
-              warning: 'bg-yellow-100 text-yellow-600',
+              warning: 'bg-gray-100 text-gray-600',
               info: 'bg-blue-100 text-blue-600'
             };
             

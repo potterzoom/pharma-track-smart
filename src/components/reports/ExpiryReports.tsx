@@ -39,7 +39,7 @@ const ExpiryReports = () => {
             const IconComponent = report.icon;
             const urgencyColors = {
               high: 'bg-red-100 text-red-600 border-red-200',
-              medium: 'bg-yellow-100 text-yellow-600 border-yellow-200',
+              medium: 'bg-gray-100 text-gray-600 border-gray-200',
               low: 'bg-gray-100 text-gray-600 border-gray-200'
             };
             

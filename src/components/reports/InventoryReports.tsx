@@ -81,7 +81,7 @@ const InventoryReports = () => {
       case 'completed':
         return <Badge variant="default" className="bg-green-100 text-green-800">Completado</Badge>;
       case 'generating':
-        return <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">Generando</Badge>;
+        return <Badge variant="secondary" className="bg-gray-100 text-gray-800">Generando</Badge>;
       case 'failed':
         return <Badge variant="destructive">Error</Badge>;
       default:
