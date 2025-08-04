@@ -1,47 +1,38 @@
-
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Building2, Package, AlertTriangle, TrendingUp } from 'lucide-react';
-
 const RealTimeMetrics = () => {
-  const branchMetrics = [
-    {
-      name: 'Centro',
-      totalProducts: 324,
-      lowStock: 12,
-      expiring: 8,
-      sales: 156000,
-      status: 'active'
-    },
-    {
-      name: 'Norte',
-      totalProducts: 298,
-      lowStock: 18,
-      expiring: 5,
-      sales: 142000,
-      status: 'active'
-    },
-    {
-      name: 'Sur',
-      totalProducts: 276,
-      lowStock: 9,
-      expiring: 12,
-      sales: 134000,
-      status: 'active'
-    },
-    {
-      name: 'Este',
-      totalProducts: 312,
-      lowStock: 15,
-      expiring: 7,
-      sales: 148000,
-      status: 'maintenance'
-    }
-  ];
-
-  return (
-    <Card className="p-6 bg-white">
+  const branchMetrics = [{
+    name: 'Centro',
+    totalProducts: 324,
+    lowStock: 12,
+    expiring: 8,
+    sales: 156000,
+    status: 'active'
+  }, {
+    name: 'Norte',
+    totalProducts: 298,
+    lowStock: 18,
+    expiring: 5,
+    sales: 142000,
+    status: 'active'
+  }, {
+    name: 'Sur',
+    totalProducts: 276,
+    lowStock: 9,
+    expiring: 12,
+    sales: 134000,
+    status: 'active'
+  }, {
+    name: 'Este',
+    totalProducts: 312,
+    lowStock: 15,
+    expiring: 7,
+    sales: 148000,
+    status: 'maintenance'
+  }];
+  return <Card className="p-6 bg-white rounded-none">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-gray-900 flex items-center">
           <Building2 className="h-5 w-5 text-gray-600 mr-2" />
@@ -54,11 +45,10 @@ const RealTimeMetrics = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {branchMetrics.map((branch, index) => (
-          <Card key={index} className="p-4 bg-gray-50 border border-gray-200">
+        {branchMetrics.map((branch, index) => <Card key={index} className="p-4 bg-gray-50 border border-gray-200">
             <div className="flex items-center justify-between mb-3">
               <h4 className="font-medium text-gray-900">{branch.name}</h4>
-              <Badge variant={branch.status === 'active' ? 'default' : 'secondary'}>
+              <Badge variant={branch.status === 'active' ? 'default' : 'secondary'} className="bg-slate-800">
                 {branch.status === 'active' ? 'Activa' : 'Mantenimiento'}
               </Badge>
             </div>
@@ -98,11 +88,8 @@ const RealTimeMetrics = () => {
                 </span>
               </div>
             </div>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </Card>
-  );
+    </Card>;
 };
-
 export default RealTimeMetrics;
