@@ -1,37 +1,70 @@
-
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { DollarSign, TrendingUp, Calendar, PieChart, BarChart3, FileText } from 'lucide-react';
-
 const Financial = () => {
   const [selectedPeriod, setSelectedPeriod] = useState('month');
-
-  const financialMetrics = [
-    { title: "Ingresos Totales", value: "$342,580", change: "+18%", icon: DollarSign },
-    { title: "Costos de Inventario", value: "$198,240", change: "+12%", icon: PieChart },
-    { title: "Margen Bruto", value: "42.1%", change: "+2.3%", icon: TrendingUp },
-    { title: "ROI Mensual", value: "28.4%", change: "+5.1%", icon: BarChart3 }
-  ];
-
-  const expenseCategories = [
-    { name: 'Costo de Productos', amount: 198240, percentage: 58 },
-    { name: 'Gastos Operativos', amount: 45600, percentage: 13 },
-    { name: 'Personal', amount: 68400, percentage: 20 },
-    { name: 'Marketing', amount: 18200, percentage: 5 },
-    { name: 'Otros', amount: 12140, percentage: 4 }
-  ];
-
-  const profitByBranch = [
-    { name: 'Centro', profit: 89600, margin: 45 },
-    { name: 'Norte', profit: 78200, margin: 42 },
-    { name: 'Sur', profit: 65400, margin: 38 },
-    { name: 'Este', profit: 52800, margin: 35 }
-  ];
-
-  return (
-    <div className="space-y-6">
+  const financialMetrics = [{
+    title: "Ingresos Totales",
+    value: "$342,580",
+    change: "+18%",
+    icon: DollarSign
+  }, {
+    title: "Costos de Inventario",
+    value: "$198,240",
+    change: "+12%",
+    icon: PieChart
+  }, {
+    title: "Margen Bruto",
+    value: "42.1%",
+    change: "+2.3%",
+    icon: TrendingUp
+  }, {
+    title: "ROI Mensual",
+    value: "28.4%",
+    change: "+5.1%",
+    icon: BarChart3
+  }];
+  const expenseCategories = [{
+    name: 'Costo de Productos',
+    amount: 198240,
+    percentage: 58
+  }, {
+    name: 'Gastos Operativos',
+    amount: 45600,
+    percentage: 13
+  }, {
+    name: 'Personal',
+    amount: 68400,
+    percentage: 20
+  }, {
+    name: 'Marketing',
+    amount: 18200,
+    percentage: 5
+  }, {
+    name: 'Otros',
+    amount: 12140,
+    percentage: 4
+  }];
+  const profitByBranch = [{
+    name: 'Centro',
+    profit: 89600,
+    margin: 45
+  }, {
+    name: 'Norte',
+    profit: 78200,
+    margin: 42
+  }, {
+    name: 'Sur',
+    profit: 65400,
+    margin: 38
+  }, {
+    name: 'Este',
+    profit: 52800,
+    margin: 35
+  }];
+  return <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 flex items-center">
@@ -51,9 +84,8 @@ const Financial = () => {
       {/* Financial Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {financialMetrics.map((metric, index) => {
-          const IconComponent = metric.icon;
-          return (
-            <Card key={index} className="p-6 bg-white border border-gray-200">
+        const IconComponent = metric.icon;
+        return <Card key={index} className="p-6 bg-white border border-gray-200">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600">{metric.title}</p>
@@ -68,9 +100,8 @@ const Financial = () => {
                   <IconComponent className="h-6 w-6 text-gray-600" />
                 </div>
               </div>
-            </Card>
-          );
-        })}
+            </Card>;
+      })}
       </div>
 
       {/* Period Filter */}
@@ -81,17 +112,9 @@ const Financial = () => {
             Análisis Financiero
           </h3>
           <div className="flex space-x-1">
-            {['week', 'month', 'quarter'].map(period => (
-              <Button
-                key={period}
-                size="sm"
-                variant={selectedPeriod === period ? 'default' : 'outline'}
-                onClick={() => setSelectedPeriod(period)}
-                className="text-xs"
-              >
+            {['week', 'month', 'quarter'].map(period => <Button key={period} size="sm" variant={selectedPeriod === period ? 'default' : 'outline'} onClick={() => setSelectedPeriod(period)} className="text-xs">
                 {period === 'week' ? 'Semana' : period === 'month' ? 'Mes' : 'Trimestre'}
-              </Button>
-            ))}
+              </Button>)}
           </div>
         </div>
 
@@ -103,8 +126,7 @@ const Financial = () => {
               Distribución de Gastos
             </h4>
             <div className="space-y-3">
-              {expenseCategories.map((category, index) => (
-                <div key={index} className="space-y-2">
+              {expenseCategories.map((category, index) => <div key={index} className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="font-medium text-gray-900">{category.name}</span>
                     <span className="text-sm text-gray-600">
@@ -112,13 +134,11 @@ const Financial = () => {
                     </span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div 
-                      className="bg-gray-600 h-2 rounded-full" 
-                      style={{ width: `${category.percentage}%` }}
-                    ></div>
+                    <div className="bg-gray-600 h-2 rounded-full" style={{
+                  width: `${category.percentage}%`
+                }}></div>
                   </div>
-                </div>
-              ))}
+                </div>)}
             </div>
           </div>
 
@@ -129,8 +149,7 @@ const Financial = () => {
               Rentabilidad por Sucursal
             </h4>
             <div className="space-y-3">
-              {profitByBranch.map((branch, index) => (
-                <Card key={index} className="p-3 bg-gray-50 border border-gray-200">
+              {profitByBranch.map((branch, index) => <Card key={index} className="p-3 bg-gray-50 border border-gray-200">
                   <div className="flex items-center justify-between">
                     <div>
                       <h5 className="font-medium text-gray-900">{branch.name}</h5>
@@ -144,8 +163,7 @@ const Financial = () => {
                       </div>
                     </div>
                   </div>
-                </Card>
-              ))}
+                </Card>)}
             </div>
           </div>
         </div>
@@ -158,17 +176,33 @@ const Financial = () => {
           Reportes Financieros
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {[
-            { name: 'Estado de Resultados', description: 'P&L mensual detallado', icon: BarChart3 },
-            { name: 'Flujo de Caja', description: 'Análisis de liquidez', icon: TrendingUp },
-            { name: 'Balance General', description: 'Situación financiera', icon: DollarSign },
-            { name: 'Costos por Producto', description: 'Análisis de márgenes', icon: PieChart },
-            { name: 'ROI por Sucursal', description: 'Rentabilidad por ubicación', icon: BarChart3 },
-            { name: 'Presupuesto vs Real', description: 'Comparación financiera', icon: FileText }
-          ].map((report, index) => {
-            const IconComponent = report.icon;
-            return (
-              <Card key={index} className="p-4 bg-gray-50 border border-gray-200 hover:shadow-md transition-shadow">
+          {[{
+          name: 'Estado de Resultados',
+          description: 'P&L mensual detallado',
+          icon: BarChart3
+        }, {
+          name: 'Flujo de Caja',
+          description: 'Análisis de liquidez',
+          icon: TrendingUp
+        }, {
+          name: 'Balance General',
+          description: 'Situación financiera',
+          icon: DollarSign
+        }, {
+          name: 'Costos por Producto',
+          description: 'Análisis de márgenes',
+          icon: PieChart
+        }, {
+          name: 'ROI por Sucursal',
+          description: 'Rentabilidad por ubicación',
+          icon: BarChart3
+        }, {
+          name: 'Presupuesto vs Real',
+          description: 'Comparación financiera',
+          icon: FileText
+        }].map((report, index) => {
+          const IconComponent = report.icon;
+          return <Card key={index} className="p-4 bg-gray-50 border border-gray-200 hover:shadow-md transition-shadow">
                 <div className="flex items-start space-x-3">
                   <div className="p-2 bg-gray-100 rounded-lg">
                     <IconComponent className="h-4 w-4 text-gray-600" />
@@ -176,18 +210,15 @@ const Financial = () => {
                   <div className="flex-1">
                     <h4 className="font-medium text-gray-900">{report.name}</h4>
                     <p className="text-sm text-gray-600 mt-1">{report.description}</p>
-                    <Button size="sm" variant="outline" className="mt-2">
+                    <Button size="sm" variant="outline" className="mt-2 bg-zinc-400 hover:bg-zinc-300 text-base">
                       Generar
                     </Button>
                   </div>
                 </div>
-              </Card>
-            );
-          })}
+              </Card>;
+        })}
         </div>
       </Card>
-    </div>
-  );
+    </div>;
 };
-
 export default Financial;
