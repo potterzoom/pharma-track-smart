@@ -184,7 +184,7 @@ const LocalIntegrations = () => {
       </Card>
 
       {/* MSP Integration */}
-      <Card className="p-6">
+      <Card className="p-6 bg-neutral-50">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-blue-100 rounded-lg">
@@ -258,7 +258,7 @@ const LocalIntegrations = () => {
       </Card>
 
       {/* IoT Integration */}
-      <Card className="p-6">
+      <Card className="p-6 bg-neutral-50">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-green-100 rounded-lg">
@@ -338,7 +338,7 @@ const LocalIntegrations = () => {
       </Card>
 
       {/* Blockchain Integration */}
-      <Card className="p-6">
+      <Card className="p-6 bg-neutral-50">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-purple-100 rounded-lg">
