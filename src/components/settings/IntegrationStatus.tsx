@@ -1,57 +1,39 @@
-
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { 
-  Shield, 
-  Hospital, 
-  AlertCircle, 
-  CheckCircle2, 
-  Clock,
-  RefreshCw,
-  Settings,
-  Thermometer,
-  Database
-} from 'lucide-react';
-
+import { Shield, Hospital, AlertCircle, CheckCircle2, Clock, RefreshCw, Settings, Thermometer, Database } from 'lucide-react';
 const IntegrationStatus = () => {
-  const criticalIntegrations = [
-    {
-      name: 'ARCSA',
-      description: 'Registros Sanitarios',
-      status: 'error',
-      lastSync: '2024-06-01 09:30',
-      error: 'Token expirado',
-      icon: Shield,
-      color: 'red'
-    },
-    {
-      name: 'MSP',
-      description: 'Hospitales Públicos', 
-      status: 'active',
-      lastSync: '2024-06-01 10:15',
-      icon: Hospital,
-      color: 'blue'
-    },
-    {
-      name: 'IoT Sensores',
-      description: 'Cadena de Frío Local',
-      status: 'inactive',
-      lastSync: 'Nunca',
-      icon: Thermometer,
-      color: 'green'
-    },
-    {
-      name: 'Blockchain',
-      description: 'Hyperledger Fabric',
-      status: 'inactive',
-      lastSync: 'Nunca',
-      icon: Database,
-      color: 'purple'
-    }
-  ];
-
+  const criticalIntegrations = [{
+    name: 'ARCSA',
+    description: 'Registros Sanitarios',
+    status: 'error',
+    lastSync: '2024-06-01 09:30',
+    error: 'Token expirado',
+    icon: Shield,
+    color: 'red'
+  }, {
+    name: 'MSP',
+    description: 'Hospitales Públicos',
+    status: 'active',
+    lastSync: '2024-06-01 10:15',
+    icon: Hospital,
+    color: 'blue'
+  }, {
+    name: 'IoT Sensores',
+    description: 'Cadena de Frío Local',
+    status: 'inactive',
+    lastSync: 'Nunca',
+    icon: Thermometer,
+    color: 'green'
+  }, {
+    name: 'Blockchain',
+    description: 'Hyperledger Fabric',
+    status: 'inactive',
+    lastSync: 'Nunca',
+    icon: Database,
+    color: 'purple'
+  }];
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'active':
@@ -62,7 +44,6 @@ const IntegrationStatus = () => {
         return <Clock className="h-4 w-4 text-gray-600" />;
     }
   };
-
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'active':
@@ -73,9 +54,7 @@ const IntegrationStatus = () => {
         return <Badge variant="secondary">Inactivo</Badge>;
     }
   };
-
-  return (
-    <Card className="p-6">
+  return <Card className="p-6 bg-neutral-50">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-gray-900">
           Estado de Integraciones Críticas
@@ -88,9 +67,8 @@ const IntegrationStatus = () => {
 
       <div className="space-y-4">
         {criticalIntegrations.map((integration, index) => {
-          const IconComponent = integration.icon;
-          return (
-            <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
+        const IconComponent = integration.icon;
+        return <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
               <div className="flex items-center space-x-3">
                 <div className="p-2 bg-gray-100 rounded-lg">
                   <IconComponent className="h-5 w-5 text-gray-600" />
@@ -104,11 +82,9 @@ const IntegrationStatus = () => {
                   <div className="text-xs text-gray-500">
                     Última sync: {integration.lastSync}
                   </div>
-                  {integration.error && (
-                    <div className="text-xs text-red-600 mt-1">
+                  {integration.error && <div className="text-xs text-red-600 mt-1">
                       Error: {integration.error}
-                    </div>
-                  )}
+                    </div>}
                 </div>
               </div>
               <div className="flex items-center space-x-2">
@@ -117,12 +93,9 @@ const IntegrationStatus = () => {
                   <Settings className="h-4 w-4" />
                 </Button>
               </div>
-            </div>
-          );
-        })}
+            </div>;
+      })}
       </div>
-    </Card>
-  );
+    </Card>;
 };
-
 export default IntegrationStatus;

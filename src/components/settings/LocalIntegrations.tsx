@@ -5,22 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { 
-  Shield, 
-  Hospital, 
-  AlertTriangle, 
-  CheckCircle, 
-  Settings, 
-  Key,
-  Globe,
-  Clock,
-  Thermometer,
-  Wifi,
-  MessageSquare,
-  Database,
-  Link
-} from 'lucide-react';
-
+import { Shield, Hospital, AlertTriangle, CheckCircle, Settings, Key, Globe, Clock, Thermometer, Wifi, MessageSquare, Database, Link } from 'lucide-react';
 const LocalIntegrations = () => {
   const [arcsaConfig, setArcsaConfig] = useState({
     apiKey: '',
@@ -28,14 +13,12 @@ const LocalIntegrations = () => {
     certificateValidation: true,
     status: 'inactive' as const
   });
-
   const [mspConfig, setMspConfig] = useState({
     apiKey: '',
     monitoringLevel: 'basic' as 'basic' | 'advanced',
     emergencyAlerts: true,
     status: 'inactive' as const
   });
-
   const [iotConfig, setIotConfig] = useState({
     providerName: 'TecnoEcuador',
     deviceCount: 0,
@@ -48,7 +31,6 @@ const LocalIntegrations = () => {
     alertChannels: ['whatsapp', 'sms'] as string[],
     status: 'inactive' as const
   });
-
   const [blockchainConfig, setBlockchainConfig] = useState({
     network: 'hyperledger' as const,
     nodeUrl: '',
@@ -58,109 +40,80 @@ const LocalIntegrations = () => {
     criticalLotThreshold: 1000000,
     status: 'inactive' as const
   });
-
-  const arcsaFeatures = [
-    {
-      name: 'Validación de Registros Sanitarios',
-      description: 'Verificación automática contra base ARCSA',
-      enabled: true
-    },
-    {
-      name: 'Alertas de Medicamentos Falsificados',
-      description: 'Notificaciones en tiempo real de productos comprometidos',
-      enabled: true
-    },
-    {
-      name: 'Verificación de Farmacias Autorizadas',
-      description: 'Validación de establecimientos habilitados',
-      enabled: false
-    }
-  ];
-
-  const mspFeatures = [
-    {
-      name: 'Monitoreo de Medicamentos',
-      description: 'Seguimiento de inventarios en centros de salud',
-      enabled: true
-    },
-    {
-      name: 'Reportes de Stock',
-      description: 'Sincronización de existencias con MSP',
-      enabled: true
-    },
-    {
-      name: 'Alertas de Emergencia',
-      description: 'Notificaciones críticas para hospitales públicos',
-      enabled: false
-    }
-  ];
-
-  const iotFeatures = [
-    {
-      name: 'Monitoreo de Temperatura',
-      description: 'Sensores locales para cadena de frío',
-      enabled: true
-    },
-    {
-      name: 'Alertas por WhatsApp/SMS',
-      description: 'Notificaciones vía CNT API',
-      enabled: true
-    },
-    {
-      name: 'Dashboard de Sensores',
-      description: 'Visualización en tiempo real',
-      enabled: false
-    }
-  ];
-
-  const blockchainFeatures = [
-    {
-      name: 'Trazabilidad de Lotes',
-      description: 'Registro inmutable en Hyperledger Fabric',
-      enabled: true
-    },
-    {
-      name: 'NFT para Lotes Críticos',
-      description: 'Tokenización de medicamentos de alto valor',
-      enabled: true
-    },
-    {
-      name: 'Contratos Inteligentes',
-      description: 'Automatización de distribución',
-      enabled: false
-    }
-  ];
-
+  const arcsaFeatures = [{
+    name: 'Validación de Registros Sanitarios',
+    description: 'Verificación automática contra base ARCSA',
+    enabled: true
+  }, {
+    name: 'Alertas de Medicamentos Falsificados',
+    description: 'Notificaciones en tiempo real de productos comprometidos',
+    enabled: true
+  }, {
+    name: 'Verificación de Farmacias Autorizadas',
+    description: 'Validación de establecimientos habilitados',
+    enabled: false
+  }];
+  const mspFeatures = [{
+    name: 'Monitoreo de Medicamentos',
+    description: 'Seguimiento de inventarios en centros de salud',
+    enabled: true
+  }, {
+    name: 'Reportes de Stock',
+    description: 'Sincronización de existencias con MSP',
+    enabled: true
+  }, {
+    name: 'Alertas de Emergencia',
+    description: 'Notificaciones críticas para hospitales públicos',
+    enabled: false
+  }];
+  const iotFeatures = [{
+    name: 'Monitoreo de Temperatura',
+    description: 'Sensores locales para cadena de frío',
+    enabled: true
+  }, {
+    name: 'Alertas por WhatsApp/SMS',
+    description: 'Notificaciones vía CNT API',
+    enabled: true
+  }, {
+    name: 'Dashboard de Sensores',
+    description: 'Visualización en tiempo real',
+    enabled: false
+  }];
+  const blockchainFeatures = [{
+    name: 'Trazabilidad de Lotes',
+    description: 'Registro inmutable en Hyperledger Fabric',
+    enabled: true
+  }, {
+    name: 'NFT para Lotes Críticos',
+    description: 'Tokenización de medicamentos de alto valor',
+    enabled: true
+  }, {
+    name: 'Contratos Inteligentes',
+    description: 'Automatización de distribución',
+    enabled: false
+  }];
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'active':
-        return (
-          <Badge className="bg-green-100 text-green-800">
+        return <Badge className="bg-green-100 text-green-800">
             <CheckCircle className="h-3 w-3 mr-1" />
             Conectado
-          </Badge>
-        );
+          </Badge>;
       case 'error':
-        return (
-          <Badge variant="destructive">
+        return <Badge variant="destructive">
             <AlertTriangle className="h-3 w-3 mr-1" />
             Error
-          </Badge>
-        );
+          </Badge>;
       default:
-        return (
-          <Badge variant="secondary">
+        return <Badge variant="secondary">
             <Clock className="h-3 w-3 mr-1" />
             Desconectado
-          </Badge>
-        );
+          </Badge>;
     }
   };
-
-  return (
-    <div className="space-y-6">
+  return <div className="space-y-6">
       {/* ARCSA Integration */}
-      <Card className="p-6">
+      <Card className="p-6 bg-neutral-50">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-red-100 rounded-lg">
@@ -179,13 +132,10 @@ const LocalIntegrations = () => {
             <div>
               <Label htmlFor="arcsa-api-key">Clave API ARCSA</Label>
               <div className="flex space-x-2">
-                <Input
-                  id="arcsa-api-key"
-                  type="password"
-                  placeholder="Ingresa tu clave API"
-                  value={arcsaConfig.apiKey}
-                  onChange={(e) => setArcsaConfig({...arcsaConfig, apiKey: e.target.value})}
-                />
+                <Input id="arcsa-api-key" type="password" placeholder="Ingresa tu clave API" value={arcsaConfig.apiKey} onChange={e => setArcsaConfig({
+                ...arcsaConfig,
+                apiKey: e.target.value
+              })} />
                 <Button size="sm" variant="outline">
                   <Key className="h-4 w-4" />
                 </Button>
@@ -194,34 +144,30 @@ const LocalIntegrations = () => {
 
             <div className="flex items-center justify-between">
               <Label htmlFor="arcsa-auto-alerts">Alertas Automáticas</Label>
-              <Switch
-                id="arcsa-auto-alerts"
-                checked={arcsaConfig.autoAlerts}
-                onCheckedChange={(checked) => setArcsaConfig({...arcsaConfig, autoAlerts: checked})}
-              />
+              <Switch id="arcsa-auto-alerts" checked={arcsaConfig.autoAlerts} onCheckedChange={checked => setArcsaConfig({
+              ...arcsaConfig,
+              autoAlerts: checked
+            })} />
             </div>
 
             <div className="flex items-center justify-between">
               <Label htmlFor="arcsa-cert-validation">Validación de Certificados</Label>
-              <Switch
-                id="arcsa-cert-validation"
-                checked={arcsaConfig.certificateValidation}
-                onCheckedChange={(checked) => setArcsaConfig({...arcsaConfig, certificateValidation: checked})}
-              />
+              <Switch id="arcsa-cert-validation" checked={arcsaConfig.certificateValidation} onCheckedChange={checked => setArcsaConfig({
+              ...arcsaConfig,
+              certificateValidation: checked
+            })} />
             </div>
           </div>
 
           <div className="space-y-3">
             <h4 className="font-medium text-gray-900">Funcionalidades Disponibles</h4>
-            {arcsaFeatures.map((feature, index) => (
-              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            {arcsaFeatures.map((feature, index) => <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                 <div>
                   <div className="font-medium text-sm">{feature.name}</div>
                   <div className="text-xs text-gray-600">{feature.description}</div>
                 </div>
                 <Switch checked={feature.enabled} />
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
 
@@ -257,13 +203,10 @@ const LocalIntegrations = () => {
             <div>
               <Label htmlFor="msp-api-key">Clave API MSP</Label>
               <div className="flex space-x-2">
-                <Input
-                  id="msp-api-key"
-                  type="password"
-                  placeholder="Ingresa tu clave API"
-                  value={mspConfig.apiKey}
-                  onChange={(e) => setMspConfig({...mspConfig, apiKey: e.target.value})}
-                />
+                <Input id="msp-api-key" type="password" placeholder="Ingresa tu clave API" value={mspConfig.apiKey} onChange={e => setMspConfig({
+                ...mspConfig,
+                apiKey: e.target.value
+              })} />
                 <Button size="sm" variant="outline">
                   <Key className="h-4 w-4" />
                 </Button>
@@ -272,12 +215,10 @@ const LocalIntegrations = () => {
 
             <div>
               <Label htmlFor="msp-monitoring">Nivel de Monitoreo</Label>
-              <select 
-                id="msp-monitoring"
-                className="w-full border border-gray-300 rounded-md px-3 py-2"
-                value={mspConfig.monitoringLevel}
-                onChange={(e) => setMspConfig({...mspConfig, monitoringLevel: e.target.value as 'basic' | 'advanced'})}
-              >
+              <select id="msp-monitoring" className="w-full border border-gray-300 rounded-md px-3 py-2" value={mspConfig.monitoringLevel} onChange={e => setMspConfig({
+              ...mspConfig,
+              monitoringLevel: e.target.value as 'basic' | 'advanced'
+            })}>
                 <option value="basic">Básico</option>
                 <option value="advanced">Avanzado</option>
               </select>
@@ -285,25 +226,22 @@ const LocalIntegrations = () => {
 
             <div className="flex items-center justify-between">
               <Label htmlFor="msp-emergency-alerts">Alertas de Emergencia</Label>
-              <Switch
-                id="msp-emergency-alerts"
-                checked={mspConfig.emergencyAlerts}
-                onCheckedChange={(checked) => setMspConfig({...mspConfig, emergencyAlerts: checked})}
-              />
+              <Switch id="msp-emergency-alerts" checked={mspConfig.emergencyAlerts} onCheckedChange={checked => setMspConfig({
+              ...mspConfig,
+              emergencyAlerts: checked
+            })} />
             </div>
           </div>
 
           <div className="space-y-3">
             <h4 className="font-medium text-gray-900">Servicios MSP</h4>
-            {mspFeatures.map((feature, index) => (
-              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            {mspFeatures.map((feature, index) => <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                 <div>
                   <div className="font-medium text-sm">{feature.name}</div>
                   <div className="text-xs text-gray-600">{feature.description}</div>
                 </div>
                 <Switch checked={feature.enabled} />
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
 
@@ -338,24 +276,19 @@ const LocalIntegrations = () => {
           <div className="space-y-4">
             <div>
               <Label htmlFor="iot-provider">Proveedor Local</Label>
-              <Input
-                id="iot-provider"
-                value={iotConfig.providerName}
-                onChange={(e) => setIotConfig({...iotConfig, providerName: e.target.value})}
-                placeholder="TecnoEcuador"
-              />
+              <Input id="iot-provider" value={iotConfig.providerName} onChange={e => setIotConfig({
+              ...iotConfig,
+              providerName: e.target.value
+            })} placeholder="TecnoEcuador" />
             </div>
 
             <div>
               <Label htmlFor="cnt-api-key">Clave API CNT</Label>
               <div className="flex space-x-2">
-                <Input
-                  id="cnt-api-key"
-                  type="password"
-                  placeholder="API para SMS/WhatsApp"
-                  value={iotConfig.cntApiKey}
-                  onChange={(e) => setIotConfig({...iotConfig, cntApiKey: e.target.value})}
-                />
+                <Input id="cnt-api-key" type="password" placeholder="API para SMS/WhatsApp" value={iotConfig.cntApiKey} onChange={e => setIotConfig({
+                ...iotConfig,
+                cntApiKey: e.target.value
+              })} />
                 <Button size="sm" variant="outline">
                   <MessageSquare className="h-4 w-4" />
                 </Button>
@@ -365,36 +298,30 @@ const LocalIntegrations = () => {
             <div className="grid grid-cols-2 gap-2">
               <div>
                 <Label htmlFor="temp-min">Temp. Mín (°C)</Label>
-                <Input
-                  id="temp-min"
-                  type="number"
-                  value={iotConfig.temperatureMin}
-                  onChange={(e) => setIotConfig({...iotConfig, temperatureMin: parseInt(e.target.value)})}
-                />
+                <Input id="temp-min" type="number" value={iotConfig.temperatureMin} onChange={e => setIotConfig({
+                ...iotConfig,
+                temperatureMin: parseInt(e.target.value)
+              })} />
               </div>
               <div>
                 <Label htmlFor="temp-max">Temp. Máx (°C)</Label>
-                <Input
-                  id="temp-max"
-                  type="number"
-                  value={iotConfig.temperatureMax}
-                  onChange={(e) => setIotConfig({...iotConfig, temperatureMax: parseInt(e.target.value)})}
-                />
+                <Input id="temp-max" type="number" value={iotConfig.temperatureMax} onChange={e => setIotConfig({
+                ...iotConfig,
+                temperatureMax: parseInt(e.target.value)
+              })} />
               </div>
             </div>
           </div>
 
           <div className="space-y-3">
             <h4 className="font-medium text-gray-900">Funcionalidades IoT</h4>
-            {iotFeatures.map((feature, index) => (
-              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            {iotFeatures.map((feature, index) => <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                 <div>
                   <div className="font-medium text-sm">{feature.name}</div>
                   <div className="text-xs text-gray-600">{feature.description}</div>
                 </div>
                 <Switch checked={feature.enabled} />
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
 
@@ -429,54 +356,46 @@ const LocalIntegrations = () => {
           <div className="space-y-4">
             <div>
               <Label htmlFor="fabric-node">URL del Nodo Fabric</Label>
-              <Input
-                id="fabric-node"
-                placeholder="https://peer0.org1.example.com:7051"
-                value={blockchainConfig.nodeUrl}
-                onChange={(e) => setBlockchainConfig({...blockchainConfig, nodeUrl: e.target.value})}
-              />
+              <Input id="fabric-node" placeholder="https://peer0.org1.example.com:7051" value={blockchainConfig.nodeUrl} onChange={e => setBlockchainConfig({
+              ...blockchainConfig,
+              nodeUrl: e.target.value
+            })} />
             </div>
 
             <div>
               <Label htmlFor="fabric-channel">Canal Fabric</Label>
-              <Input
-                id="fabric-channel"
-                value={blockchainConfig.fabricChannel}
-                onChange={(e) => setBlockchainConfig({...blockchainConfig, fabricChannel: e.target.value})}
-              />
+              <Input id="fabric-channel" value={blockchainConfig.fabricChannel} onChange={e => setBlockchainConfig({
+              ...blockchainConfig,
+              fabricChannel: e.target.value
+            })} />
             </div>
 
             <div>
               <Label htmlFor="critical-threshold">Umbral Lotes Críticos ($)</Label>
-              <Input
-                id="critical-threshold"
-                type="number"
-                value={blockchainConfig.criticalLotThreshold}
-                onChange={(e) => setBlockchainConfig({...blockchainConfig, criticalLotThreshold: parseInt(e.target.value)})}
-              />
+              <Input id="critical-threshold" type="number" value={blockchainConfig.criticalLotThreshold} onChange={e => setBlockchainConfig({
+              ...blockchainConfig,
+              criticalLotThreshold: parseInt(e.target.value)
+            })} />
             </div>
 
             <div className="flex items-center justify-between">
               <Label htmlFor="nft-enabled">Habilitar NFT</Label>
-              <Switch
-                id="nft-enabled"
-                checked={blockchainConfig.nftEnabled}
-                onCheckedChange={(checked) => setBlockchainConfig({...blockchainConfig, nftEnabled: checked})}
-              />
+              <Switch id="nft-enabled" checked={blockchainConfig.nftEnabled} onCheckedChange={checked => setBlockchainConfig({
+              ...blockchainConfig,
+              nftEnabled: checked
+            })} />
             </div>
           </div>
 
           <div className="space-y-3">
             <h4 className="font-medium text-gray-900">Funcionalidades Blockchain</h4>
-            {blockchainFeatures.map((feature, index) => (
-              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            {blockchainFeatures.map((feature, index) => <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                 <div>
                   <div className="font-medium text-sm">{feature.name}</div>
                   <div className="text-xs text-gray-600">{feature.description}</div>
                 </div>
                 <Switch checked={feature.enabled} />
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
 
@@ -511,8 +430,6 @@ const LocalIntegrations = () => {
           </div>
         </div>
       </Card>
-    </div>
-  );
+    </div>;
 };
-
 export default LocalIntegrations;
