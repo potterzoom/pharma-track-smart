@@ -90,7 +90,7 @@ const BranchOverview = ({
                   <Calendar className="h-4 w-4 text-yellow-600 mr-2" />
                   <span className="text-sm font-medium text-yellow-800">Próximo Conteo Cíclico</span>
                 </div>
-                <Badge variant={daysUntilCount <= 7 ? "destructive" : "secondary"}>
+                <Badge variant={daysUntilCount <= 7 ? "destructive" : "secondary"} className="bg-zinc-700">
                   {daysUntilCount} días
                 </Badge>
               </div>
