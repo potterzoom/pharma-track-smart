@@ -1,27 +1,16 @@
-
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { 
-  Building2, 
-  Phone, 
-  MapPin, 
-  User, 
-  Clock, 
-  Calendar,
-  Package,
-  DollarSign,
-  Settings
-} from 'lucide-react';
+import { Building2, Phone, MapPin, User, Clock, Calendar, Package, DollarSign, Settings } from 'lucide-react';
 import { Branch } from '@/types/branches';
-
 interface BranchOverviewProps {
   branches: Branch[];
 }
-
-const BranchOverview = ({ branches }: BranchOverviewProps) => {
+const BranchOverview = ({
+  branches
+}: BranchOverviewProps) => {
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('es-CO', {
       style: 'currency',
@@ -29,20 +18,16 @@ const BranchOverview = ({ branches }: BranchOverviewProps) => {
       minimumFractionDigits: 0
     }).format(amount);
   };
-
   const getDaysUntilCount = (nextDate: string) => {
     const days = Math.ceil((new Date(nextDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
     return days;
   };
+  return <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+      {branches.map(branch => {
+      const daysUntilCount = getDaysUntilCount(branch.nextCyclicalCount);
+      const utilizationPercentage = Math.floor(Math.random() * 30 + 70); // Simulado
 
-  return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-      {branches.map((branch) => {
-        const daysUntilCount = getDaysUntilCount(branch.nextCyclicalCount);
-        const utilizationPercentage = Math.floor(Math.random() * 30 + 70); // Simulado
-
-        return (
-          <Card key={branch.id} className="p-6 hover:shadow-lg transition-shadow">
+      return <Card key={branch.id} className="p-6 hover:shadow-lg transition-shadow bg-neutral-50">
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center space-x-3">
                 <div className="p-2 bg-blue-100 rounded-lg">
@@ -123,13 +108,7 @@ const BranchOverview = ({ branches }: BranchOverviewProps) => {
                 <span className="text-sm font-medium text-gray-700">Utilización de Espacio</span>
                 <span className="text-sm text-gray-600">{utilizationPercentage}%</span>
               </div>
-              <Progress 
-                value={utilizationPercentage} 
-                className={`h-2 ${
-                  utilizationPercentage > 90 ? 'text-red-500' : 
-                  utilizationPercentage > 75 ? 'text-yellow-500' : 'text-green-500'
-                }`}
-              />
+              <Progress value={utilizationPercentage} className={`h-2 ${utilizationPercentage > 90 ? 'text-red-500' : utilizationPercentage > 75 ? 'text-yellow-500' : 'text-green-500'}`} />
             </div>
 
             {/* Actions */}
@@ -142,11 +121,8 @@ const BranchOverview = ({ branches }: BranchOverviewProps) => {
                 Ver Detalles
               </Button>
             </div>
-          </Card>
-        );
-      })}
-    </div>
-  );
+          </Card>;
+    })}
+    </div>;
 };
-
 export default BranchOverview;
