@@ -257,8 +257,8 @@ const Branches = () => {
                 variant="outline" 
                 className={
                   branch.status === 'active' 
-                    ? 'border-gray-300 text-gray-700 bg-gray-50' 
-                    : 'border-gray-400 text-gray-800 bg-gray-100'
+                    ? 'border-gray-300 text-gray-700 bg-white' 
+                    : 'border-gray-400 text-gray-800 bg-gray-50'
                 }
               >
                 {branch.status === 'active' ? 'Activa' : 'Mantenimiento'}

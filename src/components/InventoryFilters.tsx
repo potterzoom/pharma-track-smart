@@ -19,7 +19,7 @@ const InventoryFilters = ({
   setFilterStatus 
 }: InventoryFiltersProps) => {
   return (
-    <Card className="p-4">
+    <Card className="p-4 bg-white border-gray-200">
       <div className="flex flex-col md:flex-row gap-4">
         <div className="flex-1">
           <div className="relative">
@@ -28,7 +28,7 @@ const InventoryFilters = ({
               placeholder="Buscar por nombre, marca o código..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
+              className="pl-10 bg-white border-gray-300"
             />
           </div>
         </div>
@@ -37,6 +37,7 @@ const InventoryFilters = ({
             variant={filterStatus === 'all' ? 'default' : 'outline'}
             onClick={() => setFilterStatus('all')}
             size="sm"
+            className="bg-gray-900 hover:bg-gray-800 text-white border-gray-300"
           >
             Todos
           </Button>
@@ -44,6 +45,7 @@ const InventoryFilters = ({
             variant={filterStatus === 'critical' ? 'destructive' : 'outline'}
             onClick={() => setFilterStatus('critical')}
             size="sm"
+            className="border-gray-300"
           >
             Críticos
           </Button>
@@ -51,6 +53,7 @@ const InventoryFilters = ({
             variant={filterStatus === 'low' ? 'secondary' : 'outline'}
             onClick={() => setFilterStatus('low')}
             size="sm"
+            className="border-gray-300"
           >
             Stock Bajo
           </Button>
@@ -58,6 +61,7 @@ const InventoryFilters = ({
             variant={filterStatus === 'expiring' ? 'secondary' : 'outline'}
             onClick={() => setFilterStatus('expiring')}
             size="sm"
+            className="border-gray-300"
           >
             Por Vencer
           </Button>

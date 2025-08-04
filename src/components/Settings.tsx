@@ -82,14 +82,14 @@ const Settings = () => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-            <SettingsIcon className="h-8 w-8 text-blue-600 mr-3" />
+            <SettingsIcon className="h-8 w-8 text-gray-600 mr-3" />
             Configuración del Sistema
           </h1>
           <p className="text-gray-600 mt-1">Administración y configuración de PharmaTrack</p>
         </div>
         <div className="flex items-center space-x-2">
-          <Badge variant="outline" className="text-green-700 border-green-300">
-            <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+          <Badge variant="outline" className="text-gray-700 border-gray-300 bg-white">
+            <div className="w-2 h-2 bg-gray-500 rounded-full mr-2"></div>
             Sistema Configurado
           </Badge>
         </div>
@@ -102,8 +102,8 @@ const Settings = () => {
           return (
             <Card 
               key={category.id} 
-              className={`p-4 cursor-pointer transition-all hover:shadow-md ${
-                activeTab === category.id ? 'ring-2 ring-blue-500 bg-blue-50' : ''
+              className={`p-4 cursor-pointer transition-all hover:shadow-md bg-white border-gray-200 ${
+                activeTab === category.id ? 'ring-2 ring-gray-500 bg-gray-50' : ''
               }`}
               onClick={() => setActiveTab(category.id)}
             >
@@ -119,9 +119,9 @@ const Settings = () => {
 
       {/* Settings Content */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-        <TabsList className="grid w-full grid-cols-7">
+        <TabsList className="grid w-full grid-cols-7 bg-gray-100">
           {settingCategories.map((category) => (
-            <TabsTrigger key={category.id} value={category.id} className="text-xs">
+            <TabsTrigger key={category.id} value={category.id} className="text-xs data-[state=active]:bg-white">
               {category.name}
             </TabsTrigger>
           ))}

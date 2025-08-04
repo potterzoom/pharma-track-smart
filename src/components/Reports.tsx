@@ -83,13 +83,13 @@ const Reports = () => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-            <BarChart3 className="h-8 w-8 text-blue-600 mr-3" />
+            <BarChart3 className="h-8 w-8 text-gray-600 mr-3" />
             Reportes y Analytics
           </h1>
           <p className="text-gray-600 mt-1">Generación y análisis de reportes farmacéuticos</p>
         </div>
         <div className="flex items-center space-x-2">
-          <Badge variant="outline" className="text-blue-700 border-blue-300">
+          <Badge variant="outline" className="text-gray-700 border-gray-300 bg-white">
             <FileText className="h-3 w-3 mr-1" />
             {reportCategories.reduce((acc, cat) => acc + cat.count, 0)} Reportes Disponibles
           </Badge>
@@ -103,8 +103,8 @@ const Reports = () => {
           return (
             <Card 
               key={category.id} 
-              className={`p-4 cursor-pointer transition-all hover:shadow-md ${
-                activeTab === category.id ? 'ring-2 ring-blue-500 bg-blue-50' : ''
+              className={`p-4 cursor-pointer transition-all hover:shadow-md bg-white border-gray-200 ${
+                activeTab === category.id ? 'ring-2 ring-gray-500 bg-gray-50' : ''
               }`}
               onClick={() => setActiveTab(category.id)}
             >
@@ -120,13 +120,13 @@ const Reports = () => {
 
       {/* Report Content Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-        <TabsList className="grid w-full grid-cols-4 lg:grid-cols-8">
+        <TabsList className="grid w-full grid-cols-4 lg:grid-cols-8 bg-gray-100">
           {reportCategories.map((category) => (
-            <TabsTrigger key={category.id} value={category.id} className="text-xs">
+            <TabsTrigger key={category.id} value={category.id} className="text-xs data-[state=active]:bg-white">
               {category.name}
             </TabsTrigger>
           ))}
-          <TabsTrigger value="templates" className="text-xs">
+          <TabsTrigger value="templates" className="text-xs data-[state=active]:bg-white">
             Plantillas
           </TabsTrigger>
         </TabsList>
