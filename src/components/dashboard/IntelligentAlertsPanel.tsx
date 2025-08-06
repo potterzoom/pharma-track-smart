@@ -13,7 +13,8 @@ import {
   Thermometer,
   Package,
   Clock,
-  Zap
+  Zap,
+  TrendingUp
 } from 'lucide-react';
 
 const IntelligentAlertsPanel = () => {
