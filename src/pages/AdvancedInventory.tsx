@@ -5,7 +5,7 @@ import EnhancedInventoryDashboard from '@/components/inventory/EnhancedInventory
 
 const AdvancedInventory = () => {
   return (
-    <Layout>
+    <Layout currentView="inventory" onViewChange={() => {}}>
       <div className="p-6">
         <EnhancedInventoryDashboard />
       </div>
