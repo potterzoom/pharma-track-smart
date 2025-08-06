@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -23,6 +22,7 @@ import QuickScanButton from '@/components/dashboard/QuickScanButton';
 import IntelligentAlertsPanel from '@/components/dashboard/IntelligentAlertsPanel';
 import ThermalBranchMap from '@/components/dashboard/ThermalBranchMap';
 import PredictiveAnalytics from '@/components/dashboard/PredictiveAnalytics';
+import PracticalStatsBoxes from '@/components/dashboard/PracticalStatsBoxes';
 import { useTemperatureMonitoring } from '@/hooks/useTemperatureMonitoring';
 import { useBatchManagement } from '@/hooks/useBatchManagement';
 import { useInventoryMovements } from '@/hooks/useInventoryMovements';
@@ -179,6 +179,9 @@ const Dashboard = () => {
 
       {/* ABC Rotation Analysis */}
       <ABCRotationChart />
+
+      {/* Practical Statistics Boxes - New Section */}
+      <PracticalStatsBoxes />
 
       {/* Branch Status */}
       <Card className="bg-white border-slate-300 border-2 shadow-sm">
