@@ -143,6 +143,39 @@ export type Database = {
           },
         ]
       }
+      arcsa_reports: {
+        Row: {
+          arcsa_response: string | null
+          created_at: string
+          id: string
+          report_data: Json
+          report_period: string
+          report_type: string
+          submission_status: string | null
+          submitted_at: string | null
+        }
+        Insert: {
+          arcsa_response?: string | null
+          created_at?: string
+          id?: string
+          report_data: Json
+          report_period: string
+          report_type: string
+          submission_status?: string | null
+          submitted_at?: string | null
+        }
+        Update: {
+          arcsa_response?: string | null
+          created_at?: string
+          id?: string
+          report_data?: Json
+          report_period?: string
+          report_type?: string
+          submission_status?: string | null
+          submitted_at?: string | null
+        }
+        Relationships: []
+      }
       auditoria_nomina: {
         Row: {
           accion: string
@@ -267,6 +300,137 @@ export type Database = {
         }
         Relationships: []
       }
+      controlled_medications: {
+        Row: {
+          arcsa_report_date: string | null
+          arcsa_reported: boolean | null
+          batch_id: string | null
+          created_at: string
+          dispense_date: string
+          doctor_license: string
+          doctor_name: string
+          id: string
+          next_refill_date: string | null
+          patient_id: string
+          patient_name: string
+          pharmacy_user_id: string | null
+          prescription_date: string
+          prescription_number: string
+          product_id: number
+          quantity_dispensed: number
+          quantity_prescribed: number
+          remaining_refills: number | null
+        }
+        Insert: {
+          arcsa_report_date?: string | null
+          arcsa_reported?: boolean | null
+          batch_id?: string | null
+          created_at?: string
+          dispense_date: string
+          doctor_license: string
+          doctor_name: string
+          id?: string
+          next_refill_date?: string | null
+          patient_id: string
+          patient_name: string
+          pharmacy_user_id?: string | null
+          prescription_date: string
+          prescription_number: string
+          product_id: number
+          quantity_dispensed: number
+          quantity_prescribed: number
+          remaining_refills?: number | null
+        }
+        Update: {
+          arcsa_report_date?: string | null
+          arcsa_reported?: boolean | null
+          batch_id?: string | null
+          created_at?: string
+          dispense_date?: string
+          doctor_license?: string
+          doctor_name?: string
+          id?: string
+          next_refill_date?: string | null
+          patient_id?: string
+          patient_name?: string
+          pharmacy_user_id?: string | null
+          prescription_date?: string
+          prescription_number?: string
+          product_id?: number
+          quantity_dispensed?: number
+          quantity_prescribed?: number
+          remaining_refills?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "controlled_medications_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "product_batches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      electronic_invoices: {
+        Row: {
+          access_key: string
+          created_at: string
+          customer_email: string | null
+          customer_id: string
+          customer_name: string
+          id: string
+          invoice_date: string
+          invoice_number: string
+          pdf_path: string | null
+          sri_authorization_date: string | null
+          sri_response: string | null
+          sri_status: string | null
+          subtotal: number
+          tax_amount: number
+          total_amount: number
+          updated_at: string
+          xml_data: string | null
+        }
+        Insert: {
+          access_key: string
+          created_at?: string
+          customer_email?: string | null
+          customer_id: string
+          customer_name: string
+          id?: string
+          invoice_date: string
+          invoice_number: string
+          pdf_path?: string | null
+          sri_authorization_date?: string | null
+          sri_response?: string | null
+          sri_status?: string | null
+          subtotal: number
+          tax_amount: number
+          total_amount: number
+          updated_at?: string
+          xml_data?: string | null
+        }
+        Update: {
+          access_key?: string
+          created_at?: string
+          customer_email?: string | null
+          customer_id?: string
+          customer_name?: string
+          id?: string
+          invoice_date?: string
+          invoice_number?: string
+          pdf_path?: string | null
+          sri_authorization_date?: string | null
+          sri_response?: string | null
+          sri_status?: string | null
+          subtotal?: number
+          tax_amount?: number
+          total_amount?: number
+          updated_at?: string
+          xml_data?: string | null
+        }
+        Relationships: []
+      }
       empleados: {
         Row: {
           activo: boolean | null
@@ -353,6 +517,125 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      inventory_movements: {
+        Row: {
+          batch_id: string | null
+          created_at: string
+          destination: string | null
+          id: string
+          movement_type: string
+          new_stock: number
+          previous_stock: number
+          product_id: number
+          quantity: number
+          reason: string | null
+          reference_document: string | null
+          source: string | null
+          total_value: number | null
+          unit_cost: number | null
+          user_id: string | null
+        }
+        Insert: {
+          batch_id?: string | null
+          created_at?: string
+          destination?: string | null
+          id?: string
+          movement_type: string
+          new_stock: number
+          previous_stock: number
+          product_id: number
+          quantity: number
+          reason?: string | null
+          reference_document?: string | null
+          source?: string | null
+          total_value?: number | null
+          unit_cost?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          batch_id?: string | null
+          created_at?: string
+          destination?: string | null
+          id?: string
+          movement_type?: string
+          new_stock?: number
+          previous_stock?: number
+          product_id?: number
+          quantity?: number
+          reason?: string | null
+          reference_document?: string | null
+          source?: string | null
+          total_value?: number | null
+          unit_cost?: number | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "inventory_movements_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "product_batches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      invoice_items: {
+        Row: {
+          batch_id: string | null
+          created_at: string
+          discount: number | null
+          id: string
+          invoice_id: string | null
+          line_total: number
+          product_id: number
+          product_name: string
+          quantity: number
+          tax_rate: number
+          unit_price: number
+        }
+        Insert: {
+          batch_id?: string | null
+          created_at?: string
+          discount?: number | null
+          id?: string
+          invoice_id?: string | null
+          line_total: number
+          product_id: number
+          product_name: string
+          quantity: number
+          tax_rate: number
+          unit_price: number
+        }
+        Update: {
+          batch_id?: string | null
+          created_at?: string
+          discount?: number | null
+          id?: string
+          invoice_id?: string | null
+          line_total?: number
+          product_id?: number
+          product_name?: string
+          quantity?: number
+          tax_rate?: number
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invoice_items_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "product_batches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoice_items_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "electronic_invoices"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       logs_auditoria: {
         Row: {
@@ -604,6 +887,63 @@ export type Database = {
         }
         Relationships: []
       }
+      product_batches: {
+        Row: {
+          arcsa_registration: string | null
+          batch_number: string
+          created_at: string
+          expiration_date: string
+          id: string
+          initial_quantity: number
+          is_controlled_medication: boolean | null
+          location: string | null
+          manufacturing_date: string
+          product_id: number
+          purchase_price: number | null
+          quantity: number
+          supplier_name: string
+          temperature_requirement_max: number | null
+          temperature_requirement_min: number | null
+          updated_at: string
+        }
+        Insert: {
+          arcsa_registration?: string | null
+          batch_number: string
+          created_at?: string
+          expiration_date: string
+          id?: string
+          initial_quantity: number
+          is_controlled_medication?: boolean | null
+          location?: string | null
+          manufacturing_date: string
+          product_id: number
+          purchase_price?: number | null
+          quantity?: number
+          supplier_name: string
+          temperature_requirement_max?: number | null
+          temperature_requirement_min?: number | null
+          updated_at?: string
+        }
+        Update: {
+          arcsa_registration?: string | null
+          batch_number?: string
+          created_at?: string
+          expiration_date?: string
+          id?: string
+          initial_quantity?: number
+          is_controlled_medication?: boolean | null
+          location?: string | null
+          manufacturing_date?: string
+          product_id?: number
+          purchase_price?: number | null
+          quantity?: number
+          supplier_name?: string
+          temperature_requirement_max?: number | null
+          temperature_requirement_min?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string | null
@@ -721,6 +1061,48 @@ export type Database = {
           temperature?: number | null
           timestamp?: string | null
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      temperature_readings: {
+        Row: {
+          alert_triggered: boolean | null
+          alert_type: string | null
+          battery_level: number | null
+          device_id: string
+          device_name: string
+          humidity: number | null
+          id: string
+          location: string
+          signal_strength: number | null
+          temperature: number
+          timestamp: string
+        }
+        Insert: {
+          alert_triggered?: boolean | null
+          alert_type?: string | null
+          battery_level?: number | null
+          device_id: string
+          device_name: string
+          humidity?: number | null
+          id?: string
+          location: string
+          signal_strength?: number | null
+          temperature: number
+          timestamp?: string
+        }
+        Update: {
+          alert_triggered?: boolean | null
+          alert_type?: string | null
+          battery_level?: number | null
+          device_id?: string
+          device_name?: string
+          humidity?: number | null
+          id?: string
+          location?: string
+          signal_strength?: number | null
+          temperature?: number
+          timestamp?: string
         }
         Relationships: []
       }
@@ -877,6 +1259,15 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_available_stock_fifo: {
+        Args: { p_product_id: number }
+        Returns: {
+          batch_id: string
+          batch_number: string
+          expiration_date: string
+          available_quantity: number
+        }[]
+      }
       limpiar_cache_expirado: {
         Args: Record<PropertyKey, never>
         Returns: undefined
