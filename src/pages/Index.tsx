@@ -3,23 +3,54 @@ import React, { useState, Suspense } from 'react';
 import Layout from '@/components/Layout';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
-// Implementación de code splitting con React.lazy
-const Dashboard = React.lazy(() => import('@/components/Dashboard'));
-const Scanner = React.lazy(() => import('@/components/Scanner'));
-const Inventory = React.lazy(() => import('@/components/Inventory'));
-const Sales = React.lazy(() => import('@/components/Sales'));
-const Purchases = React.lazy(() => import('@/components/Purchases'));
-const Branches = React.lazy(() => import('@/components/Branches'));
-const Regulatory = React.lazy(() => import('@/components/Regulatory'));
-const Financial = React.lazy(() => import('@/components/Financial'));
-const Reports = React.lazy(() => import('@/components/Reports'));
-const Settings = React.lazy(() => import('@/components/Settings'));
+// Implementación de code splitting con React.lazy con error boundaries
+const Dashboard = React.lazy(() => import('@/components/Dashboard').catch(() => {
+  return { default: () => <div>Error cargando Dashboard</div> };
+}));
+
+const Scanner = React.lazy(() => import('@/components/Scanner').catch(() => {
+  return { default: () => <div>Error cargando Scanner</div> };
+}));
+
+const Inventory = React.lazy(() => import('@/components/Inventory').catch(() => {
+  return { default: () => <div>Error cargando Inventory</div> };
+}));
+
+const Sales = React.lazy(() => import('@/components/Sales').catch(() => {
+  return { default: () => <div>Error cargando Sales</div> };
+}));
+
+const Purchases = React.lazy(() => import('@/components/Purchases').catch(() => {
+  return { default: () => <div>Error cargando Purchases</div> };
+}));
+
+const Branches = React.lazy(() => import('@/components/Branches').catch(() => {
+  return { default: () => <div>Error cargando Branches</div> };
+}));
+
+const Regulatory = React.lazy(() => import('@/components/Regulatory').catch(() => {
+  return { default: () => <div>Error cargando Regulatory</div> };
+}));
+
+const Financial = React.lazy(() => import('@/components/Financial').catch(() => {
+  return { default: () => <div>Error cargando Financial</div> };
+}));
+
+const Reports = React.lazy(() => import('@/components/Reports').catch(() => {
+  return { default: () => <div>Error cargando Reports</div> };
+}));
+
+const Settings = React.lazy(() => import('@/components/Settings').catch(() => {
+  return { default: () => <div>Error cargando Settings</div> };
+}));
 
 const Index = () => {
   const [currentView, setCurrentView] = useState('dashboard');
 
   const renderContent = () => {
-    const componentMap = {
+    console.log('Rendering content for:', currentView);
+    
+    const componentMap: Record<string, React.LazyExoticComponent<React.ComponentType<any>>> = {
       dashboard: Dashboard,
       scanner: Scanner,
       inventory: Inventory,
@@ -32,17 +63,29 @@ const Index = () => {
       settings: Settings,
     };
 
-    const Component = componentMap[currentView as keyof typeof componentMap] || Dashboard;
+    const Component = componentMap[currentView] || Dashboard;
     
     return (
-      <Suspense fallback={<LoadingSpinner />}>
-        <Component />
+      <Suspense 
+        fallback={
+          <div className="flex items-center justify-center h-64">
+            <LoadingSpinner />
+            <span className="ml-2 text-gray-600">Cargando {currentView}...</span>
+          </div>
+        }
+      >
+        <Component key={currentView} />
       </Suspense>
     );
   };
 
+  const handleViewChange = (view: string) => {
+    console.log('Changing view to:', view);
+    setCurrentView(view);
+  };
+
   return (
-    <Layout currentView={currentView} onViewChange={setCurrentView}>
+    <Layout currentView={currentView} onViewChange={handleViewChange}>
       {renderContent()}
     </Layout>
   );
