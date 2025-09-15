@@ -94,20 +94,20 @@ export const useOfflineSync = () => {
       
       switch (action.type) {
         case 'insert':
-          result = await supabase
+          result = await (supabase as any)
             .from(action.table)
             .insert(action.data)
             .select();
           break;
         case 'update':
-          result = await supabase
+          result = await (supabase as any)
             .from(action.table)
             .update(action.data)
             .eq('id', action.data.id)
             .select();
           break;
         case 'delete':
-          result = await supabase
+          result = await (supabase as any)
             .from(action.table)
             .delete()
             .eq('id', action.data.id);
@@ -178,7 +178,7 @@ export const useOfflineSync = () => {
   const handleConflict = useCallback(async (action: OfflineAction, error: any) => {
     try {
       // Obtener datos actuales del servidor
-      const { data: serverData } = await supabase
+      const { data: serverData } = await (supabase as any)
         .from(action.table)
         .select()
         .eq('id', action.data.id)
@@ -221,7 +221,7 @@ export const useOfflineSync = () => {
     }
 
     try {
-      await supabase
+      await (supabase as any)
         .from('conflicts_table')
         .update(finalData)
         .eq('id', conflict.localData.id);

@@ -50,14 +50,14 @@ export const useSmartAlerts = () => {
   const { data: alertRules, isLoading: loadingRules } = useQuery({
     queryKey: ['alert-rules'],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from('alert_rules')
         .select('*')
         .eq('active', true)
         .order('created_at', { ascending: false });
       
       if (error) throw error;
-      return data as AlertRule[];
+      return data as unknown as AlertRule[];
     }
   });
 
@@ -65,7 +65,7 @@ export const useSmartAlerts = () => {
   const { data: alerts, isLoading: loadingAlerts } = useQuery({
     queryKey: ['smart-alerts', activeFilters],
     queryFn: async () => {
-      let query = supabase
+      let query = (supabase as any)
         .from('smart_alerts')
         .select(`
           *,
@@ -89,7 +89,7 @@ export const useSmartAlerts = () => {
   // Crear regla de alerta
   const createAlertRule = useMutation({
     mutationFn: async (ruleData: Omit<AlertRule, 'id' | 'created_at'>) => {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from('alert_rules')
         .insert([ruleData])
         .select()
@@ -123,7 +123,7 @@ export const useSmartAlerts = () => {
   // Reconocer alerta
   const acknowledgeAlert = useMutation({
     mutationFn: async ({ alertId, notes }: { alertId: string; notes?: string }) => {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from('smart_alerts')
         .update({ 
           acknowledged: true, 
@@ -162,7 +162,7 @@ export const useSmartAlerts = () => {
   // Configurar alertas personalizadas por usuario
   const configurePersonalAlerts = useMutation({
     mutationFn: async (config: any) => {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from('user_alert_preferences')
         .upsert([{
           user_id: (await supabase.auth.getUser()).data.user?.id,
