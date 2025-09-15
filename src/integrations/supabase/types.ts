@@ -7,13 +7,52 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
+  // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "12.2.12 (cd3cf9e)"
   }
   public: {
     Tables: {
+      alert_rules: {
+        Row: {
+          active: boolean
+          channels: string[]
+          conditions: Json
+          created_at: string
+          escalation: Json
+          id: string
+          name: string
+          severity: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          channels?: string[]
+          conditions?: Json
+          created_at?: string
+          escalation?: Json
+          id?: string
+          name: string
+          severity: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          channels?: string[]
+          conditions?: Json
+          created_at?: string
+          escalation?: Json
+          id?: string
+          name?: string
+          severity?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       alertas_sistema: {
         Row: {
           created_at: string | null
@@ -85,6 +124,51 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: []
+      }
+      analytics_metricas: {
+        Row: {
+          created_at: string
+          datos: Json
+          empresa_id: string
+          fecha: string
+          id: string
+          tipo_metrica: string
+          tramite_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          datos: Json
+          empresa_id: string
+          fecha: string
+          id?: string
+          tipo_metrica: string
+          tramite_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          datos?: Json
+          empresa_id?: string
+          fecha?: string
+          id?: string
+          tipo_metrica?: string
+          tramite_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "analytics_metricas_empresa_id_fkey"
+            columns: ["empresa_id"]
+            isOneToOne: false
+            referencedRelation: "empresas"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "analytics_metricas_tramite_id_fkey"
+            columns: ["tramite_id"]
+            isOneToOne: false
+            referencedRelation: "tipos_tramites"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       appointments: {
         Row: {
@@ -176,6 +260,54 @@ export type Database = {
         }
         Relationships: []
       }
+      audit_log_enhanced: {
+        Row: {
+          action_type: string
+          created_at: string
+          id: string
+          ip_address: unknown | null
+          metadata: Json | null
+          new_values: Json | null
+          old_values: Json | null
+          record_id: string | null
+          risk_score: number | null
+          session_id: string | null
+          table_name: string
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          action_type: string
+          created_at?: string
+          id?: string
+          ip_address?: unknown | null
+          metadata?: Json | null
+          new_values?: Json | null
+          old_values?: Json | null
+          record_id?: string | null
+          risk_score?: number | null
+          session_id?: string | null
+          table_name: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          action_type?: string
+          created_at?: string
+          id?: string
+          ip_address?: unknown | null
+          metadata?: Json | null
+          new_values?: Json | null
+          old_values?: Json | null
+          record_id?: string | null
+          risk_score?: number | null
+          session_id?: string | null
+          table_name?: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       auditoria_nomina: {
         Row: {
           accion: string
@@ -258,6 +390,62 @@ export type Database = {
           },
         ]
       }
+      clientes: {
+        Row: {
+          activo: boolean
+          avatar_url: string | null
+          cedula: string
+          created_at: string
+          email: string | null
+          empresa_id: string
+          estadisticas: Json | null
+          id: string
+          nombre: string
+          preferencias: Json | null
+          tags: string[] | null
+          telefono: string | null
+          updated_at: string
+        }
+        Insert: {
+          activo?: boolean
+          avatar_url?: string | null
+          cedula: string
+          created_at?: string
+          email?: string | null
+          empresa_id: string
+          estadisticas?: Json | null
+          id?: string
+          nombre: string
+          preferencias?: Json | null
+          tags?: string[] | null
+          telefono?: string | null
+          updated_at?: string
+        }
+        Update: {
+          activo?: boolean
+          avatar_url?: string | null
+          cedula?: string
+          created_at?: string
+          email?: string | null
+          empresa_id?: string
+          estadisticas?: Json | null
+          id?: string
+          nombre?: string
+          preferencias?: Json | null
+          tags?: string[] | null
+          telefono?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clientes_empresa_id_fkey"
+            columns: ["empresa_id"]
+            isOneToOne: false
+            referencedRelation: "empresas"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       community_reports: {
         Row: {
           ai_validation: Json | null
@@ -297,6 +485,69 @@ export type Database = {
           title?: string
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      competitions: {
+        Row: {
+          ai_analysis: Json | null
+          competition_type: string
+          created_at: string
+          description: string | null
+          end_date: string
+          entry_fee: number | null
+          id: string
+          location: Json
+          name: string
+          organizer: string | null
+          participants_count: number | null
+          prize_pool: number | null
+          start_date: string
+          status: string
+          updated_at: string
+          wave_conditions: Json | null
+          weather_forecast: Json | null
+          website_url: string | null
+        }
+        Insert: {
+          ai_analysis?: Json | null
+          competition_type: string
+          created_at?: string
+          description?: string | null
+          end_date: string
+          entry_fee?: number | null
+          id?: string
+          location: Json
+          name: string
+          organizer?: string | null
+          participants_count?: number | null
+          prize_pool?: number | null
+          start_date: string
+          status?: string
+          updated_at?: string
+          wave_conditions?: Json | null
+          weather_forecast?: Json | null
+          website_url?: string | null
+        }
+        Update: {
+          ai_analysis?: Json | null
+          competition_type?: string
+          created_at?: string
+          description?: string | null
+          end_date?: string
+          entry_fee?: number | null
+          id?: string
+          location?: Json
+          name?: string
+          organizer?: string | null
+          participants_count?: number | null
+          prize_pool?: number | null
+          start_date?: string
+          status?: string
+          updated_at?: string
+          wave_conditions?: Json | null
+          weather_forecast?: Json | null
+          website_url?: string | null
         }
         Relationships: []
       }
@@ -482,12 +733,99 @@ export type Database = {
         }
         Relationships: []
       }
+      empresa_usuarios: {
+        Row: {
+          activo: boolean
+          created_at: string
+          empresa_id: string
+          id: string
+          permisos: Json | null
+          rol: string
+          user_id: string
+        }
+        Insert: {
+          activo?: boolean
+          created_at?: string
+          empresa_id: string
+          id?: string
+          permisos?: Json | null
+          rol?: string
+          user_id: string
+        }
+        Update: {
+          activo?: boolean
+          created_at?: string
+          empresa_id?: string
+          id?: string
+          permisos?: Json | null
+          rol?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "empresa_usuarios_empresa_id_fkey"
+            columns: ["empresa_id"]
+            isOneToOne: false
+            referencedRelation: "empresas"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      empresas: {
+        Row: {
+          colores_marca: Json | null
+          configuracion: Json | null
+          created_at: string
+          estado: Database["public"]["Enums"]["tenant_status"]
+          fecha_vencimiento: string | null
+          id: string
+          limite_turnos_mes: number | null
+          logo_url: string | null
+          nombre: string
+          plan: Database["public"]["Enums"]["plan_type"]
+          slug: string
+          turnos_utilizados_mes: number | null
+          updated_at: string
+        }
+        Insert: {
+          colores_marca?: Json | null
+          configuracion?: Json | null
+          created_at?: string
+          estado?: Database["public"]["Enums"]["tenant_status"]
+          fecha_vencimiento?: string | null
+          id?: string
+          limite_turnos_mes?: number | null
+          logo_url?: string | null
+          nombre: string
+          plan?: Database["public"]["Enums"]["plan_type"]
+          slug: string
+          turnos_utilizados_mes?: number | null
+          updated_at?: string
+        }
+        Update: {
+          colores_marca?: Json | null
+          configuracion?: Json | null
+          created_at?: string
+          estado?: Database["public"]["Enums"]["tenant_status"]
+          fecha_vencimiento?: string | null
+          id?: string
+          limite_turnos_mes?: number | null
+          logo_url?: string | null
+          nombre?: string
+          plan?: Database["public"]["Enums"]["plan_type"]
+          slug?: string
+          turnos_utilizados_mes?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       horarios_config: {
         Row: {
           activo: boolean
           created_at: string
           cupos_por_intervalo: number
           dia_semana: number
+          empresa_id: string | null
           hora_fin: string
           hora_inicio: string
           id: string
@@ -499,6 +837,7 @@ export type Database = {
           created_at?: string
           cupos_por_intervalo?: number
           dia_semana: number
+          empresa_id?: string | null
           hora_fin: string
           hora_inicio: string
           id?: string
@@ -510,13 +849,22 @@ export type Database = {
           created_at?: string
           cupos_por_intervalo?: number
           dia_semana?: number
+          empresa_id?: string | null
           hora_fin?: string
           hora_inicio?: string
           id?: string
           intervalo_minutos?: number
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "horarios_config_empresa_id_fkey"
+            columns: ["empresa_id"]
+            isOneToOne: false
+            referencedRelation: "empresas"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       inventory_movements: {
         Row: {
@@ -836,6 +1184,73 @@ export type Database = {
         }
         Relationships: []
       }
+      notificaciones: {
+        Row: {
+          canal: string
+          cliente_id: string | null
+          contenido: string
+          created_at: string
+          empresa_id: string
+          enviada_en: string | null
+          estado: string
+          id: string
+          metadata: Json | null
+          programada_para: string | null
+          tipo: string
+          turno_id: string | null
+        }
+        Insert: {
+          canal: string
+          cliente_id?: string | null
+          contenido: string
+          created_at?: string
+          empresa_id: string
+          enviada_en?: string | null
+          estado?: string
+          id?: string
+          metadata?: Json | null
+          programada_para?: string | null
+          tipo: string
+          turno_id?: string | null
+        }
+        Update: {
+          canal?: string
+          cliente_id?: string | null
+          contenido?: string
+          created_at?: string
+          empresa_id?: string
+          enviada_en?: string | null
+          estado?: string
+          id?: string
+          metadata?: Json | null
+          programada_para?: string | null
+          tipo?: string
+          turno_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notificaciones_cliente_id_fkey"
+            columns: ["cliente_id"]
+            isOneToOne: false
+            referencedRelation: "clientes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notificaciones_empresa_id_fkey"
+            columns: ["empresa_id"]
+            isOneToOne: false
+            referencedRelation: "empresas"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notificaciones_turno_id_fkey"
+            columns: ["turno_id"]
+            isOneToOne: false
+            referencedRelation: "turnos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       pets: {
         Row: {
           age: number | null
@@ -980,6 +1395,60 @@ export type Database = {
         }
         Relationships: []
       }
+      qr_codes: {
+        Row: {
+          activo: boolean
+          codigo: string
+          configuracion: Json | null
+          created_at: string
+          empresa_id: string
+          estadisticas: Json | null
+          expires_at: string | null
+          id: string
+          tramite_id: string
+          updated_at: string
+        }
+        Insert: {
+          activo?: boolean
+          codigo: string
+          configuracion?: Json | null
+          created_at?: string
+          empresa_id: string
+          estadisticas?: Json | null
+          expires_at?: string | null
+          id?: string
+          tramite_id: string
+          updated_at?: string
+        }
+        Update: {
+          activo?: boolean
+          codigo?: string
+          configuracion?: Json | null
+          created_at?: string
+          empresa_id?: string
+          estadisticas?: Json | null
+          expires_at?: string | null
+          id?: string
+          tramite_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "qr_codes_empresa_id_fkey"
+            columns: ["empresa_id"]
+            isOneToOne: false
+            referencedRelation: "empresas"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "qr_codes_tramite_id_fkey"
+            columns: ["tramite_id"]
+            isOneToOne: false
+            referencedRelation: "tipos_tramites"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       reglas_calculo: {
         Row: {
           activa: boolean | null
@@ -1064,6 +1533,149 @@ export type Database = {
         }
         Relationships: []
       }
+      smart_alerts: {
+        Row: {
+          acknowledged: boolean
+          acknowledged_at: string | null
+          created_at: string
+          data: Json
+          escalated: boolean
+          escalated_at: string | null
+          id: string
+          message: string
+          notes: string | null
+          rule_id: string
+          severity: string
+          title: string
+        }
+        Insert: {
+          acknowledged?: boolean
+          acknowledged_at?: string | null
+          created_at?: string
+          data?: Json
+          escalated?: boolean
+          escalated_at?: string | null
+          id?: string
+          message: string
+          notes?: string | null
+          rule_id: string
+          severity: string
+          title: string
+        }
+        Update: {
+          acknowledged?: boolean
+          acknowledged_at?: string | null
+          created_at?: string
+          data?: Json
+          escalated?: boolean
+          escalated_at?: string | null
+          id?: string
+          message?: string
+          notes?: string | null
+          rule_id?: string
+          severity?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "smart_alerts_rule_id_fkey"
+            columns: ["rule_id"]
+            isOneToOne: false
+            referencedRelation: "alert_rules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      surf_forecasts: {
+        Row: {
+          ai_recommendations: string | null
+          created_at: string
+          data_source: string | null
+          forecast_date: string
+          id: string
+          location: Json
+          surf_quality_score: number | null
+          tide_times: Json | null
+          wave_direction: string | null
+          wave_height_max: number | null
+          wave_height_min: number | null
+          wind_direction: string | null
+          wind_speed: number | null
+        }
+        Insert: {
+          ai_recommendations?: string | null
+          created_at?: string
+          data_source?: string | null
+          forecast_date: string
+          id?: string
+          location: Json
+          surf_quality_score?: number | null
+          tide_times?: Json | null
+          wave_direction?: string | null
+          wave_height_max?: number | null
+          wave_height_min?: number | null
+          wind_direction?: string | null
+          wind_speed?: number | null
+        }
+        Update: {
+          ai_recommendations?: string | null
+          created_at?: string
+          data_source?: string | null
+          forecast_date?: string
+          id?: string
+          location?: Json
+          surf_quality_score?: number | null
+          tide_times?: Json | null
+          wave_direction?: string | null
+          wave_height_max?: number | null
+          wave_height_min?: number | null
+          wind_direction?: string | null
+          wind_speed?: number | null
+        }
+        Relationships: []
+      }
+      sync_conflicts: {
+        Row: {
+          conflict_type: string
+          created_at: string
+          id: string
+          local_data: Json
+          record_id: string
+          resolution_status: string
+          resolved_at: string | null
+          resolved_by: string | null
+          server_data: Json
+          table_name: string
+          user_id: string | null
+        }
+        Insert: {
+          conflict_type: string
+          created_at?: string
+          id?: string
+          local_data: Json
+          record_id: string
+          resolution_status?: string
+          resolved_at?: string | null
+          resolved_by?: string | null
+          server_data: Json
+          table_name: string
+          user_id?: string | null
+        }
+        Update: {
+          conflict_type?: string
+          created_at?: string
+          id?: string
+          local_data?: Json
+          record_id?: string
+          resolution_status?: string
+          resolved_at?: string | null
+          resolved_by?: string | null
+          server_data?: Json
+          table_name?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       temperature_readings: {
         Row: {
           alert_triggered: boolean | null
@@ -1114,6 +1726,7 @@ export type Database = {
           descripcion: string | null
           documentos_requeridos: string[] | null
           duracion_minutos: number
+          empresa_id: string | null
           id: string
           nombre: string
           updated_at: string
@@ -1125,6 +1738,7 @@ export type Database = {
           descripcion?: string | null
           documentos_requeridos?: string[] | null
           duracion_minutos?: number
+          empresa_id?: string | null
           id?: string
           nombre: string
           updated_at?: string
@@ -1136,17 +1750,27 @@ export type Database = {
           descripcion?: string | null
           documentos_requeridos?: string[] | null
           duracion_minutos?: number
+          empresa_id?: string | null
           id?: string
           nombre?: string
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "tipos_tramites_empresa_id_fkey"
+            columns: ["empresa_id"]
+            isOneToOne: false
+            referencedRelation: "empresas"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       turnos: {
         Row: {
           cedula: string
           created_at: string
           email: string | null
+          empresa_id: string | null
           estado: string
           fecha: string
           horario: string
@@ -1157,11 +1781,13 @@ export type Database = {
           telefono: string | null
           tramite_id: string
           updated_at: string
+          user_id: string | null
         }
         Insert: {
           cedula: string
           created_at?: string
           email?: string | null
+          empresa_id?: string | null
           estado?: string
           fecha: string
           horario: string
@@ -1172,11 +1798,13 @@ export type Database = {
           telefono?: string | null
           tramite_id: string
           updated_at?: string
+          user_id?: string | null
         }
         Update: {
           cedula?: string
           created_at?: string
           email?: string | null
+          empresa_id?: string | null
           estado?: string
           fecha?: string
           horario?: string
@@ -1187,6 +1815,7 @@ export type Database = {
           telefono?: string | null
           tramite_id?: string
           updated_at?: string
+          user_id?: string | null
         }
         Relationships: [
           {
@@ -1196,7 +1825,83 @@ export type Database = {
             referencedRelation: "tipos_tramites"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "turnos_empresa_id_fkey"
+            columns: ["empresa_id"]
+            isOneToOne: false
+            referencedRelation: "empresas"
+            referencedColumns: ["id"]
+          },
         ]
+      }
+      user_alert_preferences: {
+        Row: {
+          created_at: string
+          email_frequency: string
+          id: string
+          notification_channels: string[]
+          quiet_hours: Json | null
+          severity_filter: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email_frequency?: string
+          id?: string
+          notification_channels?: string[]
+          quiet_hours?: Json | null
+          severity_filter?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email_frequency?: string
+          id?: string
+          notification_channels?: string[]
+          quiet_hours?: Json | null
+          severity_filter?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_locations: {
+        Row: {
+          address: string | null
+          created_at: string
+          id: string
+          is_primary: boolean | null
+          latitude: number
+          longitude: number
+          search_radius_km: number | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string
+          id?: string
+          is_primary?: boolean | null
+          latitude: number
+          longitude: number
+          search_radius_km?: number | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          address?: string | null
+          created_at?: string
+          id?: string
+          is_primary?: boolean | null
+          latitude?: number
+          longitude?: number
+          search_radius_km?: number | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
       }
       vet_appointments: {
         Row: {
@@ -1259,22 +1964,35 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      cleanup_old_alerts: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
       get_available_stock_fifo: {
         Args: { p_product_id: number }
         Returns: {
+          available_quantity: number
           batch_id: string
           batch_number: string
           expiration_date: string
-          available_quantity: number
         }[]
+      }
+      get_user_empresa_id: {
+        Args: Record<PropertyKey, never>
+        Returns: string
       }
       limpiar_cache_expirado: {
         Args: Record<PropertyKey, never>
         Returns: undefined
       }
+      user_has_empresa_access: {
+        Args: { _empresa_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      plan_type: "free" | "basic" | "premium" | "enterprise"
+      tenant_status: "active" | "suspended" | "cancelled"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1401,6 +2119,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      plan_type: ["free", "basic", "premium", "enterprise"],
+      tenant_status: ["active", "suspended", "cancelled"],
+    },
   },
 } as const
