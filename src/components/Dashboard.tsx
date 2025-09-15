@@ -23,6 +23,9 @@ import IntelligentAlertsPanel from '@/components/dashboard/IntelligentAlertsPane
 import ThermalBranchMap from '@/components/dashboard/ThermalBranchMap';
 import PredictiveAnalytics from '@/components/dashboard/PredictiveAnalytics';
 import PracticalStatsBoxes from '@/components/dashboard/PracticalStatsBoxes';
+import SmartAlertsPanel from '@/components/dashboard/SmartAlertsPanel';
+import FIFORecommendationPanel from '@/components/inventory/FIFORecommendationPanel';
+import OfflineSyncStatus from '@/components/dashboard/OfflineSyncStatus';
 import { useTemperatureMonitoring } from '@/hooks/useTemperatureMonitoring';
 import { useBatchManagement } from '@/hooks/useBatchManagement';
 import { useInventoryMovements } from '@/hooks/useInventoryMovements';
@@ -164,6 +167,16 @@ const Dashboard = () => {
 
       {/* Intelligent Alerts Panel */}
       <IntelligentAlertsPanel />
+
+      {/* Nuevas funcionalidades mejoradas */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <SmartAlertsPanel />
+        <OfflineSyncStatus />
+      </div>
+
+      <div className="grid grid-cols-1 gap-6">
+        <FIFORecommendationPanel />
+      </div>
 
       {/* Thermal Branch Map */}
       <ThermalBranchMap />
