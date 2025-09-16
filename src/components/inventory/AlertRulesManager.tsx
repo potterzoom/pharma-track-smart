@@ -27,14 +27,14 @@ const AlertRulesManager = () => {
   
   const [formData, setFormData] = useState({
     name: '',
-    type: 'expiration' as const,
+    type: 'expiration',
     conditions: {
       threshold: 10,
       days_before: 30,
-      comparison: 'less_than' as const,
+      comparison: 'less_than',
       field: ''
     },
-    severity: 'medium' as const,
+    severity: 'medium',
     channels: ['email'] as string[],
     escalation: {
       enabled: false,
