@@ -72,7 +72,7 @@ const SmartAlertsPanel = () => {
   const unacknowledgedAlerts = alerts?.filter(alert => !alert.acknowledged) || [];
   const criticalAlerts = unacknowledgedAlerts.filter(alert => alert.severity === 'critical');
   return <Card className="bg-gray-200">
-      <CardHeader className="bg-gray-200">
+      <CardHeader className="bg-slate-50">
         <CardTitle className="flex items-center gap-2 text-gray-900">
           <Bell className="h-5 w-5" />
           Alertas Inteligentes
