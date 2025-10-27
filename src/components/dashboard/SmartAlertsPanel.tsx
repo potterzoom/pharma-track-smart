@@ -71,9 +71,6 @@ const SmartAlertsPanel = () => {
   }
   const unacknowledgedAlerts = alerts?.filter(alert => !alert.acknowledged) || [];
   const criticalAlerts = unacknowledgedAlerts.filter(alert => alert.severity === 'critical');
-  return <Card className="border-2 border-gray-400 bg-gradient-to-br from-gray-50 to-white">
-      
-      
-    </Card>;
+  return;
 };
 export default SmartAlertsPanel;
