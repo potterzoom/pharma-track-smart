@@ -2,26 +2,10 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { 
-  Wifi, 
-  WifiOff, 
-  RefreshCw, 
-  AlertCircle, 
-  CheckCircle,
-  Clock,
-  Database
-} from 'lucide-react';
+import { Wifi, WifiOff, RefreshCw, AlertCircle, CheckCircle, Clock, Database } from 'lucide-react';
 import { useOfflineSync } from '@/hooks/useOfflineSync';
 import { toast } from 'sonner';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 const OfflineSyncStatus = () => {
   const {
     isOnline,
@@ -33,7 +17,6 @@ const OfflineSyncStatus = () => {
     conflictsCount,
     pendingCount
   } = useOfflineSync();
-
   const handleManualSync = () => {
     if (!isOnline) {
       toast.error('No hay conexión a internet');
@@ -41,18 +24,15 @@ const OfflineSyncStatus = () => {
     }
     syncPendingActions();
   };
-
   const handleResolveConflict = (conflictId: string, resolution: 'keep_local' | 'keep_server' | 'merge') => {
     resolveConflict(conflictId, resolution);
   };
-
   const getStatusColor = () => {
     if (!isOnline) return 'destructive';
     if (conflictsCount > 0) return 'destructive';
     if (pendingCount > 0) return 'default';
     return 'default';
   };
-
   const getStatusIcon = () => {
     if (!isOnline) return <WifiOff className="h-4 w-4" />;
     if (isSyncing) return <RefreshCw className="h-4 w-4 animate-spin" />;
@@ -60,7 +40,6 @@ const OfflineSyncStatus = () => {
     if (pendingCount > 0) return <Clock className="h-4 w-4" />;
     return <CheckCircle className="h-4 w-4" />;
   };
-
   const getStatusText = () => {
     if (!isOnline) return 'Sin conexión';
     if (isSyncing) return 'Sincronizando...';
@@ -68,24 +47,18 @@ const OfflineSyncStatus = () => {
     if (pendingCount > 0) return `${pendingCount} pendientes`;
     return 'Sincronizado';
   };
-
-  return (
-    <Card>
-      <CardHeader>
+  return <Card>
+      <CardHeader className="bg-white">
         <CardTitle className="flex items-center gap-2">
           <Database className="h-5 w-5" />
           Estado de Sincronización
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 bg-sidebar-primary">
         {/* Estado principal */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            {isOnline ? (
-              <Wifi className="h-5 w-5 text-green-500" />
-            ) : (
-              <WifiOff className="h-5 w-5 text-red-500" />
-            )}
+            {isOnline ? <Wifi className="h-5 w-5 text-green-500" /> : <WifiOff className="h-5 w-5 text-red-500" />}
             <span className="font-medium">
               {isOnline ? 'En línea' : 'Sin conexión'}
             </span>
@@ -115,34 +88,26 @@ const OfflineSyncStatus = () => {
         </div>
 
         {/* Acciones pendientes */}
-        {pendingCount > 0 && (
-          <div className="space-y-2">
+        {pendingCount > 0 && <div className="space-y-2">
             <h4 className="font-medium text-sm">Acciones Pendientes:</h4>
             <div className="space-y-1 max-h-32 overflow-y-auto">
-              {pendingActions.slice(0, 5).map((action) => (
-                <div key={action.id} className="flex items-center justify-between text-xs p-2 bg-muted rounded">
+              {pendingActions.slice(0, 5).map(action => <div key={action.id} className="flex items-center justify-between text-xs p-2 bg-muted rounded">
                   <span>{action.type.toUpperCase()} en {action.table}</span>
                   <Badge variant="outline" className="text-xs">
                     {action.retries} reintentos
                   </Badge>
-                </div>
-              ))}
-              {pendingActions.length > 5 && (
-                <div className="text-xs text-muted-foreground text-center">
+                </div>)}
+              {pendingActions.length > 5 && <div className="text-xs text-muted-foreground text-center">
                   +{pendingActions.length - 5} más...
-                </div>
-              )}
+                </div>}
             </div>
-          </div>
-        )}
+          </div>}
 
         {/* Conflictos */}
-        {conflictsCount > 0 && (
-          <div className="space-y-2">
+        {conflictsCount > 0 && <div className="space-y-2">
             <h4 className="font-medium text-sm text-red-600">Conflictos Detectados:</h4>
             <div className="space-y-2">
-              {conflicts.slice(0, 3).map((conflict) => (
-                <div key={conflict.id} className="p-2 border border-red-200 rounded bg-red-50">
+              {conflicts.slice(0, 3).map(conflict => <div key={conflict.id} className="p-2 border border-red-200 rounded bg-red-50">
                   <div className="text-xs font-medium">
                     Conflicto en {conflict.localData?.table || 'tabla desconocida'}
                   </div>
@@ -150,60 +115,33 @@ const OfflineSyncStatus = () => {
                     {new Date(conflict.timestamp).toLocaleString('es-ES')}
                   </div>
                   <div className="flex gap-1">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="text-xs h-6"
-                      onClick={() => handleResolveConflict(conflict.id, 'keep_local')}
-                    >
+                    <Button size="sm" variant="outline" className="text-xs h-6" onClick={() => handleResolveConflict(conflict.id, 'keep_local')}>
                       Mantener local
                     </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="text-xs h-6"
-                      onClick={() => handleResolveConflict(conflict.id, 'keep_server')}
-                    >
+                    <Button size="sm" variant="outline" className="text-xs h-6" onClick={() => handleResolveConflict(conflict.id, 'keep_server')}>
                       Mantener servidor
                     </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="text-xs h-6"
-                      onClick={() => handleResolveConflict(conflict.id, 'merge')}
-                    >
+                    <Button size="sm" variant="outline" className="text-xs h-6" onClick={() => handleResolveConflict(conflict.id, 'merge')}>
                       Combinar
                     </Button>
                   </div>
-                </div>
-              ))}
+                </div>)}
             </div>
-          </div>
-        )}
+          </div>}
 
         {/* Botones de acción */}
         <div className="flex gap-2">
-          <Button
-            onClick={handleManualSync}
-            disabled={!isOnline || isSyncing}
-            size="sm"
-            className="flex-1"
-          >
-            {isSyncing ? (
-              <>
+          <Button onClick={handleManualSync} disabled={!isOnline || isSyncing} size="sm" className="flex-1">
+            {isSyncing ? <>
                 <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
                 Sincronizando...
-              </>
-            ) : (
-              <>
+              </> : <>
                 <RefreshCw className="h-4 w-4 mr-2" />
                 Sincronizar Ahora
-              </>
-            )}
+              </>}
           </Button>
 
-          {(pendingCount > 5 || conflictsCount > 3) && (
-            <Dialog>
+          {(pendingCount > 5 || conflictsCount > 3) && <Dialog>
               <DialogTrigger asChild>
                 <Button size="sm" variant="outline">
                   Ver Detalles
@@ -218,36 +156,28 @@ const OfflineSyncStatus = () => {
                 </DialogHeader>
                 <div className="space-y-4 max-h-96 overflow-y-auto">
                   {/* Lista completa de acciones pendientes */}
-                  {pendingCount > 0 && (
-                    <div>
+                  {pendingCount > 0 && <div>
                       <h4 className="font-medium mb-2">Acciones Pendientes ({pendingCount})</h4>
                       <div className="space-y-1">
-                        {pendingActions.map((action) => (
-                          <div key={action.id} className="text-sm p-2 bg-muted rounded">
+                        {pendingActions.map(action => <div key={action.id} className="text-sm p-2 bg-muted rounded">
                             <div className="flex justify-between">
                               <span>{action.type.toUpperCase()} en {action.table}</span>
                               <span className="text-xs text-muted-foreground">
                                 {new Date(action.timestamp).toLocaleString('es-ES')}
                               </span>
                             </div>
-                            {action.retries > 0 && (
-                              <div className="text-xs text-red-600 mt-1">
+                            {action.retries > 0 && <div className="text-xs text-red-600 mt-1">
                                 {action.retries} reintentos fallidos
-                              </div>
-                            )}
-                          </div>
-                        ))}
+                              </div>}
+                          </div>)}
                       </div>
-                    </div>
-                  )}
+                    </div>}
 
                   {/* Lista completa de conflictos */}
-                  {conflictsCount > 0 && (
-                    <div>
+                  {conflictsCount > 0 && <div>
                       <h4 className="font-medium mb-2">Conflictos ({conflictsCount})</h4>
                       <div className="space-y-2">
-                        {conflicts.map((conflict) => (
-                          <div key={conflict.id} className="p-3 border border-red-200 rounded">
+                        {conflicts.map(conflict => <div key={conflict.id} className="p-3 border border-red-200 rounded">
                             <div className="font-medium text-sm">
                               {conflict.localData?.table || 'Tabla desconocida'}
                             </div>
@@ -255,50 +185,29 @@ const OfflineSyncStatus = () => {
                               {new Date(conflict.timestamp).toLocaleString('es-ES')}
                             </div>
                             <div className="flex gap-2">
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                onClick={() => handleResolveConflict(conflict.id, 'keep_local')}
-                              >
+                              <Button size="sm" variant="outline" onClick={() => handleResolveConflict(conflict.id, 'keep_local')}>
                                 Mantener Local
                               </Button>
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                onClick={() => handleResolveConflict(conflict.id, 'keep_server')}
-                              >
+                              <Button size="sm" variant="outline" onClick={() => handleResolveConflict(conflict.id, 'keep_server')}>
                                 Mantener Servidor
                               </Button>
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                onClick={() => handleResolveConflict(conflict.id, 'merge')}
-                              >
+                              <Button size="sm" variant="outline" onClick={() => handleResolveConflict(conflict.id, 'merge')}>
                                 Combinar
                               </Button>
                             </div>
-                          </div>
-                        ))}
+                          </div>)}
                       </div>
-                    </div>
-                  )}
+                    </div>}
                 </div>
               </DialogContent>
-            </Dialog>
-          )}
+            </Dialog>}
         </div>
 
         {/* Información adicional */}
         <div className="text-xs text-muted-foreground">
-          {isOnline ? (
-            'Los cambios se sincronizan automáticamente'
-          ) : (
-            'Los cambios se guardarán localmente hasta recuperar la conexión'
-          )}
+          {isOnline ? 'Los cambios se sincronizan automáticamente' : 'Los cambios se guardarán localmente hasta recuperar la conexión'}
         </div>
       </CardContent>
-    </Card>
-  );
+    </Card>;
 };
-
 export default OfflineSyncStatus;
