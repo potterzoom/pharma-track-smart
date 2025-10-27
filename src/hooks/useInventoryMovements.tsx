@@ -1,7 +1,5 @@
-
 import { useState, useCallback } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
 export interface InventoryMovement {
@@ -25,46 +23,24 @@ export interface InventoryMovement {
 export const useInventoryMovements = (productId?: number) => {
   const queryClient = useQueryClient();
 
-  // Obtener historial de movimientos
+  // Mock movements query
   const { data: movements, isLoading } = useQuery({
     queryKey: ['inventory-movements', productId],
     queryFn: async () => {
-      let query = supabase
-        .from('inventory_movements')
-        .select('*')
-        .order('created_at', { ascending: false });
-      
-      if (productId) {
-        query = query.eq('product_id', productId);
-      }
-      
-      const { data, error } = await query;
-      if (error) throw error;
-      return data as InventoryMovement[];
+      return [] as InventoryMovement[];
     }
   });
 
-  // Registrar movimiento de inventario
+  // Mock record movement mutation
   const recordMovement = useMutation({
-    mutationFn: async (movementData: Omit<InventoryMovement, 'id' | 'created_at'>) => {
-      const { data, error } = await supabase
-        .from('inventory_movements')
-        .insert([{
-          ...movementData,
-          user_id: (await supabase.auth.getUser()).data.user?.id
-        }])
-        .select()
-        .single();
-      
-      if (error) throw error;
-      return data;
+    mutationFn: async (movementData: any) => {
+      return { ...movementData, id: crypto.randomUUID(), created_at: new Date().toISOString() };
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['inventory-movements'] });
       toast.success('Movimiento registrado exitosamente');
     },
     onError: (error) => {
-      console.error('Error registrando movimiento:', error);
       toast.error('Error al registrar el movimiento');
     }
   });

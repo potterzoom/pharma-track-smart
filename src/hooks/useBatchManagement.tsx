@@ -1,7 +1,5 @@
-
 import { useState, useCallback } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
 export interface ProductBatch {
@@ -24,66 +22,37 @@ export interface ProductBatch {
 export const useBatchManagement = () => {
   const queryClient = useQueryClient();
 
-  // Obtener lotes por producto con FIFO
+  // Mock available batches query
   const { data: availableBatches, isLoading } = useQuery({
     queryKey: ['product-batches'],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('product_batches')
-        .select('*')
-        .gt('quantity', 0)
-        .gt('expiration_date', new Date().toISOString().split('T')[0])
-        .order('expiration_date', { ascending: true })
-        .order('manufacturing_date', { ascending: true });
-      
-      if (error) throw error;
-      return data as ProductBatch[];
+      return [] as ProductBatch[];
     }
   });
 
-  // Obtener stock disponible FIFO para un producto específico
+  // Mock FIFO stock retrieval
   const getAvailableStockFIFO = useCallback(async (productId: number) => {
-    const { data, error } = await supabase
-      .rpc('get_available_stock_fifo', { p_product_id: productId });
-    
-    if (error) throw error;
-    return data;
+    return [];
   }, []);
 
-  // Crear nuevo lote
+  // Mock create batch mutation
   const createBatch = useMutation({
-    mutationFn: async (batchData: Omit<ProductBatch, 'id'>) => {
-      const { data, error } = await supabase
-        .from('product_batches')
-        .insert([batchData])
-        .select()
-        .single();
-      
-      if (error) throw error;
-      return data;
+    mutationFn: async (batchData: any) => {
+      return { ...batchData, id: crypto.randomUUID() };
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['product-batches'] });
       toast.success('Lote creado exitosamente');
     },
     onError: (error) => {
-      console.error('Error creando lote:', error);
       toast.error('Error al crear el lote');
     }
   });
 
-  // Actualizar cantidad de lote
+  // Mock update batch quantity mutation
   const updateBatchQuantity = useMutation({
     mutationFn: async ({ batchId, newQuantity }: { batchId: string; newQuantity: number }) => {
-      const { data, error } = await supabase
-        .from('product_batches')
-        .update({ quantity: newQuantity })
-        .eq('id', batchId)
-        .select()
-        .single();
-      
-      if (error) throw error;
-      return data;
+      return { id: batchId, quantity: newQuantity };
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['product-batches'] });
