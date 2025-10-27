@@ -71,8 +71,8 @@ const SmartAlertsPanel = () => {
   }
   const unacknowledgedAlerts = alerts?.filter(alert => !alert.acknowledged) || [];
   const criticalAlerts = unacknowledgedAlerts.filter(alert => alert.severity === 'critical');
-  return <Card className="bg-gray-200">
-      <CardHeader className="bg-sidebar-primary">
+  return <Card className="border-2 border-gray-400 bg-gradient-to-br from-gray-50 to-white">
+      <CardHeader className="bg-gradient-to-r from-gray-100 to-gray-200 border-b-2 border-gray-300">
         <CardTitle className="flex items-center gap-2 text-gray-900">
           <Bell className="h-5 w-5" />
           Alertas Inteligentes
@@ -81,7 +81,7 @@ const SmartAlertsPanel = () => {
             </Badge>}
         </CardTitle>
       </CardHeader>
-      <CardContent className="bg-sidebar-primary">
+      <CardContent className="bg-gradient-to-br from-gray-50 to-white">
         <div className="space-y-3">
           {/* Filtros */}
           <div className="flex gap-2 mb-4">

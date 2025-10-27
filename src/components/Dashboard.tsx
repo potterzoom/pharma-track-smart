@@ -120,7 +120,7 @@ const Dashboard = () => {
           <p className="text-slate-600 mt-1">Control integral con datos en tiempo real</p>
         </div>
         <div className="flex items-center space-x-2">
-          <Badge variant="outline" className="text-slate-700 border-slate-300 bg-white">
+          <Badge variant="outline" className="text-slate-700 border-2 border-gray-400 bg-gradient-to-r from-gray-100 to-gray-200">
             <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
             Conectado en Vivo
           </Badge>
@@ -138,7 +138,7 @@ const Dashboard = () => {
         {consolidatedMetrics.map((metric, index) => {
           const IconComponent = metric.icon;
           return (
-            <Card key={index} className={`${metric.bgColor} ${metric.color} border-2 shadow-sm hover:shadow-md transition-shadow`}>
+            <Card key={index} className="border-2 border-gray-400 bg-gradient-to-br from-gray-50 to-white shadow-sm hover:shadow-md transition-shadow">
               <div className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -197,20 +197,20 @@ const Dashboard = () => {
       <PracticalStatsBoxes />
 
       {/* Branch Status */}
-      <Card className="bg-white border-slate-300 border-2 shadow-sm">
+      <Card className="border-2 border-gray-400 bg-gradient-to-br from-gray-50 to-white shadow-sm">
         <div className="p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-slate-900 flex items-center">
               <Building2 className="h-5 w-5 text-slate-600 mr-2" />
               Estado Detallado de Sucursales
             </h3>
-            <Badge variant="outline" className="border-slate-300 text-slate-700 bg-white">
+            <Badge variant="outline" className="border-2 border-gray-400 text-slate-700 bg-gradient-to-r from-gray-100 to-gray-200">
               4 sucursales activas
             </Badge>
           </div>
           <div className="space-y-4">
             {branchMetrics.map((branch, index) => (
-              <div key={index} className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+              <div key={index} className="p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg border-2 border-gray-300">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center space-x-3">
                     <span className="font-medium text-slate-900">{branch.name}</span>
@@ -227,15 +227,15 @@ const Dashboard = () => {
                   </div>
                 </div>
                 <div className="grid grid-cols-3 gap-4 text-sm">
-                  <div className="text-center p-2 bg-white rounded border border-slate-200">
+                  <div className="text-center p-2 bg-white rounded border-2 border-gray-300">
                     <div className="font-medium text-slate-900">{branch.totalProducts}</div>
                     <div className="text-slate-600">Productos</div>
                   </div>
-                  <div className="text-center p-2 bg-white rounded border border-slate-200">
+                  <div className="text-center p-2 bg-white rounded border-2 border-gray-300">
                     <div className="font-medium text-red-600">{branch.lowStock}</div>
                     <div className="text-slate-600">Stock Crítico</div>
                   </div>
-                  <div className="text-center p-2 bg-white rounded border border-slate-200">
+                  <div className="text-center p-2 bg-white rounded border-2 border-gray-300">
                     <div className="font-medium text-orange-600">{branch.expiring}</div>
                     <div className="text-slate-600">Por Vencer</div>
                   </div>

@@ -115,4 +115,14 @@
   .status-expiring {
     @apply bg-gray-400 text-white border-gray-600;
   }
+
+  .border-gradient-gray {
+    @apply border-2 bg-gradient-to-br from-gray-50 to-gray-100;
+    border-image: linear-gradient(135deg, rgb(156, 163, 175), rgb(209, 213, 219)) 1;
+  }
+
+  .border-gradient-dark {
+    @apply border-2 bg-gradient-to-br from-gray-100 to-gray-200;
+    border-image: linear-gradient(135deg, rgb(107, 114, 128), rgb(156, 163, 175)) 1;
+  }
 }

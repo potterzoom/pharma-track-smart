@@ -59,14 +59,14 @@ const RealTimeMetrics = () => {
   ], [activeAlerts]);
 
   return (
-    <Card className="bg-white border-slate-300 border-2 shadow-sm">
+    <Card className="border-2 border-gray-400 bg-gradient-to-br from-gray-50 to-white shadow-sm">
       <div className="p-6">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-slate-900 flex items-center">
             <Building2 className="h-5 w-5 text-blue-600 mr-2" />
             Métricas en Tiempo Real - 4 Sucursales
           </h3>
-          <Badge variant="outline" className="text-slate-700 border-slate-300 bg-white">
+          <Badge variant="outline" className="text-slate-700 border-2 border-gray-400 bg-gradient-to-r from-gray-100 to-gray-200">
             <div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-1 animate-pulse"></div>
             Datos conectados en vivo
           </Badge>
@@ -74,7 +74,7 @@ const RealTimeMetrics = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {branchMetrics.map((branch, index) => (
-            <Card key={index} className="bg-white border-slate-300 border hover:shadow-md transition-shadow">
+            <Card key={index} className="border-2 border-gray-400 bg-gradient-to-br from-gray-50 to-white hover:shadow-md transition-shadow">
               <div className="p-4">
                 <div className="flex items-center justify-between mb-3">
                   <h4 className="font-medium text-slate-900">{branch.name}</h4>
@@ -151,7 +151,7 @@ const RealTimeMetrics = () => {
         </div>
 
         {/* Resumen consolidado */}
-        <div className="mt-6 p-4 bg-slate-50 rounded-lg border border-slate-200">
+        <div className="mt-6 p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg border-2 border-gray-300">
           <h4 className="font-medium text-slate-900 mb-3">Resumen Consolidado (4 Sucursales)</h4>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
             <div className="text-center">

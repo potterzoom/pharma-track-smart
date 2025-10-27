@@ -104,7 +104,7 @@ const IntelligentAlertsPanel = () => {
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* Panel Principal de Alertas Inteligentes */}
       <div className="lg:col-span-2">
-        <Card className="bg-white border-slate-300 border-2 shadow-sm">
+        <Card className="border-2 border-gray-400 bg-gradient-to-br from-gray-50 to-white shadow-sm">
           <div className="p-6">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-lg font-semibold text-slate-900 flex items-center">
@@ -116,7 +116,7 @@ const IntelligentAlertsPanel = () => {
                   <Zap className="h-3 w-3 mr-1" />
                   Auto-Acción Activa
                 </Badge>
-                <Badge variant="outline" className="border-slate-300 text-slate-700 bg-white">
+                <Badge variant="outline" className="border-2 border-gray-400 text-slate-700 bg-gradient-to-r from-gray-100 to-gray-200">
                   {intelligentAlerts.length} activas
                 </Badge>
               </div>
@@ -203,7 +203,7 @@ const IntelligentAlertsPanel = () => {
 
       {/* Panel de Configuración de Notificaciones */}
       <div>
-        <Card className="bg-white border-slate-300 border-2 shadow-sm">
+        <Card className="border-2 border-gray-400 bg-gradient-to-br from-gray-50 to-white shadow-sm">
           <div className="p-6">
             <h3 className="text-lg font-semibold text-slate-900 flex items-center mb-4">
               <Phone className="h-5 w-5 text-green-600 mr-2" />

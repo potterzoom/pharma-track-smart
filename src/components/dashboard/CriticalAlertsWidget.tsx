@@ -100,7 +100,7 @@ const CriticalAlertsWidget = () => {
   };
 
   return (
-    <Card className="bg-white border-slate-300 border-2 shadow-sm">
+    <Card className="border-2 border-gray-400 bg-gradient-to-br from-gray-50 to-white shadow-sm">
       <div className="p-6">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-slate-900 flex items-center">
@@ -169,7 +169,7 @@ const CriticalAlertsWidget = () => {
         </div>
 
         {/* Panel de configuración rápida */}
-        <div className="mt-4 p-3 bg-slate-50 rounded-lg border border-slate-200">
+        <div className="mt-4 p-3 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg border-2 border-gray-300">
           <div className="flex items-center justify-between">
             <div className="text-sm">
               <div className="font-medium text-slate-900">Configuración Auto-Alertas</div>
