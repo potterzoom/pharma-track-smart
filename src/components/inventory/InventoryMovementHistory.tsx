@@ -84,7 +84,7 @@ const InventoryMovementHistory = ({ productId }: { productId?: number }) => {
         </div>
         <Button 
           onClick={() => setShowRecordForm(!showRecordForm)}
-          className="bg-blue-600 hover:bg-blue-700"
+          variant="gradient"
         >
           {showRecordForm ? 'Cancelar' : 'Registrar Movimiento'}
         </Button>
@@ -184,7 +184,7 @@ const InventoryMovementHistory = ({ productId }: { productId?: number }) => {
             </div>
 
             <div className="md:col-span-2">
-              <Button type="submit" className="w-full bg-green-600 hover:bg-green-700">
+              <Button type="submit" variant="gradient" className="w-full">
                 Registrar Movimiento
               </Button>
             </div>

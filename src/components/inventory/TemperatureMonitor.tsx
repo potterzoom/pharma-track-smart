@@ -141,7 +141,7 @@ const TemperatureMonitor = () => {
           </p>
           <Button 
             onClick={() => simulateIoTReading('TEMP-001')}
-            className="bg-blue-600 hover:bg-blue-700"
+            variant="gradient"
           >
             Simular Dispositivo IoT
           </Button>

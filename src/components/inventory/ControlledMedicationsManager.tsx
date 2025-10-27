@@ -83,7 +83,7 @@ const ControlledMedicationsManager = () => {
           )}
           <Button 
             onClick={() => setShowDispenseForm(!showDispenseForm)}
-            className="bg-blue-600 hover:bg-blue-700"
+            variant="gradient"
           >
             {showDispenseForm ? 'Cancelar' : 'Nueva Dispensación'}
           </Button>
@@ -245,7 +245,7 @@ const ControlledMedicationsManager = () => {
               >
                 Verificar Elegibilidad
               </Button>
-              <Button type="submit" className="bg-green-600 hover:bg-green-700">
+              <Button type="submit" variant="gradient">
                 Dispensar y Registrar
               </Button>
             </div>

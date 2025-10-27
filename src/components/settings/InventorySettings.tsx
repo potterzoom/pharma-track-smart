@@ -38,7 +38,7 @@ const InventorySettings = () => {
                     <h4 className="font-medium text-gray-900">{action.name}</h4>
                     <p className="text-sm text-gray-600">{action.description}</p>
                   </div>
-                  <Button size="sm">Configurar</Button>
+                  <Button size="sm" variant="gradientLight">Configurar</Button>
                 </div>
               </Card>;
         })}

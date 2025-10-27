@@ -20,6 +20,7 @@ const ProductEntryButton = ({ onProductAdded }: ProductEntryButtonProps) => {
     <>
       <Button 
         onClick={() => setShowForm(true)}
+        variant="gradient"
         className="flex items-center"
       >
         <Plus className="h-4 w-4 mr-2" />
